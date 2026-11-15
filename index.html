@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Step-by-step walkthroughs and working demos of 12 AI and digital tools for university science teaching.">
+<meta name="description" content="Giri’s Collection of AI tools for research and teaching: step-by-step walkthroughs and working demos of 12 AI and digital tools for university science, curated by Girinath G Pillai.">
+<meta name="author" content="Girinath G Pillai">
+<script>try{var t=localStorage.getItem('giri-ai-tools-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 <style>
 :root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 html{-webkit-text-size-adjust:100%}
@@ -11,7 +13,7 @@ body{margin:0}
 img{max-width:100%}
 [hidden]{display:none!important}
 </style>
-<title>Science Classroom Tool Demos</title>
+<title>Giri’s Collection of AI tools for research and teaching</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
 <style>
@@ -223,16 +225,45 @@ canvas{max-width:100%;display:block}
 .pager button{font-weight:600;font-size:14.5px;background:var(--surface);border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:9px 14px;cursor:pointer}
 footer{padding-block:24px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
 footer p{max-width:80ch;margin:0 0 8px}
+
+/* Top bar: curator link + theme switch */
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px 16px;flex-wrap:wrap;margin-bottom:22px}
+.byline{display:inline-flex;align-items:center;gap:8px 10px;flex-wrap:wrap;color:var(--ink);text-decoration:none;font-size:15px}
+.byline b{font-weight:700}
+.li{display:inline-flex;align-items:center;gap:5px;font:600 12.5px/1 var(--f-mono);letter-spacing:.03em;padding:6px 10px;border-radius:999px;background:var(--blue-soft);color:var(--blue);text-decoration:none}
+.byline:hover .li,.li:hover{text-decoration:underline}
+.theme{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--surface)}
+.theme button{border:0;background:transparent;color:var(--muted);font-weight:600;font-size:13.5px;padding:6px 12px;border-radius:999px;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.theme button:hover{color:var(--ink)}
+.theme button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.theme svg{width:14px;height:14px;flex:0 0 auto}
+.linkbtn{all:unset;cursor:pointer;color:var(--blue);text-decoration:underline;text-underline-offset:2px}
+.linkbtn:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+
+/* Disclaimer */
+.disc{margin-block:8px 28px;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:18px 20px}
+.disc h2{font-size:1.15rem;margin-bottom:10px}
+.disc ul{margin:0;padding-left:20px;display:grid;gap:7px;max-width:88ch;font-size:15px;color:var(--ink)}
+.disc li::marker{color:var(--muted)}
+.credit{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin-top:14px;color:var(--ink)}
 @media (prefers-reduced-motion: reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
 
 <header class="top wrap">
-  <div class="kicker">University science teaching · hands-on</div>
-  <h1>Twelve tools, walked through step by step</h1>
-  <p class="lede">For each tool you get what it is for, the exact steps with a drawing of the screen at each step, a working demo you can try right here, and a teaching tip. Every example uses real undergraduate and MSc science content: enzyme kinetics, Arrhenius, titration, projectile motion, protein structure.</p>
-  <div class="about"><b>About the screens.</b> They are drawings of each tool's workflow, made to show where things are and what to click. They are not captures of the live products, whose layouts and button names change often. Highlighted outlines mark the control to use. Every “Try it here” panel is a working demo that runs inside this page, using example data.</div>
+  <div class="topbar">
+    <a class="byline" href="https://www.linkedin.com/in/giribio/" target="_blank" rel="noopener">Curated by <b>Girinath G Pillai</b><span class="li">LinkedIn ↗</span></a>
+    <div class="theme" role="group" aria-label="Colour theme">
+      <button type="button" id="th-auto" data-theme-set="auto" aria-pressed="true"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 1.8a6.2 6.2 0 0 1 0 12.4z" fill="currentColor"/></svg>Auto</button>
+      <button type="button" id="th-light" data-theme-set="light" aria-pressed="false"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M8 .9v1.8M8 13.3v1.8M.9 8h1.8M13.3 8h1.8M3 3l1.3 1.3M11.7 11.7 13 13M3 13l1.3-1.3M11.7 4.3 13 3"/></g></svg>Light</button>
+      <button type="button" id="th-dark" data-theme-set="dark" aria-pressed="false"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.6 10.2A6 6 0 0 1 5.8 2.4a6 6 0 1 0 7.8 7.8z" fill="currentColor"/></svg>Dark</button>
+    </div>
+  </div>
+  <div class="kicker">Science teaching and research · hands-on</div>
+  <h1>Giri’s Collection of AI tools for research and teaching</h1>
+  <p class="lede">Twelve tools, walked through step by step. For each tool you get what it is for, the exact steps with a drawing of the screen at each step, a working demo you can try right here, and a teaching tip. Every example uses real undergraduate and MSc science content: enzyme kinetics, Arrhenius, titration, projectile motion, protein structure.</p>
+  <div class="about"><b>About the screens.</b> They are drawings of each tool's workflow, made to show where things are and what to click. They are not captures of the live products, whose layouts and button names change often. Highlighted outlines mark the control to use. Every “Try it here” panel is a working demo that runs inside this page, using example data. Please read the <button type="button" class="linkbtn" id="to-disc">disclaimer</button> before using these materials.</div>
   <div class="legend">
     <span><i class="aud i"></i>Mainly for instructors</span>
     <span><i class="aud s"></i>Mainly for students</span>
@@ -245,8 +276,22 @@ footer p{max-width:80ch;margin:0 0 8px}
 <main class="wrap" id="panel" tabindex="-1"></main>
 
 <footer class="wrap">
+  <section class="disc" id="disclaimer-box" aria-labelledby="disc-h">
+    <h2 id="disc-h">Disclaimer</h2>
+    <ul>
+      <li>This page is an educational resource. It shares practical ideas for using AI and digital tools in science teaching and research. It is not legal, professional or institutional policy advice.</li>
+      <li>It is not affiliated with, sponsored by or endorsed by any company or organisation whose tools are described, including OpenAI, Anthropic, Google, Google DeepMind, Isomorphic Labs, Turnitin (Gradescope), Elicit, Scite, the Allen Institute for AI (Semantic Scholar), UCSF (ChimeraX), the University of Colorado Boulder (PhET), the Virtual Labs project of the Ministry of Education, Government of India, Mentimeter and Poll Everywhere. All product names and trademarks belong to their owners.</li>
+      <li>The screens are illustrations, not captures of the real products. Features, button names, prices, free tiers and access terms change often, so check each tool’s own website before you rely on it.</li>
+      <li>The demos run entirely in your browser with invented data. Student answers, class votes, papers and datasets are fictional. Scientific values in the demos were checked by calculation, but verify anything you reuse in teaching or assessment.</li>
+      <li>AI tools can produce confident but wrong answers. Check AI-generated content against primary sources before you teach, grade or publish with it.</li>
+      <li>Follow your institution’s policies on AI use, data protection and academic integrity. Do not upload student personal data, marks or unpublished research to any tool without institutional approval.</li>
+      <li>Research findings are summarised from published studies as of November 2026. Read the original papers before citing them.</li>
+      <li>This page collects no personal data. Your theme choice is stored only in your own browser. External links open in a new tab, and those sites have their own content and privacy practices.</li>
+    </ul>
+  </section>
   <p>Evidence referred to on this page: Kestin et al., <i>Scientific Reports</i> (2025), AI physics tutor RCT; Bastani et al., <i>PNAS</i> (2025), guardrails and learning; Mirza et al., ChemBench, <i>Nature Chemistry</i> (2025); Liang et al., <i>Patterns</i> (2023), detector bias; Perkins, Roe &amp; Furze, AI Assessment Scale (revised 2024); Boland &amp; Ayres, <i>PLoS Computational Biology</i> (2024), AlphaFold teaching module.</p>
   <p>All student answers, class vote counts, papers and datasets in the demos are invented for practice and are labelled as such.</p>
+  <div class="credit"><span>Curated by <b>Girinath G Pillai</b></span><a class="li" href="https://www.linkedin.com/in/giribio/" target="_blank" rel="noopener">Connect on LinkedIn ↗</a><span style="color:var(--muted);font-size:13.5px">linkedin.com/in/giribio</span></div>
 </footer>
 
 <script>
@@ -736,6 +781,7 @@ LIVE.projectile=(el)=>{
   $('#pj-k',el).oninput=e=>{$('#pj-ko',el).textContent=(+e.target.value).toFixed(2)+' s⁻¹';$('#pj-best',el).textContent='—'};
   $('#pj-fire',el).onclick=fire;$('#pj-sweep',el).onclick=sweep;$('#pj-clear',el).onclick=()=>{trails=[];draw()};
   [45,35].forEach(a=>{const r=sim(a,0.1);trails.push({...r,lab:a+'°'})});draw();
+  onTheme=()=>draw();
 };
 
 LIVE.mm=(el)=>{
@@ -878,6 +924,35 @@ LIVE.aias=(el)=>{
   el.innerHTML='<input id="ai-n" type="hidden" value="Lab report 2: Enzyme kinetics">';draw();
 };
 
+/* ---------- theme switch ---------- */
+let onTheme=null;
+const THEME_KEY='giri-ai-tools-theme';
+const rootEl=document.documentElement;
+function syncThemeButtons(){
+  const cur=rootEl.getAttribute('data-theme')||'auto';
+  document.querySelectorAll('[data-theme-set]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.themeSet===cur)));
+  if(onTheme){try{onTheme()}catch(e){}}
+}
+function applyTheme(t){
+  if(t==='light'||t==='dark')rootEl.setAttribute('data-theme',t);else rootEl.removeAttribute('data-theme');
+  syncThemeButtons();
+}
+(function initTheme(){
+  let saved=null;
+  try{saved=localStorage.getItem(THEME_KEY)}catch(e){}
+  if(saved==='light'||saved==='dark'||saved==='auto')applyTheme(saved);else syncThemeButtons();
+  document.querySelectorAll('[data-theme-set]').forEach(b=>b.addEventListener('click',()=>{
+    const t=b.dataset.themeSet;applyTheme(t);
+    try{localStorage.setItem(THEME_KEY,t)}catch(e){}
+  }));
+  try{new MutationObserver(syncThemeButtons).observe(rootEl,{attributes:true,attributeFilter:['data-theme']})}catch(e){}
+  try{matchMedia('(prefers-color-scheme: dark)').addEventListener('change',syncThemeButtons)}catch(e){}
+})();
+document.getElementById('to-disc').addEventListener('click',()=>{
+  const d=document.getElementById('disclaimer-box');
+  d.scrollIntoView({block:'start'});d.setAttribute('tabindex','-1');d.focus({preventScroll:true});
+});
+
 /* ---------- page assembly ---------- */
 const chips=$('#chips'), panel=$('#panel');
 const audName={i:'Mainly for instructors',s:'Mainly for students',a:'Assessment'};
@@ -896,6 +971,7 @@ function render(id,scroll){
    <section class="live" aria-labelledby="live-h"><div class="live-h"><h3 id="live-h">Try it here: ${t.liveTitle}</h3><small>${t.liveSub}</small></div><div class="live-b" id="live-b"></div></section>
    <div class="pair"><section><h4>Teaching tip</h4><p>${t.tip}</p></section><section class="w"><h4>Watch out</h4><p>${t.warn}</p></section></div>
    <div class="pager">${prev?`<button data-go="${prev.id}">← ${prev.short}</button>`:'<span></span>'}${next?`<button data-go="${next.id}">${next.short} →</button>`:'<span></span>'}</div>`;
+  onTheme=null;
   try{LIVE[t.live]($('#live-b'))}catch(e){$('#live-b').innerHTML='<p class="status">This demo could not start in your browser.</p>';console.error(e)}
   panel.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{location.hash=b.dataset.go});
   if(scroll){const y=panel.getBoundingClientRect().top+scrollY-70;scrollTo({top:Math.max(0,y)});panel.focus({preventScroll:true})}
