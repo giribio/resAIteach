@@ -1,0 +1,908 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Step-by-step walkthroughs and working demos of 12 AI and digital tools for university science teaching.">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{-webkit-text-size-adjust:100%}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>Science Classroom Tool Demos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a lab-bench manual. Sticky tool bar, one tool per view, each step pairs instructions with a drawn screen, then a working bench demo. */
+:root{
+  --bg:#F2F5F7; --surface:#FFFFFF; --screen:#E9EEF2; --bar:#DCE3E8;
+  --ink:#14212B; --muted:#55666F; --line:#CDD7DD;
+  --accent:#AE1468; --accent-soft:#F7E2EE;
+  --blue:#1E5DBA; --blue-soft:#DCE8FA;
+  --ok:#1C7A4B; --ok-soft:#DDF1E6; --warn:#9A5D00; --warn-soft:#FBEBD0; --bad:#B8362A; --bad-soft:#F8DEDA;
+  --codebg:#16232D; --codefg:#D9E6EE;
+  --pl-vh:#0053D6; --pl-c:#65CBF3; --pl-l:#E6C200; --pl-vl:#FF7D45;
+  --f-display:'Sora',ui-sans-serif,system-ui,sans-serif;
+  --f-body:'Source Sans 3',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+  --f-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E151A; --surface:#162027; --screen:#1B2730; --bar:#22313B;
+  --ink:#E3EBF0; --muted:#93A4AE; --line:#2C3C47;
+  --accent:#F064AE; --accent-soft:#3A1730;
+  --blue:#78A9F5; --blue-soft:#1C2D47;
+  --ok:#4CC58B; --ok-soft:#173326; --warn:#E3AA4D; --warn-soft:#38290F; --bad:#F27C6C; --bad-soft:#3D1D19;
+  --codebg:#0A1015; --codefg:#D9E6EE; --pl-l:#F2D31B;
+  color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0E151A; --surface:#162027; --screen:#1B2730; --bar:#22313B;
+  --ink:#E3EBF0; --muted:#93A4AE; --line:#2C3C47;
+  --accent:#F064AE; --accent-soft:#3A1730;
+  --blue:#78A9F5; --blue-soft:#1C2D47;
+  --ok:#4CC58B; --ok-soft:#173326; --warn:#E3AA4D; --warn-soft:#38290F; --bad:#F27C6C; --bad-soft:#3D1D19;
+  --codebg:#0A1015; --codefg:#D9E6EE; --pl-l:#F2D31B;
+  color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 var(--f-body)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3,h4{font-family:var(--f-display);text-wrap:balance;margin:0}
+a{color:var(--blue)}
+code{font-family:var(--f-mono);font-size:.88em;background:var(--screen);padding:1px 5px;border-radius:4px}
+button{font-family:inherit}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+
+/* Header */
+.top{padding-block:32px 18px}
+.kicker{font:600 12px/1.2 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.top h1{font-size:clamp(1.7rem,4.4vw,2.6rem);line-height:1.12;margin:8px 0 10px}
+.lede{max-width:66ch;color:var(--muted);margin:0}
+.about{margin-top:16px;max-width:76ch;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:15px}
+.about b{font-weight:700}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:14px;font-size:14px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.aud{display:inline-block;width:9px;height:9px;border-radius:2px}
+.aud.i{background:var(--blue)} .aud.s{background:var(--ok)} .aud.a{background:var(--accent)}
+
+/* Tool bar */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;background:var(--bg);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;gap:6px;overflow-x:auto;padding-block:10px;scrollbar-width:thin}
+.chip{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 12px 6px 10px;font-weight:600;font-size:14px;cursor:pointer;white-space:nowrap}
+.chip:hover{border-color:var(--muted)}
+.chip[aria-current="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+/* Tool panel */
+main{padding-block:26px 40px}
+.tool-head{display:grid;gap:8px;margin-bottom:22px}
+.tool-head h2{font-size:clamp(1.45rem,3.4vw,2rem);line-height:1.15}
+.tool-head .sum{max-width:70ch;margin:0}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px 24px;margin:8px 0 0;padding:14px 0;border-block:1px solid var(--line)}
+.meta div{min-width:0}
+.meta dt{font:600 11px/1.3 var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.meta dd{margin:3px 0 0;font-size:15px}
+.section-label{font:600 12px/1.2 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:30px 0 14px}
+ol.steps{list-style:none;padding:0;margin:0;display:grid;gap:34px}
+.step{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.15fr);gap:22px;align-items:start}
+@media (max-width:780px){.step{grid-template-columns:minmax(0,1fr);gap:12px}}
+.step-n{font:700 12px/1 var(--f-mono);color:var(--accent);letter-spacing:.04em}
+.step h3{font-size:1.12rem;line-height:1.3;margin:6px 0 8px}
+.step p{margin:0 0 8px;max-width:62ch}
+.step ul{margin:4px 0 0;padding-left:20px}
+.step li{margin:3px 0}
+
+/* Drawn screens */
+.scr{margin:0;border:1px solid var(--line);border-radius:10px;background:var(--screen);overflow:hidden;min-width:0}
+.scr-bar{display:flex;align-items:center;gap:10px;padding:7px 10px;background:var(--bar);border-bottom:1px solid var(--line)}
+.dots{display:flex;gap:4px;flex:0 0 auto}
+.dots i{width:8px;height:8px;border-radius:50%;background:var(--line);display:block}
+.addr{font:12px/1.6 var(--f-mono);color:var(--muted);background:var(--surface);border-radius:6px;padding:1px 8px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.scr-body{padding:12px;display:flex;flex-direction:column;gap:8px;font-size:14px;line-height:1.45;min-width:0}
+.scr figcaption{padding:8px 12px;border-top:1px dashed var(--line);font-size:13.5px;color:var(--muted);background:var(--surface)}
+.ill{font:600 10px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line);border-radius:4px;padding:2px 5px;margin-right:8px;vertical-align:1px}
+.b{max-width:94%;padding:8px 11px;border-radius:12px;min-width:0;overflow-wrap:anywhere}
+.b.u{align-self:flex-end;background:var(--blue-soft);border-bottom-right-radius:4px}
+.b.a{align-self:flex-start;background:var(--surface);border:1px solid var(--line);border-bottom-left-radius:4px}
+.who{display:block;font:600 10px/1.4 var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:2px}
+.mb{display:inline-block;border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:4px 10px;font-weight:600;font-size:13px}
+.mb.dark{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.hl{outline:2px solid var(--accent);outline-offset:2px}
+.pin{display:inline-block;background:var(--accent);color:#fff;font:700 11px/1 var(--f-mono);border-radius:999px;padding:3px 7px;margin-left:6px;vertical-align:1px}
+.mi{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 10px;color:var(--ink);overflow-wrap:anywhere}
+.mi.ph{color:var(--muted)}
+.mrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.mcol{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,2fr);gap:8px}
+.side{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px;display:flex;flex-direction:column;gap:5px;font-size:12.5px;min-width:0}
+.side .it{padding:4px 6px;border-radius:5px;overflow-wrap:anywhere}
+.side .it.on{background:var(--blue-soft)}
+.mc{background:var(--codebg);color:var(--codefg);font:12px/1.55 var(--f-mono);padding:10px 12px;border-radius:6px;overflow-x:auto;margin:0;white-space:pre}
+.mc .c{color:#8FB3A0}
+.mtw{overflow-x:auto}
+.mt{border-collapse:collapse;font-size:12.5px;width:100%;background:var(--surface)}
+.mt th,.mt td{border:1px solid var(--line);padding:5px 7px;text-align:left;vertical-align:top}
+.mt th{font-weight:700;background:var(--bar)}
+.mt td.flag{background:var(--bad-soft)}
+.mt td.okc{background:var(--ok-soft)}
+.cite{display:inline-block;font:600 10.5px/1 var(--f-mono);background:var(--blue-soft);color:var(--blue);border-radius:4px;padding:3px 5px;margin:0 2px}
+.note{font-size:12.5px;padding:6px 9px;border-radius:6px;background:var(--warn-soft);color:var(--ink)}
+.note.ok{background:var(--ok-soft)}
+.note.bad{background:var(--bad-soft)}
+.blob{height:110px;border-radius:8px;background:var(--surface);border:1px solid var(--line);position:relative;overflow:hidden}
+.toggle{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:13px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 10px 4px 5px}
+.toggle i{width:26px;height:15px;border-radius:999px;background:var(--ok);position:relative;display:block}
+.toggle i::after{content:"";position:absolute;right:2px;top:2px;width:11px;height:11px;border-radius:50%;background:#fff}
+.bars{display:grid;gap:5px}
+.bars div{display:grid;grid-template-columns:22px 1fr 34px;gap:6px;align-items:center;font-size:12.5px}
+.bars b{display:block;height:12px;border-radius:3px;background:var(--blue)}
+.page{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:10px;display:grid;gap:8px;font-size:12.5px}
+.region{border:2px dashed var(--accent);border-radius:4px;padding:8px;color:var(--muted)}
+.dense{font-size:12.5px}
+
+/* Live bench */
+.live{margin-top:40px;border:1.5px solid var(--accent);border-radius:14px;background:var(--surface);overflow:hidden}
+.live-h{padding:12px 16px;background:var(--accent-soft);display:flex;justify-content:space-between;align-items:baseline;gap:6px 14px;flex-wrap:wrap}
+.live-h h3{font-size:1.1rem}
+.live-h small{color:var(--muted);font-size:13px}
+.live-b{padding:16px;display:grid;gap:14px;min-width:0}
+.live-b p{margin:0;max-width:68ch}
+.btn{font-weight:600;font-size:14px;padding:8px 14px;border-radius:8px;border:1px solid var(--ink);background:var(--ink);color:var(--bg);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+.opt{display:block;width:100%;text-align:left;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);cursor:pointer;font-size:15px}
+.opt:hover{border-color:var(--muted)}
+.opt.sel{border-color:var(--blue);background:var(--blue-soft)}
+.opts{display:grid;gap:7px}
+.field{display:grid;gap:4px;min-width:0}
+.field label,.flabel{font-weight:600;font-size:13.5px}
+.field input[type=text],.field select,.field input[type=number]{font:inherit;font-size:15px;padding:7px 9px;border-radius:7px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.checks{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:15px}
+.checks label{display:inline-flex;gap:6px;align-items:center;font-weight:400}
+.out{background:var(--codebg);color:var(--codefg);font:13px/1.6 var(--f-mono);padding:14px;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere;margin:0;max-height:380px;overflow:auto}
+.status{font-size:13.5px;color:var(--muted)}
+.chat{display:flex;flex-direction:column;gap:9px;background:var(--screen);border-radius:10px;padding:12px;max-height:420px;overflow-y:auto}
+.fb{padding:10px 12px;border-radius:8px;font-size:15px}
+.fb.ok{background:var(--ok-soft)} .fb.bad{background:var(--bad-soft)} .fb.warn{background:var(--warn-soft)}
+.readouts{display:flex;flex-wrap:wrap;gap:8px 22px;font-variant-numeric:tabular-nums}
+.readouts div{display:grid}
+.readouts dt{font:600 11px/1.3 var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.readouts dd{margin:0;font:600 18px/1.3 var(--f-mono)}
+.plot{width:100%;height:auto;display:block;background:var(--bg);border-radius:8px;border:1px solid var(--line)}
+.plot text{font-family:var(--f-mono);font-size:11px;fill:var(--muted)}
+.slider{display:grid;grid-template-columns:minmax(90px,auto) 1fr 64px;gap:10px;align-items:center;font-size:14px}
+.slider input{width:100%;accent-color:var(--accent)}
+.slider output{font:600 13px var(--f-mono);text-align:right;font-variant-numeric:tabular-nums}
+.sol{display:grid;gap:4px;font-variant-numeric:tabular-nums}
+.sol button{display:grid;grid-template-columns:26px 1fr;gap:8px;text-align:left;padding:8px 10px;border-radius:7px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;font-size:15px;line-height:1.45}
+.sol button span:first-child{font:600 12px/1.9 var(--f-mono);color:var(--muted)}
+.sol button.flagged{border-color:var(--bad);background:var(--bad-soft)}
+.sol button.right{border-color:var(--ok);background:var(--ok-soft)}
+.sol button.missed{border-color:var(--warn);background:var(--warn-soft)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.card{border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--bg);font-size:14px;cursor:pointer;text-align:left;color:var(--ink)}
+.card .id{font:600 11px var(--f-mono);color:var(--muted)}
+.card .ans{font-family:'Segoe Print','Bradley Hand','Comic Neue',var(--f-body);font-size:16px;display:block;margin-top:2px}
+.card.out-g{border-style:dashed;border-color:var(--warn);background:var(--warn-soft)}
+.card .sc{float:right;font:700 12px var(--f-mono);color:var(--ok)}
+.grp{border:1px solid var(--line);border-radius:10px;padding:10px;display:grid;gap:8px}
+.grp-h{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center}
+.grp-h b{font-family:var(--f-display);font-size:14.5px}
+.rub{display:flex;gap:6px;flex-wrap:wrap}
+.rub button{font-size:13px;padding:5px 9px;border-radius:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.rub button.on{background:var(--ok);color:#fff;border-color:var(--ok)}
+.excerpt{border:1px solid var(--line);border-radius:8px;padding:12px;background:var(--bg);font-size:15px}
+.excerpt .src{font:600 11px var(--f-mono);text-transform:uppercase;color:var(--muted);letter-spacing:.06em;display:block;margin-bottom:4px}
+.celltbl td button{all:unset;cursor:pointer;display:block;padding:2px 4px;border-radius:4px}
+.celltbl td button:focus-visible{outline:2px solid var(--blue)}
+.celltbl td.pick{background:var(--blue-soft)}
+.regions{display:flex;flex-wrap:wrap;gap:6px}
+.regions button{font:600 13px var(--f-mono);padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.regions button i{width:10px;height:10px;border-radius:2px;display:block}
+.regions button.on{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+.pl-legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted)}
+.pl-legend span{display:inline-flex;gap:6px;align-items:center}
+.pl-legend i{width:12px;height:12px;border-radius:2px;display:block}
+canvas{max-width:100%;display:block}
+.flask{width:64px;height:84px;flex:0 0 auto}
+.tit-row{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.levels{display:grid;gap:7px}
+.levels button{display:grid;grid-template-columns:34px 1fr;gap:10px;text-align:left;padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.levels button b{font:700 18px/1.2 var(--f-display);color:var(--accent)}
+.levels button.sel{border-color:var(--accent);background:var(--accent-soft)}
+.levels button small{display:block;color:var(--muted);font-size:13.5px}
+.reveal{border-top:1px dashed var(--line);padding-top:12px}
+
+.pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px;margin-top:30px}
+.pair section{padding-top:10px;border-top:2px solid var(--ok)}
+.pair section.w{border-top-color:var(--warn)}
+.pair h4{font-size:.98rem;margin-bottom:6px}
+.pair p{margin:0;font-size:15px;max-width:60ch}
+.pager{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:34px;padding-top:18px;border-top:1px solid var(--line)}
+.pager button{font-weight:600;font-size:14.5px;background:var(--surface);border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:9px 14px;cursor:pointer}
+footer{padding-block:24px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+footer p{max-width:80ch;margin:0 0 8px}
+@media (prefers-reduced-motion: reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top wrap">
+  <div class="kicker">University science teaching · hands-on</div>
+  <h1>Twelve tools, walked through step by step</h1>
+  <p class="lede">For each tool you get what it is for, the exact steps with a drawing of the screen at each step, a working demo you can try right here, and a teaching tip. Every example uses real undergraduate and MSc science content: enzyme kinetics, Arrhenius, titration, projectile motion, protein structure.</p>
+  <div class="about"><b>About the screens.</b> They are drawings of each tool's workflow, made to show where things are and what to click. They are not captures of the live products, whose layouts and button names change often. Highlighted outlines mark the control to use. Every “Try it here” panel is a working demo that runs inside this page, using example data.</div>
+  <div class="legend">
+    <span><i class="aud i"></i>Mainly for instructors</span>
+    <span><i class="aud s"></i>Mainly for students</span>
+    <span><i class="aud a"></i>Assessment</span>
+  </div>
+</header>
+
+<nav class="nav" aria-label="Tools"><div class="wrap" id="chips"></div></nav>
+
+<main class="wrap" id="panel" tabindex="-1"></main>
+
+<footer class="wrap">
+  <p>Evidence referred to on this page: Kestin et al., <i>Scientific Reports</i> (2025), AI physics tutor RCT; Bastani et al., <i>PNAS</i> (2025), guardrails and learning; Mirza et al., ChemBench, <i>Nature Chemistry</i> (2025); Liang et al., <i>Patterns</i> (2023), detector bias; Perkins, Roe &amp; Furze, AI Assessment Scale (revised 2024); Boland &amp; Ayres, <i>PLoS Computational Biology</i> (2024), AlphaFold teaching module.</p>
+  <p>All student answers, class vote counts, papers and datasets in the demos are invented for practice and are labelled as such.</p>
+</footer>
+
+<script>
+/* ---------- drawing helpers for illustrated screens ---------- */
+const S=(addr,body,cap)=>`<figure class="scr"><div class="scr-bar"><span class="dots"><i></i><i></i><i></i></span><span class="addr">${addr}</span></div><div class="scr-body">${body}</div><figcaption><span class="ill">Illustration</span>${cap}</figcaption></figure>`;
+const U=(t)=>`<div class="b u"><span class="who">You</span>${t}</div>`;
+const A=(t,who='AI')=>`<div class="b a"><span class="who">${who}</span>${t}</div>`;
+const B=(t,c='')=>`<span class="mb ${c}">${t}</span>`;
+const I=(t,c='')=>`<div class="mi ${c}">${t}</div>`;
+const P=(n)=>`<span class="pin">${n}</span>`;
+const T=(head,rows)=>`<div class="mtw"><table class="mt"><tr>${head.map(h=>`<th>${h}</th>`).join('')}</tr>${rows.map(r=>`<tr>${r.map(c=>typeof c==='object'?`<td class="${c.c}">${c.t}</td>`:`<td>${c}</td>`).join('')}</tr>`).join('')}</table></div>`;
+const C=(t)=>`<pre class="mc">${t}</pre>`;
+
+/* ---------- tool content ---------- */
+const TOOLS=[
+{
+ id:'assistant', short:'AI assistant', aud:'i', eyebrow:'Generative AI assistant · instructor',
+ name:'ChatGPT, Claude or Gemini for a problem set',
+ sum:'Draft a graded problem set on the Arrhenius equation with worked solutions, numeric variants for tutorial groups, and a flawed version for an error hunt. Then check every number before students see it.',
+ meta:[['Best for','Problem sets, worked examples, rubrics, case studies, glossaries'],['Access','Free tiers; paid plans for longer files. Some AICTE institutions received free ChatGPT Go licences'],['Time','20–30 minutes for a verified set of 6 problems'],['Sites','<a href="https://chatgpt.com" target="_blank" rel="noopener">chatgpt.com</a> · <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> · <a href="https://gemini.google.com" target="_blank" rel="noopener">gemini.google.com</a>']],
+ steps:[
+  ['Open a new chat and give context first','Start fresh so earlier chats do not bleed in. Tell it the course, the level and what students already know. This one sentence changes the difficulty and vocabulary of everything that follows.',
+   S('chatgpt.com · claude.ai · gemini.google.com', `${B('+ New chat','hl')}${P(1)}${I('I teach 2nd-year BSc physical chemistry at a state university in India. Students know basic calculus and the integrated rate laws. English is their second language.','hl')}${P(2)}`,'Start a new chat (1), then state course, level and prior knowledge (2).')],
+  ['Paste a structured prompt','Ask for a fixed number of problems at named Bloom levels, full solutions with units, constants with sources, and a label on any invented data. Use the prompt builder below to make one.',
+   S('chat', `${U('Write 6 problems on the Arrhenius equation: 2 apply, 2 analyse (interpret the ln k vs 1/T data I give), 2 evaluate. Full worked solutions with units at every step. State each constant and its source. Label any invented data as synthetic.')}${A('Here are six problems grouped by level…<br><b>Problem 3 (analyse).</b> The table gives k at five temperatures (synthetic data)…')}`,'The more specific the request, the less you have to fix later.')],
+  ['Check the answers like a referee','Recompute every number yourself or in a spreadsheet. Benchmarks such as ChemBench find models perform at expert level on average but give overconfident wrong answers on some basic tasks.',
+   S('chat', `${A('<b>Solution 3.</b> Slope of ln k vs 1/T = −6014 K<br>E<sub>a</sub> = −slope × R = 6014 × 8.314 J mol⁻¹ K⁻¹<br><span class="hl">= 50.0 kJ mol⁻¹</span>')}<div class="note ok">✓ R = 8.314 J mol⁻¹ K⁻¹ matches CODATA</div><div class="note">Recompute the slope from the raw table, not from the AI's rounded values</div>`,'Tick constants against a reference; recalculate each final answer.')],
+  ['Ask for variants and a flawed version','Numeric variants stop answer sharing between tutorial groups. A version with planted errors becomes a “find the mistake” task (see the Critique-the-AI tool).',
+   S('chat', `${U('Make 3 numeric variants of Problem 3 for tutorial groups A, B and C. Then write a version of Solution 1 with exactly one unit error and one conceptual error, and give me the answer key separately.')}${A('<b>Variant A:</b> k₁ = 3.1 × 10⁻³ s⁻¹ at 298 K…<br><b>Answer key:</b> error 1 is in line 3 (kJ not converted to J)…')}`,'Always ask for the answer key as a separate block you can hide.')],
+  ['Move the problems into your LMS','Paste into Moodle, Google Classroom or Canvas. In Moodle, the “Calculated” question type gives each student different numbers from a formula.',
+   S('moodle · question bank', `<div class="mrow">${B('Question type:')}${B('Calculated','hl')}</div>${I('k₂ = {k1} × exp( ({Ea}/8.314) × (1/{T1} − 1/{T2}) )')}<div class="mrow">${B('Wildcards: {k1} {Ea} {T1} {T2}')}${B('Tolerance ±2 %')}</div>`,'A formula-based question randomises values per student.')]
+ ],
+ live:'promptBuilder', liveTitle:'Build your own problem-set prompt', liveSub:'Fill the form; copy the prompt into any assistant',
+ tip:'Keep a shared department document of prompts that worked, with the course and date. Prompts are reusable teaching materials.',
+ warn:'Never paste student names, marks or unpublished research data into a personal consumer account. Use your institution’s licensed account where one exists.'
+},
+{
+ id:'tutor', short:'Socratic tutor', aud:'s', eyebrow:'AI tutor · student',
+ name:'A Socratic AI tutor for pre-class preparation',
+ sum:'Students prepare for class with an AI that asks questions instead of giving answers. This is the design behind the Harvard physics tutor that more than doubled learning gains, and the guardrail that prevented the 17% drop seen with open GPT-4 access.',
+ meta:[['Best for','First exposure to a topic before a flipped class; revision'],['Options','Claude Learning mode, ChatGPT study mode, Gemini Guided Learning, or any chatbot with the tutor prompt below'],['Time','30–45 minutes per student per topic'],['Note','Vendors move and rename these modes; check what is available this term']],
+ steps:[
+  ['Turn on a learning mode, or paste a tutor prompt','If the tool has a study or learning mode, switch it on. If not, students paste a short tutor prompt at the start of the chat.',
+   S('chat · new conversation', `<div class="mrow"><span class="toggle hl"><i></i>Learning mode</span>${P(1)}</div>${I('Act as my Socratic tutor for enzyme kinetics. Never give me the final answer. Ask one question at a time. When I make an error, ask a question that exposes it. After every three exchanges, ask me to summarise in my own words.','')}`,'Switch the mode on (1), or use the prompt shown in the box.')],
+  ['Attach your own notes','Ground the tutor in your lecture notes or worked solutions so it uses your notation and avoids invented facts. The Harvard tutor embedded instructor-written solutions for exactly this reason.',
+   S('chat', `<div class="mrow">${B('📎 Attach','hl')}${B('Lecture 7 – Enzyme kinetics.pdf')}</div>${I('Use only the attached notes for definitions and notation.','ph')}`,'Students attach the PDF you posted on the LMS.')],
+  ['Students work one step at a time','The tutor asks for a prediction, then a substitution, then an explanation. Wrong answers get a question, not a correction.',
+   S('chat', `${A('Replace [S] with K<sub>m</sub> in v = V<sub>max</sub>[S]/(K<sub>m</sub> + [S]). What does the denominator become?','Tutor')}${U('2K<sub>m</sub>')}${A('Good. So what fraction of V<sub>max</sub> is the rate?','Tutor')}`,'Short exchanges keep the student doing the thinking.')],
+  ['Students write a summary in their own words','The summary is the deliverable you collect, not the answer. It shows you what they understood.',
+   S('chat', `${A('Summarise in one or two sentences: what does K<sub>m</sub> tell you about an enzyme?','Tutor')}${U('K<sub>m</sub> is the substrate concentration where the rate is half of V<sub>max</sub>. A low K<sub>m</sub> means the enzyme reaches half speed at low [S].')}`,'Collect this summary on the LMS before class.')],
+  ['Read transcripts and plan the class','Ask students to submit a share link or a copy of the chat. Tally the misconceptions; the most common one becomes the first concept question in class.',
+   S('your notes', T(['Misconception seen','Students'],[['“K<sub>m</sub> always equals binding affinity”','14'],['Confuses V<sub>max</sub> with initial rate','6'],['Unit errors with mM vs M','5']]),'The top row becomes Tuesday’s clicker question.')]
+ ],
+ live:'tutor', liveTitle:'Try a tutoring session', liveSub:'Scripted demo of how a Socratic tutor responds',
+ tip:'Grade the summary and the questions the student asked, never the final answer. That removes the incentive to switch the guardrails off.',
+ warn:'Students can turn learning modes off. Pair the tutor with a short no-device quiz in class so the preparation counts for something only real understanding can pass.'
+},
+{
+ id:'notebook', short:'NotebookLM', aud:'s', eyebrow:'Source-grounded notebook · student and instructor',
+ name:'NotebookLM as a course companion for a biochemistry lab',
+ sum:'Load the lab manual, lecture slides and safety sheets into one notebook. Answers cite the exact passage they came from, and questions your sources do not cover get “not in your sources” rather than a guess.',
+ meta:[['Best for','Lab-manual Q&A, study guides, quizzes, flashcards, audio summaries'],['Access','Free with a Google account; extra limits with Google Workspace plans'],['Time','15 minutes to set up a course notebook'],['Site','<a href="https://notebooklm.google.com" target="_blank" rel="noopener">notebooklm.google.com</a>']],
+ steps:[
+  ['Create a notebook','Sign in with a Google account and create one notebook per course or per lab module.',
+   S('notebooklm.google.com', `<div class="mrow">${B('+ Create new','dark hl')}${P(1)}</div><div class="mrow">${B('Biochem II · Lab')}${B('Cell Biology · Lectures')}</div>`,'One notebook per module keeps answers focused.')],
+  ['Add your sources','Upload PDFs, Google Docs and Slides, paste text, or add web pages and YouTube links. Only these sources will be used.',
+   S('notebook · sources', `<div class="mcol"><div class="side"><b>Sources</b><div class="it on">☑ Lab manual – Biochem II.pdf</div><div class="it on">☑ Lecture 1–6 slides</div><div class="it on">☑ Safety sheet – Bradford reagent</div><div class="it hl">+ Add source</div></div><div class="side">Drop files here, or paste a link<br><br>PDF · Docs · Slides · web page · YouTube</div></div>`,'Tick or untick a source to include or exclude it from answers.')],
+  ['Ask a question and open the citations','Each claim has a numbered citation. Tap it to see the exact passage. Teach students to do this every time.',
+   S('notebook · chat', `${U('Why does my protein read lower than BSA in the Bradford assay?')}${A('Coomassie dye binds mostly to arginine, lysine and aromatic residues <span class="cite hl">2</span>, so proteins with fewer of these give lower absorbance at 595 nm <span class="cite">1</span>.','NotebookLM')}`,'Citation chips open the source passage.')],
+  ['Generate study aids','The Studio panel makes study guides, FAQs, mind maps, quizzes, flashcards and audio overviews from the same sources.',
+   S('notebook · studio', `<div class="mrow">${B('Audio overview')}${B('Mind map')}${B('Study guide','hl')}${B('Flashcards')}${B('Quiz')}</div>${I('<b>Study guide: Bradford assay</b><br>Key terms · Short-answer questions · Answer key','')}`,'Check generated quizzes before sharing; they can misstate details.')],
+  ['Test it before students use it','Ask it 20–30 real questions from past years. Note wrong or vague answers and add a clarifying source if needed. Then share the notebook with your class.',
+   S('your test log', T(['Question','Result'],[['Wavelength for Bradford?',{c:'okc',t:'Correct, cited'}],['Max standard concentration?',{c:'okc',t:'Correct, cited'}],['Can I reuse cuvettes?',{c:'flag',t:'Vague: add SOP'}]]),'Fix gaps by adding sources, not by trusting it more.')]
+ ],
+ live:'notebook', liveTitle:'Ask the course notebook', liveSub:'Simulated notebook with three short sources',
+ tip:'Give students a notebook that contains only your vetted sources. It turns the AI into a searchable, citable version of your course rather than a general chatbot.',
+ warn:'Grounded is not the same as correct. Summaries can still merge or misread passages, so students must open the citation for anything they will rely on in the lab.'
+},
+{
+ id:'grading', short:'Gradescope', aud:'a', eyebrow:'AI-assisted grading · assessment',
+ name:'Gradescope answer groups for a 200-student chemistry test',
+ sum:'Scan handwritten scripts, let the software group similar answers, then grade each group once with a rubric. A change to the rubric updates every script that used it.',
+ meta:[['Best for','Large first-year classes; numeric and short-answer questions; code'],['Access','Institutional licence for AI-assisted grouping; basic features on lower tiers'],['Time','Often half the time of paper marking once set up'],['Site','<a href="https://www.gradescope.com" target="_blank" rel="noopener">gradescope.com</a>']],
+ steps:[
+  ['Create the assignment and upload a blank template','Choose “Exam / Quiz” and upload the blank question paper as a PDF.',
+   S('gradescope.com · course', `<div class="mrow">${B('Create assignment','dark hl')}</div><div class="mrow">${B('Exam / Quiz','hl')}${B('Homework')}${B('Programming')}${B('Online')}</div>${I('Template: CHEM-102 Kinetics Test.pdf','')}`,'Exam / Quiz is for scanned paper scripts.')],
+  ['Mark answer regions on the template','Draw a box around each answer space and name the question. This is where the software will look on every script.',
+   S('outline editor', `<div class="page"><div>Q1. A first-order reaction… calculate k at 350 K.</div><div class="region">Q1 answer box · 2 pts</div><div>Q2. Explain why…</div><div class="region">Q2 answer box · 3 pts</div></div>`,'One region per question part.')],
+  ['Upload the scans and match names','Scan the pile as one PDF. Gradescope splits it into scripts; confirm the name and roll number it reads from each cover page.',
+   S('manage scans', `${I('kinetics_test_scans.pdf · 412 pages · 206 submissions')}${T(['Script','Name read','Status'],[['1','A. Sharma','Matched'],['2','R. Iyer','Matched'],['3','(unclear)',{c:'flag',t:'Match manually'}]])}`,'Fix the few unreadable names by hand.')],
+  ['Form answer groups','For each question, ask Gradescope to suggest groups. It clusters answers that look the same, such as all scripts with “0.042 s⁻¹”.',
+   S('grade · Q1', `<div class="mrow">${B('Form answer groups','dark hl')}</div>${T(['Suggested group','Scripts'],[['0.042 s⁻¹','118'],['0.42 s⁻¹','37'],['4.2 × 10⁻⁴ s⁻¹','22'],['Ungrouped','29']])}`,'Review each group before grading it.')],
+  ['Grade each group once with a rubric','Open a group, scan the thumbnails for misfits, then apply rubric items. Ungrouped scripts are graded one by one.',
+   S('grade group · 0.042 s⁻¹', `<div class="mrow">${B('+2 Correct value and units','hl')}${B('−1 Wrong units')}${B('−1 Sig figs')}</div><div class="note">Scan the thumbnails: one script in this group says mol L⁻¹ s⁻¹. Move it out.</div>`,'Editing a rubric item re-scores every script that has it.')],
+  ['Publish and handle regrade requests','Release marks with the annotated scripts. Students can request a regrade on a specific question, with a reason.',
+   S('review grades', `<div class="mrow">${B('Publish grades','dark hl')}${B('Regrade requests (4)')}</div>`,'Set a regrade window, for example 7 days.')]
+ ],
+ live:'grading', liveTitle:'Group and grade 12 scripts', liveSub:'Invented answers to Q1: k at 350 K',
+ tip:'Write the rubric before you see answers, then refine it on the first group. The rubric becomes a record of common errors for next year’s teaching.',
+ warn:'Grouping is based on how answers look. Always glance through each group, and keep a human decision on every final grade. Check that your institution allows student scripts on this platform.'
+},
+{
+ id:'literature', short:'Literature AI', aud:'s', eyebrow:'Research tools · graduate students',
+ name:'Elicit, Scite and Semantic Scholar for a literature review',
+ sum:'MSc students map the literature on heat stress and photosynthesis in rice: Elicit finds papers and extracts data into a table, Scite shows how each key paper has been cited, and Semantic Scholar keeps a library with alerts. Then they check every extracted value against the PDF.',
+ meta:[['Best for','Systematic-review training, thesis background chapters, journal clubs'],['Access','Semantic Scholar is free; Elicit and Scite have free tiers with limits'],['Time','One 2-hour practical'],['Sites','<a href="https://elicit.com" target="_blank" rel="noopener">elicit.com</a> · <a href="https://scite.ai" target="_blank" rel="noopener">scite.ai</a> · <a href="https://www.semanticscholar.org" target="_blank" rel="noopener">semanticscholar.org</a>']],
+ steps:[
+  ['Ask a focused research question in Elicit','Write the question as a full sentence. Elicit returns relevant papers with one-line summaries.',
+   S('elicit.com', `${I('Does day temperature above 35 °C reduce net photosynthesis in rice?','hl')}<div class="mrow">${B('Find papers','dark')}</div>`,'A specific question gives a tighter set of papers.')],
+  ['Add extraction columns','Add columns for what you need from each paper: crop variety, temperature, sample size, outcome. Elicit fills them by reading the papers.',
+   S('elicit · results table', T(['Paper','Temp.','n','Net photosynthesis'],[['Paper A','38 vs 28 °C','120','−18 %'],['Paper B','36 vs 30 °C','48','−9 %'],['Paper C','35 vs 27 °C','—','Not reported']])+`<div class="mrow">${B('+ Add column','hl')}</div>`,'Each cell links to the passage it came from.')],
+  ['Verify every cell against the PDF','Open the paper and check each value. This is the step students skip, so make it the graded part of the task.',
+   S('paper PDF · results section', `${I('“…plants were grown at 28 °C (control) or <b>38 °C</b> (heat) for 14 days, with 60 plants per treatment…”')}<div class="note ok">✓ Temperature and n match the table</div>`,'Record each check in a verification column.')],
+  ['Check how key papers are cited in Scite','Scite classifies citing statements as supporting, contrasting or mentioning. A paper with many contrasting citations needs careful reading.',
+   S('scite.ai · report', `${I('Paper A · Smart Citations')}<div class="bars"><div><span>✓</span><b style="width:45%;background:var(--ok)"></b><span>34</span></div><div><span>✗</span><b style="width:10%;background:var(--bad)"></b><span>6</span></div><div><span>–</span><b style="width:100%;background:var(--muted)"></b><span>412</span></div></div>`,'Supporting · contrasting · mentioning (illustrative numbers).')],
+  ['Save to a Semantic Scholar library and set alerts','Add verified papers to a library folder. A research feed suggests new papers as they appear.',
+   S('semanticscholar.org', `<div class="mrow">${B('Save to library','hl')}${B('Create alert')}</div>${I('<b>TLDR</b> Heat at anthesis reduced photosynthesis and spikelet fertility…')}`,'TLDR summaries help triage, not replace reading.')],
+  ['Compare with a manual database search','Run the same question in PubMed or Web of Science. Students write a one-page memo on what the AI tools missed or misread.',
+   S('memo', I('<b>What the AI search missed:</b> two field studies from Indian journals not indexed; one meta-analysis.<br><b>Misreads:</b> sample size given as plants instead of pots in Paper B.'),'The memo assesses research judgement, not tool use.')]
+ ],
+ live:'literature', liveTitle:'Verify the extraction', liveSub:'Invented papers for practice',
+ tip:'Grade the verification column and the memo. That rewards exactly the judgement that the AI cannot provide.',
+ warn:'AI extraction confuses units, counts (plants vs pots vs plots) and treatment groups. Never let an extracted value go into a thesis without checking the source.'
+},
+{
+ id:'alphafold', short:'AlphaFold', aud:'s', eyebrow:'Structure prediction · biology and biochemistry',
+ name:'AlphaFold Server and ChimeraX: predict, compare, interpret',
+ sum:'Students predict a protein structure, read its confidence scores, and compare it with the experimental structure. A published two-session module with 64 seniors used the same approach on viral proteins with no solved structure.',
+ meta:[['Best for','Structural biology, biochemistry practicals, course-based research projects'],['Access','AlphaFold Server is free for non-commercial use with a Google account and a daily job limit; ChimeraX is free for academic use'],['Time','Two 3-hour practicals'],['Sites','<a href="https://alphafoldserver.com" target="_blank" rel="noopener">alphafoldserver.com</a> · <a href="https://www.cgl.ucsf.edu/chimerax/" target="_blank" rel="noopener">UCSF ChimeraX</a>']],
+ steps:[
+  ['Sign in to AlphaFold Server','Use a Google account. Read the terms: outputs are for non-commercial use.',
+   S('alphafoldserver.com', `<div class="mrow">${B('Sign in with Google','dark hl')}</div>${I('Jobs remaining today shown at top right','ph')}`,'Students each need an account, or work in pairs.')],
+  ['Paste the sequence and submit','Choose “Protein”, paste the amino-acid sequence in one-letter code, name the job, preview and submit.',
+   S('new job', `<div class="mrow">${B('Entity type: Protein','hl')}${B('Copies: 1')}</div>${I('KVFGRCELAAAMKRHGLDNYRGYSLGNWVCAAKFESNFNTQATNRNTDGSTDYGILQINSRWWCNDGRTPGSRNLCNIPCSALLSSDITASVNCAKKIVSDGNGMNAWVAWRNRCKGTDVQAWIRGCRL')}<div class="mrow">${B('Continue and preview job','dark')}</div>`,'Hen egg-white lysozyme (129 residues), a classic teaching protein.')],
+  ['Open the result: structure and confidence','The 3D view is coloured by pLDDT, a per-residue confidence score. The PAE plot shows how confident the model is about the relative position of different parts.',
+   S('job result', `<div class="mcol"><div class="blob"><svg viewBox="0 0 120 110" width="100%" height="100%"><path d="M15 70 C25 20 60 10 75 35 S105 80 85 92 S40 100 30 80 S50 45 62 55" fill="none" stroke="var(--pl-vh)" stroke-width="7" stroke-linecap="round"/><path d="M62 55 C70 62 76 66 92 50" fill="none" stroke="var(--pl-c)" stroke-width="7" stroke-linecap="round"/><path d="M15 70 C10 80 6 88 4 100" fill="none" stroke="var(--pl-vl)" stroke-width="7" stroke-linecap="round"/></svg></div><div class="side"><b>PAE</b><svg viewBox="0 0 60 60" width="100%"><rect width="60" height="60" fill="var(--pl-vh)" opacity=".25"/><rect width="38" height="38" fill="var(--pl-vh)" opacity=".85"/><rect x="38" y="38" width="22" height="22" fill="var(--pl-vh)" opacity=".85"/></svg><span>Dark = low error</span></div></div>`,'Blue: very high confidence. Orange: very low.')],
+  ['Download the files','The download is a zip with five ranked models as .cif files plus JSON files of confidence scores.',
+   S('job result', `<div class="mrow">${B('Download','hl')}</div>${I('fold_lysozyme_model_0.cif … model_4.cif<br>fold_lysozyme_full_data_0.json …','')}`,'model_0 is the top-ranked model.')],
+  ['Compare with the experimental structure in ChimeraX','Open the model and the PDB entry, colour by confidence, and superimpose to get the RMSD.',
+   S('ChimeraX · command line', C(`<span class="c"># open model and crystal structure</span>
+open fold_lysozyme_model_0.cif
+open 1lyz
+<span class="c"># colour model by pLDDT (stored in B-factor column)</span>
+color bfactor #1 palette alphafold
+<span class="c"># superimpose model onto crystal structure</span>
+matchmaker #1 to #2`)+I('RMSD between 125 pruned atom pairs is 0.41 Å (across all 129 pairs: 0.62 Å)'),'RMSD values shown are illustrative.')],
+  ['Interpret the uncertain regions','Students find residues with low pLDDT and argue, with literature, whether they are disordered in reality or a prediction failure. This is the evaluation step the AI cannot do for them.',
+   S('student report', I('<b>Region 1–20 (pLDDT &lt; 50):</b> UniProt annotates a signal peptide; residues absent from crystal structure; likely flexible in solution. Evidence: …'),'Try this in the pLDDT explorer below.')]
+ ],
+ live:'plddt', liveTitle:'Read a pLDDT profile', liveSub:'Example confidence scores for a 160-residue protein',
+ tip:'For a research feel, pick proteins with no experimental structure, for example from a locally relevant pathogen. Students then produce something genuinely new.',
+ warn:'A confident prediction is still a prediction. pLDDT measures local confidence; it does not tell you domain arrangement (use PAE), ligands, or how the protein moves.'
+},
+{
+ id:'simulation', short:'PhET simulation', aud:'s', eyebrow:'Interactive simulation · physics',
+ name:'PhET Projectile Motion with predict, observe, explain',
+ sum:'Students predict how air resistance changes the best launch angle, test it in the simulation, and explain the result. The prediction step is what turns a simulation into learning.',
+ meta:[['Best for','Conceptual physics and chemistry; large lectures and tutorials'],['Access','Free, runs in any browser, many languages including Hindi'],['Time','25 minutes in class'],['Site','<a href="https://phet.colorado.edu" target="_blank" rel="noopener">phet.colorado.edu</a>']],
+ steps:[
+  ['Open the simulation','Search for “Projectile Motion” and open the HTML5 version. It has Intro, Vectors, Drag and Lab screens.',
+   S('phet.colorado.edu', `${I('Search: projectile motion','hl')}<div class="mrow">${B('Intro')}${B('Vectors')}${B('Drag','hl')}${B('Lab')}</div>`,'Use the Drag screen for this activity.')],
+  ['Predict first, on paper','Before touching the sim, every student writes a prediction: with air resistance, is the best angle 45°, more than 45°, or less than 45°? Ask for a reason.',
+   S('worksheet', I('<b>Prediction:</b> With air resistance the best angle is ____ because ____.<br>Confidence: low / medium / high'),'Collect predictions with a quick poll if you like.')],
+  ['Observe: turn on air resistance and test angles','Students keep the speed fixed, switch air resistance on, and fire at 35°, 40°, 45° and 50°, recording the range each time.',
+   S('Drag screen', `<div class="mrow"><span class="toggle hl"><i></i>Air resistance</span>${B('Angle 40°')}${B('Speed 25 m/s')}${B('Fire','dark')}</div>${T(['Angle','Range (m)'],[['35°','…'],['40°','…'],['45°','…'],['50°','…']])}`,'A data table makes the trend visible.')],
+  ['Explain: reconcile prediction and result','Students write why drag shifts the optimum below 45°. Then discuss: when is the 45° rule good enough?',
+   S('worksheet', I('<b>Explain:</b> Higher angles spend longer in the air, so drag removes more horizontal speed…'),'Explanations reveal whether the idea transferred.')]
+ ],
+ live:'projectile', liveTitle:'Projectile with air resistance', liveSub:'A simulation built for this page in the PhET style',
+ tip:'Use the AI assistant to write a quick Python version of the same simulation for a computational lab, then ask students to check energy and convergence themselves.',
+ warn:'Simulations simplify. This one uses linear drag; real drag on a ball is closer to quadratic. Say so, and ask students what would change.'
+},
+{
+ id:'colab', short:'Colab + AI', aud:'s', eyebrow:'Data analysis · notebooks',
+ name:'Google Colab with an AI assistant: fitting enzyme kinetics',
+ sum:'Students fit Michaelis–Menten data two ways, with a nonlinear fit and a Lineweaver–Burk plot. The AI writes first-draft code; students must explain each line and predict the output before running it.',
+ meta:[['Best for','Biochemistry and physical chemistry data labs; research-methods courses'],['Access','Free with a Google account; runs in the browser on any laptop'],['Time','One 2-hour computer practical'],['Site','<a href="https://colab.research.google.com" target="_blank" rel="noopener">colab.research.google.com</a>']],
+ steps:[
+  ['Create a notebook and upload the data','Open a new notebook, click the folder icon and upload the CSV of substrate concentration and rate.',
+   S('colab.research.google.com', `<div class="mrow">${B('+ New notebook','dark')}${B('📁 Files','hl')}${B('kinetics.csv')}</div>${C(`S_mM,v
+0.1,0.81
+0.2,1.36
+0.5,3.05`)}`,'Same data as the fitting demo below.')],
+  ['Ask the assistant for code','Open the AI panel and describe the analysis in plain words. Ask for comments in the code.',
+   S('Gemini in Colab', U('Load kinetics.csv. Fit Michaelis–Menten with scipy curve_fit, and also fit a Lineweaver–Burk line. Print Vmax and Km from both. Comment each line.'),'Any assistant works; the prompt matters more than the tool.')],
+  ['Explain before you run','Students annotate each line in their own words and write the output they expect before pressing run.',
+   S('code cell', C(`import numpy as np, pandas as pd
+from scipy.optimize import curve_fit
+df = pd.read_csv("kinetics.csv")
+mm = lambda S, Vmax, Km: Vmax*S/(Km+S)
+(Vmax, Km), cov = curve_fit(mm, df.S_mM, df.v,
+                            p0=[df.v.max(), df.S_mM.median()])
+<span class="c"># Lineweaver–Burk: 1/v = (Km/Vmax)(1/S) + 1/Vmax</span>
+slope, icpt = np.polyfit(1/df.S_mM, 1/df.v, 1)
+Vmax_lb, Km_lb = 1/icpt, slope/icpt`)+I('<b>My prediction:</b> Km near 1 mM; the two methods will differ a little.'),'The prediction line is graded, not the code.')],
+  ['Run and compare the fits','Students compare the two sets of parameters and explain why they differ.',
+   S('output', C(`Nonlinear:        Vmax = 10.08  Km = 1.22
+Lineweaver–Burk:  Vmax = 9.30   Km = 1.07`),'Same values as the live fitting demo below.')],
+  ['Break an assumption','Change one thing and explain the effect: drop the two lowest [S] points, or add 5% noise. The double-reciprocal plot magnifies errors at low [S].',
+   S('code cell', C(`df2 = df[df.S_mM > 0.2]   <span class="c"># remove lowest points</span>`),'This is where the understanding shows.')]
+ ],
+ live:'mm', liveTitle:'Fit Michaelis–Menten data', liveSub:'Synthetic teaching data · 7 points',
+ tip:'Ask students to submit the notebook with their predictions and a short note on which AI-generated lines they changed and why.',
+ warn:'AI code often runs but does the wrong thing, for example fitting in the wrong units or ignoring weights. Running without error is not evidence of correctness.'
+},
+{
+ id:'vlab', short:'Virtual Labs', aud:'s', eyebrow:'Virtual lab · pre-lab preparation',
+ name:'Virtual Labs India for titration pre-lab practice',
+ sum:'Before the wet lab, students rehearse an acid–base titration in the simulator, learn where the equivalence point is, and arrive knowing what to look for. A randomised study found virtual-lab preparation as effective as a live demonstration.',
+ meta:[['Best for','Pre-lab preparation; colleges with limited equipment; hazardous procedures'],['Access','Free; developed by an IIT-led consortium under the Ministry of Education'],['Time','30–40 minutes before the practical'],['Site','<a href="https://www.vlab.co.in" target="_blank" rel="noopener">vlab.co.in</a>']],
+ steps:[
+  ['Choose a discipline and a lab','From the home page, browse labs by discipline, for example Chemical Sciences, then pick a lab and an experiment.',
+   S('vlab.co.in', `<div class="mrow">${B('Broad areas')}${B('Chemical Sciences','hl')}${B('Biotechnology')}${B('Physical Sciences')}</div>${I('Physical Chemistry Lab → Acid–base titration','')}`,'Labs come from different partner institutes.')],
+  ['Work through the experiment tabs','Each experiment has tabs such as Aim, Theory, Pretest, Procedure, Simulation and Posttest. Assign the pretest first.',
+   S('experiment page', `<div class="mrow">${B('Aim')}${B('Theory')}${B('Pretest','hl')}${B('Procedure')}${B('Simulation')}${B('Posttest')}</div>`,'The pretest shows you who is unprepared.')],
+  ['Run the simulation and record data','Students add titrant in steps, record pH, and note where it changes quickly. They copy readings into their real lab notebook.',
+   S('simulation', T(['Volume NaOH (mL)','pH'],[['0.0','2.88'],['12.5','4.75'],['24.9','7.14'],['25.0','8.72'],['25.1','10.30']]),'Values from the titration demo below.')],
+  ['Take the posttest and bring the notebook','The posttest checks understanding. In the wet lab, students compare their real curve with the simulated one.',
+   S('lab notebook', I('<b>Pre-lab:</b> equivalence expected at 25.0 mL, pH ≈ 8.72. Indicator: phenolphthalein (8.2–10).'),'The notebook links virtual and real work.')]
+ ],
+ live:'titration', liveTitle:'Titrate 25.0 mL of 0.100 M acid', liveSub:'With 0.100 M NaOH · exact equilibrium calculation',
+ tip:'Use the simulation to ask “what if” questions you cannot do safely in the lab, such as a much weaker acid or a different indicator.',
+ warn:'Virtual labs do not teach hand skills: reading a burette, swirling, spotting the first permanent pink. Use them before, not instead of, the real practical.'
+},
+{
+ id:'polls', short:'Live polls', aud:'i', eyebrow:'Clickers and live polls · active learning',
+ name:'Peer instruction with Mentimeter or clickers',
+ sum:'Ask a concept question, collect votes without showing results, have students convince a neighbour, then vote again. In physics this method has a long record of improving conceptual understanding.',
+ meta:[['Best for','Large lectures; checking misconceptions found in tutor transcripts'],['Access','Mentimeter and Poll Everywhere have free tiers; LMS quizzes or Google Forms also work'],['Time','5–8 minutes per question'],['Sites','<a href="https://www.mentimeter.com" target="_blank" rel="noopener">mentimeter.com</a> · <a href="https://www.polleverywhere.com" target="_blank" rel="noopener">polleverywhere.com</a>']],
+ steps:[
+  ['Create a multiple-choice question','Write one question with plausible wrong options taken from real student errors.',
+   S('mentimeter.com · editor', `${B('Multiple choice','hl')}${I('A ball is thrown straight up. At the highest point, its acceleration is…')}<div class="mrow">${B('A: zero')}${B('B: 9.8 m/s² down')}${B('C: 9.8 m/s² up')}${B('D: depends on mass')}</div>`,'Distractors should reflect real misconceptions.')],
+  ['Hide results and collect the first vote','Turn off live results so students do not follow the crowd. Students join with a code on their phones.',
+   S('presenting', `<div class="mrow">${B('Join at menti.com · code 1234 5678')}${B('Hide results','hl')}</div>${I('Votes: 41','ph')}`,'Hidden results give an honest first vote.')],
+  ['Turn and talk','If 30–70% are correct, ask students to find someone who voted differently and convince them, for two minutes.',
+   S('slide', I('<b>Find a neighbour who chose differently.</b><br>Convince them in 2 minutes. Use a sketch.'),'Below 30% correct: reteach instead.')],
+  ['Vote again and explain','Reopen voting, then reveal both rounds. Ask a student who changed their answer to explain why.',
+   S('results', `<div class="bars"><div><span>A</span><b style="width:15%"></b><span>6</span></div><div><span>B</span><b style="width:78%;background:var(--ok)"></b><span>31</span></div><div><span>C</span><b style="width:2%"></b><span>0</span></div><div><span>D</span><b style="width:8%"></b><span>3</span></div></div>`,'Round 2 after discussion.')]
+ ],
+ live:'poll', liveTitle:'Run a peer-instruction question', liveSub:'Simulated class of 40 students',
+ tip:'Take your concept questions from the misconceptions in AI-tutor transcripts. That closes the loop between pre-class AI work and class time.',
+ warn:'Phones in class also mean phones for chatbots. Keep the time short and the question conceptual so looking it up does not help.'
+},
+{
+ id:'critique', short:'Critique the AI', aud:'a', eyebrow:'AI-inclusive assignment · assessment',
+ name:'“Find the errors” in an AI-generated solution',
+ sum:'Give students an AI-written worked solution with planted errors. They find each error, explain it and correct it. This builds the verification skill science graduates now need, and cannot be completed by pasting the task into a chatbot without understanding.',
+ meta:[['Best for','Tutorials, homework, open-book assessment; any quantitative topic'],['Access','Any chatbot to draft; your checking to finalise'],['Time','15 minutes to prepare; 20 minutes for students'],['Assessment lane','Open (AI permitted), graded on the explanation']],
+ steps:[
+  ['Generate a solution with planted errors','Ask an assistant for a worked solution containing one unit or arithmetic error and one conceptual error, with a separate answer key.',
+   S('chat', U('Solve: k = 2.0 × 10⁻³ s⁻¹ at 300 K, Ea = 50 kJ mol⁻¹. Find k at 320 K. Write a solution with one unit error and one conceptual error a student might make. Answer key separately.'),'Ask for errors students actually make.')],
+  ['Check the answer key yourself','Recompute the correct answer and confirm the errors are where the key says. Mark consequential errors that follow from an earlier one.',
+   S('your check', I('Correct: ln(k₂/k₁) = (50000/8.314)(1/300 − 1/320) = 1.253 → k₂ = 7.0 × 10⁻³ s⁻¹')+'<div class="note ok">✓ Key confirmed; lines 5–6 are consequential</div>','Never release an unchecked key.')],
+  ['Students find, explain and correct','Students mark each error, say what kind it is, and write the correct step. They may use any tool, but must explain in their own words.',
+   S('student response', T(['Line','Error type','Correction'],[['3','Units: kJ not converted','Ea/R = 50000/8.314 = 6014 K'],['7','Conceptual','A 20 K rise more than triples k']]),'Try it yourself below.')],
+  ['Grade the explanation','Use a short rubric: errors found, type correctly named, correction right, reasoning clear.',
+   S('rubric', T(['Criterion','Points'],[['Each planted error found','2 × 2'],['Error type named','2'],['Correct final answer','2'],['Clear explanation','2']]),'Explanation counts more than detection.')]
+ ],
+ live:'errors', liveTitle:'Find the two planted errors', liveSub:'Tap the lines you think are wrong, then check',
+ tip:'Vary it: have students ask two different chatbots the same question and use primary sources to decide which is right.',
+ warn:'Unplanted errors appear too. If the AI made a mistake you did not plan, keep it and add it to the key; it makes the task more realistic.'
+},
+{
+ id:'aias', short:'AI Assessment Scale', aud:'a', eyebrow:'Assessment policy · assessment',
+ name:'The AI Assessment Scale on every task brief',
+ sum:'State on each assessment how much AI use is allowed, using the five levels of the AI Assessment Scale, and decide whether the task is secure (supervised) or open. This replaces detector-based policing, which wrongly flagged non-native English writing in more than half of cases in one study.',
+ meta:[['Best for','Course handbooks, assignment briefs, programme-level assessment maps'],['Framework','AI Assessment Scale (Perkins, Roe and Furze, revised 2024); University of Sydney two-lane model'],['Time','An afternoon to map a whole course'],['Read','<a href="https://leonfurze.com/2024/03/27/the-ai-assessment-scale-update-and-pilot-study/" target="_blank" rel="noopener">AIAS overview (Leon Furze)</a>']],
+ steps:[
+  ['List every assessment and choose its lane','Secure lane: supervised exams, practical tests, vivas. Open lane: everything else, where AI use is allowed with acknowledgement.',
+   S('course assessment map', T(['Assessment','Lane'],[['Mid-term (in person)',{c:'okc',t:'Secure'}],['Lab report','Open'],['Practical test',{c:'okc',t:'Secure'}],['Literature review','Open'],['Lab report viva',{c:'okc',t:'Secure'}]]),'Make sure each learning outcome is certified in a secure task somewhere.')],
+  ['Pick an AIAS level for each open task','Choose from AI Planning, AI Collaboration, Full AI or AI Exploration. Level 1 (No AI) belongs only in the secure lane, since it cannot be enforced otherwise.',
+   S('task brief', `${I('<b>Lab report 2: Enzyme kinetics</b>')}${I('AI use: <b>Level 3 · AI Collaboration</b>','hl')}`,'Use the builder below to write the wording.')],
+  ['Say what to submit as evidence','Require an AI-use statement and, for higher levels, the prompts used and how outputs were checked.',
+   S('task brief', I('Submit with your report: (1) an AI-use statement, (2) your prompt log, (3) one paragraph on how you checked AI output against your data.'),'Process evidence beats detection.')],
+  ['Add a short viva for major work','A 10-minute conversation about the student’s own report confirms authorship and understanding.',
+   S('viva sheet', I('1. Walk me through Figure 2.<br>2. Why did you choose a nonlinear fit?<br>3. What would change if [S] were in µM?'),'Questions about their own data are hard to fake.')]
+ ],
+ live:'aias', liveTitle:'Write the AI-use statement for a task', liveSub:'Pick a level; copy the wording into your brief',
+ tip:'Put the AIAS level in the first line of every brief and in the LMS title. Ambiguity is the main cause of accidental misconduct.',
+ warn:'Do not use AI-detector scores as evidence of misconduct. They are unreliable and biased against students writing in their second language.'
+}
+];
+
+/* ---------- live demos ---------- */
+const $=(s,r=document)=>r.querySelector(s);
+const esc=(t)=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function copyText(text,btn,pre){
+  const done=()=>{const o=btn.textContent;btn.textContent='Copied';setTimeout(()=>btn.textContent=o,1600)};
+  const fallback=()=>{try{const r=document.createRange();r.selectNodeContents(pre);const s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent='Selected: copy with your keyboard or menu'}catch(e){}};
+  try{navigator.clipboard.writeText(text).then(done,fallback)}catch(e){fallback()}
+}
+const LIVE={};
+
+LIVE.promptBuilder=(el)=>{
+  el.innerHTML=`<div class="grid2">
+   <div class="field"><label for="pb-sub">Subject</label><select id="pb-sub">${['Physical chemistry','Organic chemistry','Biochemistry','Cell biology','Genetics','Physics: mechanics','Physics: electromagnetism','Environmental science'].map(x=>`<option>${x}</option>`).join('')}</select></div>
+   <div class="field"><label for="pb-top">Topic</label><input id="pb-top" type="text" value="the Arrhenius equation"></div>
+   <div class="field"><label for="pb-lev">Level</label><select id="pb-lev"><option>1st-year BSc</option><option selected>2nd-year BSc</option><option>3rd-year BSc</option><option>MSc</option></select></div>
+   <div class="field"><label for="pb-n">Number of problems</label><input id="pb-n" type="number" min="2" max="12" value="6"></div>
+  </div>
+  <div class="field"><span class="flabel">Bloom levels to include</span><div class="checks">
+   ${[['Apply',1],['Analyse',1],['Evaluate',1],['Create',0]].map(([b,c])=>`<label><input type="checkbox" id="pb-b-${b}" ${c?'checked':''}> ${b}</label>`).join('')}
+  </div></div>
+  <div class="grid2">
+   <div class="field"><span class="flabel">Extras</span><div class="checks"><label><input type="checkbox" id="pb-flaw" checked> Flawed worked example</label><label><input type="checkbox" id="pb-mis" checked> Flag misconceptions</label></div></div>
+   <div class="field"><label for="pb-lang">Glossary with translations</label><select id="pb-lang"><option>None</option><option>Hindi</option><option>Bengali</option><option>Tamil</option><option>Telugu</option><option>Marathi</option><option>Kannada</option><option>Malayalam</option><option>Gujarati</option><option>Odia</option><option>Punjabi</option></select></div>
+  </div>
+  <pre class="out" id="pb-out"></pre>
+  <div class="btns"><button class="btn" id="pb-copy">Copy prompt</button></div>`;
+  const desc={Apply:'apply (use the relationship with given data)',Analyse:'analyse (interpret a provided dataset or graph)',Evaluate:'evaluate (judge whether a claim is supported by data)',Create:'create (design an experiment or a test of a hypothesis)'};
+  const gen=()=>{
+    const sub=$('#pb-sub',el).value, top=$('#pb-top',el).value.trim()||'[topic]', lev=$('#pb-lev',el).value, n=$('#pb-n',el).value||6;
+    const bl=['Apply','Analyse','Evaluate','Create'].filter(b=>$('#pb-b-'+b,el).checked);
+    const lang=$('#pb-lang',el).value;
+    let t=`You are an experienced ${sub.toLowerCase()} instructor at an Indian university. Write ${n} problems on ${top} for ${lev} students.\n\n`;
+    if(bl.length) t+=`Spread the problems across these Bloom's levels, in roughly equal numbers:\n${bl.map(b=>'- '+desc[b]).join('\n')}\n\n`;
+    t+=`For every problem:\n- give a full worked solution with units at every step\n- state each physical constant you use, with its value and source\n- label any data you invent as "synthetic"\n`;
+    if($('#pb-mis',el).checked) t+=`- name the step where students most often go wrong, and the misconception behind it\n`;
+    t+=`\nNumber the problems. Put all solutions after all the problems, so I can remove them before sharing.`;
+    if($('#pb-flaw',el).checked) t+=`\n\nThen write one extra worked solution to Problem 1 that contains exactly two errors a typical student would make: one conceptual error and one arithmetic or unit error. Give the answer key for these errors in a separate section.`;
+    if(lang!=='None') t+=`\n\nEnd with a glossary of 10 key technical terms with their ${lang} equivalents, keeping the English term in brackets.`;
+    $('#pb-out',el).textContent=t;
+  };
+  el.addEventListener('input',gen); el.addEventListener('change',gen); gen();
+  $('#pb-copy',el).onclick=(e)=>copyText($('#pb-out',el).textContent,e.currentTarget,$('#pb-out',el));
+};
+
+LIVE.tutor=(el)=>{
+  const D=['Km','2Km','Km²'];
+  const N={
+   start:{t:'Let’s work on Michaelis–Menten kinetics. The rate law is v = V<sub>max</sub>[S] / (K<sub>m</sub> + [S]). Suppose [S] equals K<sub>m</sub>. Before calculating anything, predict: is v closer to 0, to V<sub>max</sub>/2, or to V<sub>max</sub>?',o:[['Close to 0','low'],['About V<sub>max</sub>/2','half'],['Close to V<sub>max</sub>','high']]},
+   low:{t:'Interesting. When [S] = K<sub>m</sub>, is the enzyme short of substrate or swamped with it? Let’s test it: replace [S] with K<sub>m</sub>. What does the denominator become?',o:D.map(x=>[x.replace('Km','K<sub>m</sub>'),x==='2Km'?'den':'denw'])},
+   high:{t:'V<sub>max</sub> is reached only when the enzyme is saturated. Is [S] = K<sub>m</sub> saturating? Let’s check: replace [S] with K<sub>m</sub>. What does the denominator become?',o:D.map(x=>[x.replace('Km','K<sub>m</sub>'),x==='2Km'?'den':'denw'])},
+   half:{t:'That’s your prediction. Now show it. Replace [S] with K<sub>m</sub>. What does the denominator become?',o:D.map(x=>[x.replace('Km','K<sub>m</sub>'),x==='2Km'?'den':'denw'])},
+   denw:{t:'Look again: the denominator is K<sub>m</sub> + [S]. If [S] is K<sub>m</sub>, you are adding K<sub>m</sub> to itself. What is that?',o:[['2K<sub>m</sub>','den'],['K<sub>m</sub>²','denw2']]},
+   denw2:{t:'K<sub>m</sub>² would come from multiplying. Here we are adding: K<sub>m</sub> + K<sub>m</sub>. Try once more.',o:[['2K<sub>m</sub>','den']]},
+   den:{t:'Right. So v = V<sub>max</sub>·K<sub>m</sub> / 2K<sub>m</sub>. What does that simplify to?',o:[['V<sub>max</sub>/2','simp'],['2V<sub>max</sub>','simpw'],['V<sub>max</sub>·K<sub>m</sub>/2','simpw']]},
+   simpw:{t:'K<sub>m</sub> appears on the top and on the bottom. What happens to it?',o:[['It cancels, leaving V<sub>max</sub>/2','simp']]},
+   simp:{t:'Yes. Now the important part. In your own words, what does K<sub>m</sub> tell you about an enzyme? Pick the summary closest to what you would write.',o:[['The [S] at which the rate is half of V<sub>max</sub>','good'],['How tightly the enzyme binds its substrate, always','mis']]},
+   mis:{t:'That idea is very common and only sometimes true. K<sub>m</sub> = (k₋₁ + k<sub>cat</sub>)/k₁, so it equals the dissociation constant only when k<sub>cat</sub> is much smaller than k₋₁. Before class, write two sentences: when would K<sub>m</sub> and binding affinity differ?',end:1},
+   good:{t:'Good definition. A follow-up for your notes: does a low K<sub>m</sub> always mean tight binding? Hint: K<sub>m</sub> = (k₋₁ + k<sub>cat</sub>)/k₁. Bring your answer to class.',end:1}
+  };
+  el.innerHTML=`<p class="status">The tutor never states the answer. Pick a reply to see how it responds; wrong choices get a question, not a correction.</p><div class="chat" id="tu-chat" aria-live="polite"></div><div class="opts" id="tu-opts"></div><div class="btns"><button class="btn ghost" id="tu-reset">Start again</button></div>`;
+  const chat=$('#tu-chat',el), opts=$('#tu-opts',el);
+  const go=(k)=>{const n=N[k];chat.insertAdjacentHTML('beforeend',`<div class="b a"><span class="who">Tutor</span>${n.t}</div>`);opts.innerHTML='';
+    if(n.end){opts.innerHTML=`<div class="fb ok">End of the scripted session. In a real course, the student’s written summary is what you collect.</div>`}
+    else n.o.forEach(([lab,nx])=>{const b=document.createElement('button');b.className='opt';b.innerHTML=lab;b.onclick=()=>{chat.insertAdjacentHTML('beforeend',`<div class="b u"><span class="who">Student</span>${lab}</div>`);go(nx)};opts.appendChild(b)});
+    chat.scrollTop=chat.scrollHeight;};
+  $('#tu-reset',el).onclick=()=>{chat.innerHTML='';go('start')}; go('start');
+};
+
+LIVE.notebook=(el)=>{
+  const src={1:['Lab manual, p. 14','Read absorbance at 595 nm between 5 and 60 minutes after adding Bradford reagent. Prepare BSA standards from 0 to 1.0 mg/mL.'],2:['Lecture 4 slides, slide 9','Coomassie dye binds mainly to arginine and lysine side chains, and to aromatic residues. Proteins rich in these residues give higher readings than BSA.'],3:['Safety sheet: Bradford reagent','The reagent contains phosphoric acid and methanol. Wear gloves and safety glasses; work away from open flames.']};
+  const Q=[
+   ['At what wavelength do we read the Bradford assay?','Read the absorbance at 595 nm, between 5 and 60 minutes after adding the reagent [1].'],
+   ['Why does my protein read lower than the BSA standard?','The dye binds mostly to arginine, lysine and aromatic residues [2]. If your protein has fewer of these than BSA, it gives a lower absorbance at 595 nm for the same mass [1], so its concentration will be underestimated.'],
+   ['What protective equipment do I need?','Wear gloves and safety glasses, because the reagent contains phosphoric acid and methanol. Keep it away from open flames [3].'],
+   ['What is the shelf life of the Bradford reagent?','Your sources do not cover the shelf life of the reagent. Check the manufacturer’s label or ask the lab technician.']
+  ];
+  el.innerHTML=`<p class="status">Sources in this notebook: ${Object.values(src).map((s,i)=>`<span class="cite">${i+1}</span>${s[0]}`).join(' · ')}</p><div class="opts" id="nb-q"></div><div id="nb-a"></div><div id="nb-s"></div>`;
+  const qd=$('#nb-q',el);
+  Q.forEach(([q,a],i)=>{const b=document.createElement('button');b.className='opt';b.textContent=q;b.onclick=()=>{qd.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');show(a,i===3)};qd.appendChild(b)});
+  function show(a,none){
+    const html=a.replace(/\[(\d)\]/g,(m,n)=>`<button class="cite" data-n="${n}" style="border:0;cursor:pointer">${n}</button>`);
+    $('#nb-a',el).innerHTML=`<div class="b a" style="max-width:100%"><span class="who">Notebook</span>${html}</div>${none?'<div class="fb warn" style="margin-top:8px">This is grounding at work: no source covers it, so the notebook says so instead of guessing.</div>':'<p class="status" style="margin-top:8px">Tap a citation number to open the passage.</p>'}`;
+    $('#nb-s',el).innerHTML='';
+    $('#nb-a',el).querySelectorAll('button.cite').forEach(b=>b.onclick=()=>{const s=src[b.dataset.n];$('#nb-s',el).innerHTML=`<div class="excerpt"><span class="src">Source ${b.dataset.n} · ${s[0]}</span>${s[1]}</div>`});
+  }
+  qd.firstChild.click();
+};
+
+LIVE.grading=(el)=>{
+  const ans=[['S01','0.042 s⁻¹','A'],['S02','0.42 s⁻¹','B'],['S03','4.2 × 10⁻² s⁻¹','A'],['S04','4.2 × 10⁻⁴ s⁻¹','C'],['S05','0.042 /s','A'],['S06','—','D'],['S07','0.042 mol L⁻¹ s⁻¹','A'],['S08','0.42 s⁻¹','B'],['S09','0.0420 s⁻¹','A'],['S10','4.2 × 10⁻⁴ s⁻¹','C'],['S11','0.0042 s⁻¹','D'],['S12','0.042 s⁻¹','A']];
+  const G={A:'0.042 s⁻¹ (correct value)',B:'0.42 s⁻¹',C:'4.2 × 10⁻⁴ s⁻¹',D:'Ungrouped: grade one by one'};
+  const R=[['2','Correct value and units'],['1','Power-of-ten slip'],['0','Incorrect or blank']];
+  let grouped=false, actions=0; const score={}; const pulled=new Set();
+  el.innerHTML=`<p><b>Q1.</b> A first-order decomposition has k = 0.042 s⁻¹ at 350 K. Students had to calculate this value. Correct answer: 0.042 s⁻¹ (2 points).</p><div id="gr-area"></div><div class="btns"><button class="btn" id="gr-go">Form answer groups</button><button class="btn ghost" id="gr-reset">Reset</button></div><p class="status" id="gr-stat"></p>`;
+  const area=$('#gr-area',el);
+  const card=(a)=>`<button class="card ${pulled.has(a[0])?'out-g':''}" data-id="${a[0]}"><span class="id">${a[0]}</span>${score[a[0]]!=null?`<span class="sc">${score[a[0]]}/2</span>`:''}<span class="ans">${a[1]}</span></button>`;
+  const stat=()=>{const g=Object.keys(score).length;$('#gr-stat',el).textContent=`${g} of 12 scripts graded in ${actions} grading action${actions===1?'':'s'}.`+(g===12?' Marking one script at a time would have taken 12.':'')};
+  const draw=()=>{
+    if(!grouped){area.innerHTML=`<div class="cards">${ans.map(card).join('')}</div>`;stat();return}
+    area.innerHTML=Object.keys(G).map(k=>{
+      const items=ans.filter(a=>(pulled.has(a[0])?'D':a[2])===k);
+      const isD=k==='D';
+      return `<div class="grp"><div class="grp-h"><b>${G[k]} · ${items.length}</b>${isD?'':`<div class="rub">${R.map(([p,l])=>`<button data-g="${k}" data-p="${p}">${p} · ${l}</button>`).join('')}</div>`}</div>
+      ${k==='A'&&!pulled.has('S07')?'<div class="note">Scan this group before grading: one script has the wrong units. Tap it to move it to individual grading.</div>':''}
+      <div class="cards">${items.map(card).join('')}</div>
+      ${isD?`<div class="rub">${items.filter(a=>score[a[0]]==null).map(a=>R.map(([p])=>`<button data-one="${a[0]}" data-p="${p}">${a[0]}: ${p}</button>`).join('')).join('')}</div>`:''}</div>`}).join('');
+    area.querySelectorAll('button[data-g]').forEach(b=>b.onclick=()=>{ans.filter(a=>a[2]===b.dataset.g&&!pulled.has(a[0])).forEach(a=>score[a[0]]=+b.dataset.p);actions++;draw()});
+    area.querySelectorAll('button[data-one]').forEach(b=>b.onclick=()=>{score[b.dataset.one]=+b.dataset.p;actions++;draw()});
+    area.querySelectorAll('.card').forEach(c=>c.onclick=()=>{const id=c.dataset.id; if(id==='S07'&&!pulled.has(id)){pulled.add(id);delete score[id];draw()}});
+    stat();
+  };
+  $('#gr-go',el).onclick=()=>{grouped=true;$('#gr-go',el).disabled=true;draw()};
+  $('#gr-reset',el).onclick=()=>{grouped=false;actions=0;pulled.clear();for(const k in score)delete score[k];$('#gr-go',el).disabled=false;draw()};
+  draw();
+};
+
+LIVE.literature=(el)=>{
+  const rounds=[
+   {row:{Paper:'Practice paper 1',Crop:'Rice',Temperature:'35 °C vs 28 °C',n:'120 plants',Outcome:'Net photosynthesis −18 %'},bad:'Temperature',
+    ex:'We grew 60 rice plants per treatment (120 in total) at day temperatures of 28 °C (control) or 38 °C (heat) for 14 days. Net photosynthetic rate at the end of treatment was 18% lower in the heat group.',
+    why:'The paper says 38 °C, not 35 °C. A 3 °C error matters a lot in heat-stress work, where thresholds are often near 35 °C.'},
+   {row:{Paper:'Practice paper 2',Crop:'Wheat',Temperature:'30 °C vs 25 °C',n:'48 plants',Outcome:'Grain yield −11 %'},bad:'n',
+    ex:'Wheat was grown in 48 pots (four plants per pot) at 25 °C or 30 °C during grain filling. Grain yield per pot decreased by 11% at the higher temperature.',
+    why:'The unit of replication is the pot: n = 48 pots (192 plants). Mixing up plants, pots and plots is one of the most common AI extraction errors.'}
+  ];
+  let r=0, pick=null;
+  const draw=()=>{const R=rounds[r];
+    el.innerHTML=`<p>Round ${r+1} of 2. Below is a row an AI tool extracted, and the passage from the paper. Tap the cell you think is wrong, then check.</p>
+    <div class="mtw"><table class="mt celltbl"><tr>${Object.keys(R.row).map(k=>`<th>${k==='n'?'Sample size':k}</th>`).join('')}</tr><tr>${Object.entries(R.row).map(([k,v])=>`<td class="${pick===k?'pick':''}">${k==='Paper'?v:`<button data-k="${k}">${v}</button>`}</td>`).join('')}</tr></table></div>
+    <div class="excerpt"><span class="src">From the paper’s methods and results</span>${R.ex}</div>
+    <div id="li-fb"></div>
+    <div class="btns"><button class="btn" id="li-check" ${pick?'':'disabled'}>Check</button>${r<1?'<button class="btn ghost" id="li-next">Next paper</button>':'<button class="btn ghost" id="li-next">Start again</button>'}</div>`;
+    el.querySelectorAll('td button').forEach(b=>b.onclick=()=>{pick=b.dataset.k;draw()});
+    $('#li-check',el).onclick=()=>{$('#li-fb',el).innerHTML=`<div class="fb ${pick===R.bad?'ok':'bad'}">${pick===R.bad?'Correct. ':'Not that one. Look again at the '+(R.bad==='n'?'sample size':R.bad.toLowerCase())+'. '}${R.why}</div>`};
+    $('#li-next',el).onclick=()=>{r=(r+1)%2;pick=null;draw()};
+  };draw();
+};
+
+LIVE.plddt=(el)=>{
+  const N=160; const regs=[[1,20,'vl'],[21,110,'vh'],[111,125,'l'],[126,155,'c'],[156,160,'vl']];
+  const base={vl:40,vh:93,l:61,c:80}; const vals=[];
+  for(let i=1;i<=N;i++){const r=regs.find(g=>i>=g[0]&&i<=g[1]);let v=base[r[2]]+5*Math.sin(i*0.9)+3*Math.cos(i*2.3);
+    if(r[2]==='vl'&&i<=20)v=30+i*1.0+4*Math.sin(i);vals.push(Math.max(20,Math.min(98,v)))}
+  const col=v=>v>90?'var(--pl-vh)':v>70?'var(--pl-c)':v>50?'var(--pl-l)':'var(--pl-vl)';
+  const info={
+   '1-20':['Very low (&lt; 50)','Often an intrinsically disordered tail or a signal peptide. Low pLDDT here can be a correct prediction of flexibility, not just a failure. Check UniProt for a signal peptide, run a disorder predictor, and see whether the crystal structure resolved these residues.'],
+   '21-110':['Very high (&gt; 90)','Backbone and most side chains are likely accurate. Superimposed on an experimental structure you would usually expect a low RMSD here, often around 1 Å or less.'],
+   '111-125':['Low (50–70)','Probably a flexible linker between two domains. The key question is whether the two domains’ relative position is right; for that, look at the PAE plot, not pLDDT.'],
+   '126-155':['Confident (70–90)','The backbone fold is probably right, but side-chain positions are less certain. Be careful using this region for detailed binding-site arguments.'],
+   '156-160':['Very low (&lt; 50)','A short C-terminal tail. Termini are often flexible and missing from crystal structures.']};
+  const W=640,H=200,pl=36,pb=26,pt=10,pr=8,xw=(W-pl-pr)/N;
+  const y=v=>pt+(H-pt-pb)*(1-v/100);
+  let svg=`<svg class="plot" viewBox="0 0 ${W} ${H}" role="img" aria-label="pLDDT score for each residue">`;
+  [0,50,70,90,100].forEach(t=>{svg+=`<line x1="${pl}" x2="${W-pr}" y1="${y(t)}" y2="${y(t)}" stroke="var(--line)" stroke-dasharray="${t%50?'3 3':''}"/><text x="${pl-6}" y="${y(t)+4}" text-anchor="end">${t}</text>`});
+  vals.forEach((v,i)=>{svg+=`<rect class="plb" data-i="${i+1}" x="${pl+i*xw}" y="${y(v)}" width="${Math.max(1,xw-0.6)}" height="${y(0)-y(v)}" fill="${col(v)}"/>`});
+  [1,40,80,120,160].forEach(t=>svg+=`<text x="${pl+(t-0.5)*xw}" y="${H-8}" text-anchor="middle">${t}</text>`);
+  svg+=`<text x="${pl}" y="${pt+2}" dy="-1" style="font-size:10px">pLDDT</text><rect id="pl-hl" x="0" y="${pt}" width="0" height="${H-pt-pb}" fill="none" stroke="var(--ink)" stroke-width="1.5"/></svg>`;
+  el.innerHTML=`<div class="pl-legend"><span><i style="background:var(--pl-vh)"></i>Very high &gt; 90</span><span><i style="background:var(--pl-c)"></i>Confident 70–90</span><span><i style="background:var(--pl-l)"></i>Low 50–70</span><span><i style="background:var(--pl-vl)"></i>Very low &lt; 50</span></div>
+   <div style="overflow-x:auto">${svg}</div><p class="status" style="margin-top:-6px">Residue number · example values, not a real protein</p>
+   <div class="regions" id="pl-r">${regs.map(g=>`<button data-r="${g[0]}-${g[1]}"><i style="background:var(--pl-${g[2]})"></i>${g[0]}–${g[1]}</button>`).join('')}</div>
+   <div id="pl-info"></div>
+   <div class="reveal"><p><b>Student question.</b> Residues 1–20 have very low pLDDT. Is this region disordered in reality, or did the prediction fail? What evidence would settle it?</p><div class="btns" style="margin-top:8px"><button class="btn ghost" id="pl-rev">Show a model answer</button></div><div id="pl-ans"></div></div>`;
+  const sel=(k)=>{el.querySelectorAll('#pl-r button').forEach(b=>b.classList.toggle('on',b.dataset.r===k));const [a,b]=k.split('-').map(Number);const h=$('#pl-hl',el);h.setAttribute('x',pl+(a-1)*xw);h.setAttribute('width',(b-a+1)*xw);
+    const v=vals.slice(a-1,b);const m=v.reduce((s,x)=>s+x,0)/v.length;
+    $('#pl-info',el).innerHTML=`<div class="excerpt"><span class="src">Residues ${a}–${b} · mean pLDDT ${m.toFixed(0)} · ${info[k][0]}</span>${info[k][1]}</div>`};
+  el.querySelectorAll('#pl-r button').forEach(b=>b.onclick=()=>sel(b.dataset.r));
+  $('#pl-rev',el).onclick=()=>{$('#pl-ans',el).innerHTML=`<div class="fb ok" style="margin-top:8px">pLDDT alone cannot tell you. Look for converging evidence: a signal-peptide or disorder annotation in UniProt; disorder predictors; whether residues 1–20 are missing from experimental structures; NMR or circular-dichroism data showing no fixed structure. If the region is conserved and binds a partner, it may fold only in a complex, which a single-chain prediction would miss.</div>`};
+  sel('1-20');
+};
+
+LIVE.projectile=(el)=>{
+  el.innerHTML=`<div class="fb warn" id="pj-pred"><b>Predict first.</b> With air resistance switched on, the angle that gives the longest range is…<div class="opts" style="margin-top:8px"><button class="opt" data-p="eq">Still 45°</button><button class="opt" data-p="hi">More than 45°</button><button class="opt" data-p="lo">Less than 45°</button></div></div>
+  <canvas id="pj-c" width="720" height="340" aria-label="Projectile trajectories"></canvas>
+  <div class="slider"><label for="pj-a">Launch angle</label><input id="pj-a" type="range" min="10" max="80" value="45"><output id="pj-ao">45°</output></div>
+  <div class="slider"><label for="pj-k">Air resistance k</label><input id="pj-k" type="range" min="0" max="0.30" step="0.01" value="0.10"><output id="pj-ko">0.10 s⁻¹</output></div>
+  <div class="btns"><button class="btn" id="pj-fire">Fire</button><button class="btn ghost" id="pj-sweep">Test every angle</button><button class="btn ghost" id="pj-clear">Clear</button></div>
+  <dl class="readouts"><div><dt>Last range</dt><dd id="pj-r">—</dd></div><div><dt>Max height</dt><dd id="pj-h">—</dd></div><div><dt>Best angle at this k</dt><dd id="pj-best">—</dd></div></dl>
+  <p class="status">Launch speed 25 m/s, g = 9.81 m/s². Linear drag: a = −k·v − g ŷ.</p><div id="pj-ex"></div>`;
+  const cv=$('#pj-c',el),cx=cv.getContext('2d');const W=cv.width,H=cv.height,m=34;const X0=70,Y0=34;
+  const sx=x=>m+x/X0*(W-m-10), sy=y=>H-m-y/Y0*(H-m-10);
+  const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim()||'#888';
+  let trails=[], pred=null;
+  const sim=(ang,k)=>{const v0=25,g=9.81,dt=0.004;let x=0,y=0,vx=v0*Math.cos(ang*Math.PI/180),vy=v0*Math.sin(ang*Math.PI/180),pts=[[0,0]],hmax=0;
+    for(let i=0;i<20000;i++){vx+=-k*vx*dt;vy+=(-g-k*vy)*dt;const nx=x+vx*dt,ny=y+vy*dt;if(ny<0){const f=y/(y-ny);x=x+(nx-x)*f;y=0;pts.push([x,0]);break}x=nx;y=ny;hmax=Math.max(hmax,y);if(i%6===0)pts.push([x,y])}
+    return {pts,range:x,hmax}};
+  const draw=(anim)=>{cx.clearRect(0,0,W,H);cx.fillStyle=css('--bg');cx.fillRect(0,0,W,H);
+    cx.strokeStyle=css('--line');cx.lineWidth=1;cx.font='12px '+css('--f-mono');cx.fillStyle=css('--muted');
+    for(let x=0;x<=X0;x+=10){cx.beginPath();cx.moveTo(sx(x),sy(0));cx.lineTo(sx(x),sy(Y0));cx.stroke();cx.fillText(x+' m',sx(x)-10,H-m+16)}
+    for(let y=10;y<=30;y+=10){cx.beginPath();cx.moveTo(sx(0),sy(y));cx.lineTo(sx(X0),sy(y));cx.stroke();cx.fillText(y,4,sy(y)+4)}
+    cx.strokeStyle=css('--ink');cx.lineWidth=1.5;cx.beginPath();cx.moveTo(m,sy(0));cx.lineTo(W-10,sy(0));cx.stroke();
+    trails.forEach((t,i)=>{const last=i===trails.length-1;cx.strokeStyle=last?css('--accent'):css('--muted');cx.globalAlpha=last?1:.45;cx.lineWidth=last?2.5:1.5;cx.beginPath();const n=last&&anim!=null?Math.floor(t.pts.length*anim):t.pts.length;t.pts.slice(0,Math.max(2,n)).forEach((p,j)=>j?cx.lineTo(sx(p[0]),sy(p[1])):cx.moveTo(sx(p[0]),sy(p[1])));cx.stroke();
+      if(!last||anim==null||anim>=1){cx.fillStyle=cx.strokeStyle;cx.fillText(t.lab,sx(t.range)-14,sy(0)-8)}cx.globalAlpha=1});};
+  const fire=()=>{const a=+$('#pj-a',el).value,k=+$('#pj-k',el).value;const r=sim(a,k);trails.push({...r,lab:a+'°'});if(trails.length>6)trails.shift();
+    $('#pj-r',el).textContent=r.range.toFixed(1)+' m';$('#pj-h',el).textContent=r.hmax.toFixed(1)+' m';
+    const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;if(reduce){draw();return}
+    let t0=null;const step=(ts)=>{t0=t0||ts;const p=Math.min(1,(ts-t0)/900);draw(p);if(p<1)requestAnimationFrame(step)};requestAnimationFrame(step)};
+  const sweep=()=>{const k=+$('#pj-k',el).value;let best=0,ba=0;for(let a=10;a<=80;a++){const r=sim(a,k).range;if(r>best){best=r;ba=a}}
+    $('#pj-best',el).textContent=ba+'° ('+best.toFixed(1)+' m)';
+    trails=[30,40,45,50,60].map(a=>{const r=sim(a,k);return{...r,lab:a+'°'}});const r=sim(ba,k);trails.push({...r,lab:ba+'°'});draw();
+    const msg=k===0?'With no drag the best angle is 45°, as the textbook formula says.':`With drag the best angle drops to ${ba}°. The projectile loses horizontal speed the whole time it is in the air, so a flatter, quicker flight wins.`;
+    const right=pred==='lo'&&k>0;$('#pj-ex',el).innerHTML=`<div class="fb ${pred?(right||(pred==='eq'&&k===0)?'ok':'bad'):'warn'}">${pred?(right?'Your prediction was right. ':'Compare this with your prediction. '):''}${msg}</div>`};
+  el.querySelectorAll('#pj-pred .opt').forEach(b=>b.onclick=()=>{pred=b.dataset.p;el.querySelectorAll('#pj-pred .opt').forEach(x=>x.classList.toggle('sel',x===b))});
+  $('#pj-a',el).oninput=e=>$('#pj-ao',el).textContent=e.target.value+'°';
+  $('#pj-k',el).oninput=e=>{$('#pj-ko',el).textContent=(+e.target.value).toFixed(2)+' s⁻¹';$('#pj-best',el).textContent='—'};
+  $('#pj-fire',el).onclick=fire;$('#pj-sweep',el).onclick=sweep;$('#pj-clear',el).onclick=()=>{trails=[];draw()};
+  [45,35].forEach(a=>{const r=sim(a,0.1);trails.push({...r,lab:a+'°'})});draw();
+};
+
+LIVE.mm=(el)=>{
+  const S=[0.1,0.2,0.5,1,2,5,10], V=[0.81,1.36,3.05,4.42,6.41,7.88,9.12];
+  const f=(Vm,Km,s)=>Vm*s/(Km+s), sse=(Vm,Km)=>S.reduce((a,s,i)=>a+(V[i]-f(Vm,Km,s))**2,0);
+  let bk=0,bv=0,bs=1e9;for(let k=0.1;k<=5;k+=0.002){const g=S.map(s=>s/(k+s));const vm=g.reduce((a,x,i)=>a+x*V[i],0)/g.reduce((a,x)=>a+x*x,0);const e=sse(vm,k);if(e<bs){bs=e;bk=k;bv=vm}}
+  const xs=S.map(s=>1/s),ys=V.map(v=>1/v),n=7,mx=xs.reduce((a,b)=>a+b)/n,my=ys.reduce((a,b)=>a+b)/n;
+  const sl=xs.reduce((a,x,i)=>a+(x-mx)*(ys[i]-my),0)/xs.reduce((a,x)=>a+(x-mx)**2,0),ic=my-sl*mx;const lbV=1/ic,lbK=sl/ic;
+  el.innerHTML=`<div class="btns" role="tablist"><button class="btn" id="mm-t1">v vs [S]</button><button class="btn ghost" id="mm-t2">Lineweaver–Burk</button></div>
+  <svg class="plot" id="mm-p" viewBox="0 0 640 300"></svg>
+  <p class="status">Move the sliders to fit the curve by eye, then compare with the two computer fits.</p>
+  <div class="slider"><label for="mm-v">V<sub>max</sub> (µmol/min)</label><input id="mm-v" type="range" min="4" max="16" step="0.1" value="8"><output id="mm-vo"></output></div>
+  <div class="slider"><label for="mm-k">K<sub>m</sub> (mM)</label><input id="mm-k" type="range" min="0.2" max="4" step="0.02" value="0.6"><output id="mm-ko"></output></div>
+  <div class="checks"><label><input type="checkbox" id="mm-nl"> Show nonlinear fit</label><label><input type="checkbox" id="mm-lb"> Show Lineweaver–Burk fit</label></div>
+  <div class="mtw"><table class="mt" style="font-variant-numeric:tabular-nums"><tr><th>Fit</th><th>V<sub>max</sub></th><th>K<sub>m</sub> (mM)</th><th>Sum of squared errors in v</th></tr>
+  <tr><td>Your fit</td><td id="mm-uv"></td><td id="mm-uk"></td><td id="mm-us"></td></tr>
+  <tr><td>Nonlinear least squares</td><td>${bv.toFixed(2)}</td><td>${bk.toFixed(2)}</td><td>${bs.toFixed(3)}</td></tr>
+  <tr><td>Lineweaver–Burk</td><td>${lbV.toFixed(2)}</td><td>${lbK.toFixed(2)}</td><td>${sse(lbV,lbK).toFixed(3)}</td></tr></table></div>
+  <div class="fb warn">Synthetic data generated from V<sub>max</sub> = 10.0 and K<sub>m</sub> = 1.20 mM with small noise added. The double-reciprocal fit is pulled by the low-[S] points, because taking 1/v magnifies their error.</div>`;
+  let view=1;const p=$('#mm-p',el);
+  const draw=()=>{const vm=+$('#mm-v',el).value,km=+$('#mm-k',el).value;$('#mm-vo',el).textContent=vm.toFixed(1);$('#mm-ko',el).textContent=km.toFixed(2);
+    $('#mm-uv',el).textContent=vm.toFixed(2);$('#mm-uk',el).textContent=km.toFixed(2);$('#mm-us',el).textContent=sse(vm,km).toFixed(3);
+    const W=640,H=300,L=46,R=14,T=12,Bm=36;let o='';
+    const nl=$('#mm-nl',el).checked, lb=$('#mm-lb',el).checked;
+    if(view===1){const X=v=>L+(W-L-R)*v/10.5,Y=v=>H-Bm-(H-T-Bm)*v/14;
+      [0,2,4,6,8,10,12,14].forEach(t=>o+=`<line x1="${L}" x2="${W-R}" y1="${Y(t)}" y2="${Y(t)}" stroke="var(--line)"/><text x="${L-6}" y="${Y(t)+4}" text-anchor="end">${t}</text>`);
+      [0,2,4,6,8,10].forEach(t=>o+=`<text x="${X(t)}" y="${H-Bm+16}" text-anchor="middle">${t}</text>`);
+      o+=`<text x="${(W+L)/2}" y="${H-4}" text-anchor="middle">[S] (mM)</text><text x="12" y="${T+6}">v</text>`;
+      const curve=(a,b,c,w,d)=>{let s='';for(let i=0;i<=120;i++){const x=10.5*i/120;s+=(i?'L':'M')+X(x).toFixed(1)+' '+Y(f(a,b,x)).toFixed(1)}return `<path d="${s}" fill="none" stroke="${c}" stroke-width="${w}" ${d?'stroke-dasharray="6 4"':''}/>`};
+      if(nl)o+=curve(bv,bk,'var(--ok)',2);if(lb)o+=curve(lbV,lbK,'var(--warn)',2,1);o+=curve(vm,km,'var(--accent)',2.5);
+      S.forEach((s,i)=>o+=`<circle cx="${X(s)}" cy="${Y(V[i])}" r="4.5" fill="var(--ink)"/>`);
+    } else {const X=v=>L+(W-L-R)*(v+2)/12.5,Y=v=>H-Bm-(H-T-Bm)*v/1.4;
+      [0,0.2,0.4,0.6,0.8,1,1.2,1.4].forEach(t=>o+=`<line x1="${L}" x2="${W-R}" y1="${Y(t)}" y2="${Y(t)}" stroke="var(--line)"/><text x="${L-6}" y="${Y(t)+4}" text-anchor="end">${t.toFixed(1)}</text>`);
+      [-2,0,2,4,6,8,10].forEach(t=>o+=`<text x="${X(t)}" y="${H-Bm+16}" text-anchor="middle">${t}</text>`);
+      o+=`<line x1="${X(0)}" x2="${X(0)}" y1="${T}" y2="${H-Bm}" stroke="var(--muted)"/><text x="${(W+L)/2}" y="${H-4}" text-anchor="middle">1/[S] (mM⁻¹)</text><text x="12" y="${T+6}">1/v</text>`;
+      const line=(a,b,c,w,d)=>{const y1=(b/a)*(-2)+1/a,y2=(b/a)*10.5+1/a;return `<line x1="${X(-2)}" y1="${Y(y1)}" x2="${X(10.5)}" y2="${Y(y2)}" stroke="${c}" stroke-width="${w}" ${d?'stroke-dasharray="6 4"':''}/>`};
+      o+=`<clipPath id="mmc"><rect x="${L}" y="${T}" width="${W-L-R}" height="${H-T-Bm}"/></clipPath><g clip-path="url(#mmc)">`;
+      if(nl)o+=line(bv,bk,'var(--ok)',2);if(lb)o+=line(lbV,lbK,'var(--warn)',2,1);o+=line(vm,km,'var(--accent)',2.5)+'</g>';
+      S.forEach((s,i)=>o+=`<circle cx="${X(1/s)}" cy="${Y(1/V[i])}" r="4.5" fill="var(--ink)"/>`);}
+    o+=`<g transform="translate(${W-R-170},${T+8})"><rect width="164" height="${16+(nl?16:0)+(lb?16:0)}" rx="4" fill="var(--surface)" stroke="var(--line)"/><line x1="8" x2="26" y1="11" y2="11" stroke="var(--accent)" stroke-width="2.5"/><text x="32" y="15">Your fit</text>${nl?`<line x1="8" x2="26" y1="27" y2="27" stroke="var(--ok)" stroke-width="2"/><text x="32" y="31">Nonlinear</text>`:''}${lb?`<line x1="8" x2="26" y1="${nl?43:27}" y2="${nl?43:27}" stroke="var(--warn)" stroke-width="2" stroke-dasharray="6 4"/><text x="32" y="${nl?47:31}">Lineweaver–Burk</text>`:''}</g>`;
+    p.innerHTML=o;};
+  const tab=(v)=>{view=v;$('#mm-t1',el).className='btn'+(v===1?'':' ghost');$('#mm-t2',el).className='btn'+(v===2?'':' ghost');draw()};
+  $('#mm-t1',el).onclick=()=>tab(1);$('#mm-t2',el).onclick=()=>tab(2);
+  el.addEventListener('input',draw);draw();
+};
+
+LIVE.titration=(el)=>{
+  const Kw=1e-14,Ca=0.1,Va=25,Cb=0.1;
+  const pH=(Vb,Ka)=>{const Vt=Va+Vb,Ct=Ca*Va/Vt,Na=Cb*Vb/Vt;let lo=-14,hi=0;
+    for(let i=0;i<80;i++){const mid=(lo+hi)/2,h=10**mid;const fv=h+Na-Kw/h-Ct*Ka/(Ka+h);if(fv>0)hi=mid;else lo=mid}return -(lo+hi)/2};
+  el.innerHTML=`<div class="grid2"><div class="field"><label for="ti-acid">Acid in the flask</label><select id="ti-acid"><option value="1.8e-5">Acetic acid (weak, pKₐ 4.74)</option><option value="1e6">Hydrochloric acid (strong)</option><option value="6.2e-10">Hydrocyanic acid (very weak, pKₐ 9.21)</option></select></div></div>
+   <div class="tit-row"><svg class="flask" viewBox="0 0 64 84" aria-hidden="true"><path d="M24 4h16v22l20 46a6 6 0 0 1-5 8H9a6 6 0 0 1-5-8l20-46z" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/><path id="ti-liq" d="M12 52h40l7 17a6 6 0 0 1-5 9H10a6 6 0 0 1-5-9z" fill="transparent"/></svg>
+   <dl class="readouts"><div><dt>NaOH added</dt><dd id="ti-v"></dd></div><div><dt>pH</dt><dd id="ti-ph"></dd></div><div><dt>Region</dt><dd id="ti-reg" style="font-size:15px"></dd></div></dl></div>
+   <svg class="plot" id="ti-p" viewBox="0 0 640 280"></svg>
+   <div class="slider"><label for="ti-s">Volume (mL)</label><input id="ti-s" type="range" min="0" max="50" step="0.1" value="0"><output id="ti-so"></output></div>
+   <div class="btns"><button class="btn ghost" data-d="-1">−1 mL</button><button class="btn ghost" data-d="-0.1">−0.1</button><button class="btn" data-d="0.1">+0.1</button><button class="btn" data-d="1">+1 mL</button><button class="btn ghost" data-j="12.5">Half-equivalence</button><button class="btn ghost" data-j="25">Equivalence</button></div>
+   <p class="status">Flask colour shows phenolphthalein: colourless below pH 8.2, pink from 8.2 to 10. The pH is solved exactly from the charge balance, not from approximations.</p>
+   <div class="reveal"><p><b>Questions for the pre-lab.</b> (1) Why is the pH at 12.5 mL equal to the pKₐ? (2) Why is the equivalence-point pH above 7 for acetic acid but 7 for HCl? (3) Switch to hydrocyanic acid: could you use phenolphthalein to find the end point? Why not?</p></div>`;
+  const W=640,H=280,L=40,R=12,T=12,Bm=34,X=v=>L+(W-L-R)*v/50,Y=p=>H-Bm-(H-T-Bm)*p/14;
+  const draw=()=>{const Ka=+$('#ti-acid',el).value,vb=+$('#ti-s',el).value,p=pH(vb,Ka);
+    $('#ti-so',el).textContent=vb.toFixed(1);$('#ti-v',el).textContent=vb.toFixed(1)+' mL';$('#ti-ph',el).textContent=p.toFixed(2);
+    const weak=Ka<1;const reg=vb===0?'Acid only':vb<24.95?(weak?(Math.abs(vb-12.5)<0.06?'Half-equivalence: pH = pKₐ':'Buffer region'):'Excess acid'):vb<=25.05?'Equivalence point':'Excess base';
+    $('#ti-reg',el).textContent=reg;
+    const a=p<8.2?0:Math.min(1,(p-8.2)/1.8);$('#ti-liq',el).setAttribute('fill',a?`rgba(214,40,140,${0.25+0.6*a})`:'rgba(140,180,220,.25)');
+    let o='';[0,2,4,6,8,10,12,14].forEach(t=>o+=`<line x1="${L}" x2="${W-R}" y1="${Y(t)}" y2="${Y(t)}" stroke="var(--line)"/><text x="${L-6}" y="${Y(t)+4}" text-anchor="end">${t}</text>`);
+    [0,10,20,25,30,40,50].forEach(t=>o+=`<text x="${X(t)}" y="${H-Bm+16}" text-anchor="middle">${t}</text>`);
+    o+=`<rect x="${L}" y="${Y(10)}" width="${W-L-R}" height="${Y(8.2)-Y(10)}" fill="var(--accent)" opacity=".1"/><text x="${W-R-4}" y="${Y(10)+12}" text-anchor="end">phenolphthalein range</text>`;
+    o+=`<line x1="${X(25)}" x2="${X(25)}" y1="${T}" y2="${H-Bm}" stroke="var(--muted)" stroke-dasharray="4 4"/>`;
+    let d='';for(let i=0;i<=500;i++){const v=50*i/500;d+=(i?'L':'M')+X(v).toFixed(1)+' '+Y(pH(v,Ka)).toFixed(1)}
+    o+=`<path d="${d}" fill="none" stroke="var(--blue)" stroke-width="2.5"/><circle cx="${X(vb)}" cy="${Y(p)}" r="6" fill="var(--accent)" stroke="var(--surface)" stroke-width="2"/>`;
+    o+=`<text x="${(W+L)/2}" y="${H-4}" text-anchor="middle">Volume of 0.100 M NaOH (mL)</text><text x="6" y="${T+4}">pH</text>`;
+    $('#ti-p',el).innerHTML=o};
+  const set=(v)=>{const s=$('#ti-s',el);s.value=Math.max(0,Math.min(50,Math.round(v*10)/10));draw()};
+  el.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>set(+$('#ti-s',el).value+ +b.dataset.d));
+  el.querySelectorAll('[data-j]').forEach(b=>b.onclick=()=>set(+b.dataset.j));
+  $('#ti-s',el).oninput=draw;$('#ti-acid',el).onchange=draw;draw();
+};
+
+LIVE.poll=(el)=>{
+  const opts=['Zero','9.8 m/s² downward','9.8 m/s² upward','It depends on the mass of the ball'];
+  const r1=[19,15,2,4],r2=[6,31,0,3];let stage=0,v1=null,v2=null;
+  const bars=(counts,mine,lab)=>{const tot=counts.reduce((a,b)=>a+b,0)+1;return `<div class="flabel" style="margin-top:4px">${lab}</div><div class="bars">${counts.map((c,i)=>{const n=c+(mine===i?1:0);return `<div><span>${'ABCD'[i]}</span><b style="width:${(n/tot*100).toFixed(0)}%;${i===1&&stage>=3?'background:var(--ok)':''}"></b><span>${Math.round(n/tot*100)}%</span></div>`}).join('')}</div>`};
+  const draw=()=>{
+    let h=`<p><b>A ball is thrown straight up. At the highest point of its path, its acceleration is:</b></p>`;
+    const choose=(cur)=>`<div class="opts">${opts.map((o,i)=>`<button class="opt ${cur===i?'sel':''}" data-i="${i}">${'ABCD'[i]}. ${o}</button>`).join('')}</div>`;
+    if(stage===0)h+=choose(v1)+`<div class="btns"><button class="btn" id="po-lock" ${v1==null?'disabled':''}>Lock in vote 1</button></div>`;
+    if(stage>=1)h+=bars(r1,v1,'Round 1 (41 votes, results were hidden while voting)');
+    if(stage===1)h+=`<div class="fb warn"><b>Turn and talk, 2 minutes.</b> Only ${Math.round((r1[1]+(v1===1?1:0))/41*100)}% chose the correct answer, which is in the ideal range for discussion. Find someone who voted differently and convince them. Hint to discuss: if the acceleration were zero at the top, what would the ball do next?</div><div class="btns"><button class="btn" id="po-next">Open vote 2</button></div>`;
+    if(stage===2)h+=choose(v2)+`<div class="btns"><button class="btn" id="po-lock2" ${v2==null?'disabled':''}>Lock in vote 2</button></div>`;
+    if(stage>=3)h+=bars(r2,v2,'Round 2, after discussion')+`<div class="fb ok"><b>B is correct.</b> Gravity acts the whole time, so the acceleration is 9.8 m/s² downward even when the velocity is momentarily zero. Option A confuses velocity with acceleration, the misconception this question is designed to expose. Ask a student who switched from A to B to explain what convinced them.</div><div class="btns"><button class="btn ghost" id="po-reset">Run it again</button></div>`;
+    h+=`<p class="status">Class votes are simulated; your vote is added to them.</p>`;
+    el.innerHTML=h;
+    el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{if(stage===0)v1=+b.dataset.i;else v2=+b.dataset.i;draw()});
+    const on=(id,fn)=>{const b=$(id,el);if(b)b.onclick=fn};
+    on('#po-lock',()=>{stage=1;draw()});on('#po-next',()=>{stage=2;draw()});on('#po-lock2',()=>{stage=3;draw()});on('#po-reset',()=>{stage=0;v1=v2=null;draw()});
+  };draw();
+};
+
+LIVE.errors=(el)=>{
+  const L=[
+   ['Given: k₁ = 2.0 × 10⁻³ s⁻¹ at T₁ = 300 K; Eₐ = 50 kJ mol⁻¹; T₂ = 320 K.',0],
+   ['Use the two-temperature Arrhenius form: ln(k₂/k₁) = (Eₐ/R)(1/T₁ − 1/T₂).',0],
+   ['Eₐ/R = 50 / 8.314 = 6.01 K.',1],
+   ['1/T₁ − 1/T₂ = 1/300 − 1/320 = 2.083 × 10⁻⁴ K⁻¹.',0],
+   ['ln(k₂/k₁) = 6.01 × 2.083 × 10⁻⁴ = 1.25 × 10⁻³.',2],
+   ['k₂/k₁ = e^(1.25 × 10⁻³) = 1.001, so k₂ ≈ 2.0 × 10⁻³ s⁻¹.',2],
+   ['So a 20 K rise has almost no effect on the rate, as expected for a reaction with an activation energy of this size.',1]];
+  const why={2:'Unit error. Eₐ must be in J mol⁻¹ to match R in J mol⁻¹ K⁻¹: 50 000 / 8.314 = 6014 K.',6:'Conceptual error. With Eₐ = 50 kJ mol⁻¹, a 20 K rise near room temperature multiplies k by about 3.5. The rough rule of thumb is that rates double for every 10 K near room temperature. A student who knew this would have spotted that the answer was implausible.'};
+  const flags=new Set();let checked=false;
+  const draw=()=>{
+    el.innerHTML=`<p><b>Task.</b> An AI wrote this solution: “A reaction has k = 2.0 × 10⁻³ s⁻¹ at 300 K and Eₐ = 50 kJ mol⁻¹. Find k at 320 K.” Tap every line that contains an independent error.</p>
+    <div class="sol">${L.map((l,i)=>{let c=flags.has(i)?'flagged':'';if(checked){if(l[1]===1)c=flags.has(i)?'right':'missed'}return `<button class="${c}" data-i="${i}" aria-pressed="${flags.has(i)}"><span>${i+1}</span><span>${l[0]}</span></button>`}).join('')}</div>
+    <div class="btns"><button class="btn" id="er-c">Check my answers</button><button class="btn ghost" id="er-r">Reset</button></div><div id="er-fb"></div>`;
+    el.querySelectorAll('.sol button').forEach(b=>b.onclick=()=>{if(checked)return;const i=+b.dataset.i;flags.has(i)?flags.delete(i):flags.add(i);draw()});
+    $('#er-c',el).onclick=()=>{checked=true;draw();
+      const hit=[2,6].filter(i=>flags.has(i)).length, fp=[...flags].filter(i=>L[i][1]===0), cons=[...flags].filter(i=>L[i][1]===2);
+      $('#er-fb',el).innerHTML=`<div class="fb ${hit===2&&!fp.length?'ok':'warn'}"><b>You found ${hit} of 2 planted errors.</b>${fp.length?` Line${fp.length>1?'s':''} ${fp.map(i=>i+1).join(', ')} ${fp.length>1?'are':'is'} correct.`:''}${cons.length?` Lines 5 and 6 are wrong only because of line 3: these are consequential errors, which a good rubric does not penalise twice.`:''}</div>
+      <div class="fb ok" style="margin-top:8px"><b>Line 3.</b> ${why[2]}<br><br><b>Line 7.</b> ${why[6]}<br><br><b>Correct answer:</b> ln(k₂/k₁) = 6014 × 2.083 × 10⁻⁴ = 1.253, so k₂/k₁ = 3.50 and k₂ = 7.0 × 10⁻³ s⁻¹.</div>`};
+    $('#er-r',el).onclick=()=>{flags.clear();checked=false;draw()};
+  };draw();
+};
+
+LIVE.aias=(el)=>{
+  const LV=[
+   [1,'No AI','Secure lane only. Done under supervision without AI.','This task is completed without any AI tools, under supervision. It assesses your own unaided knowledge and skills.','Nothing extra; supervision is the evidence.'],
+   [2,'AI Planning','AI for brainstorming, planning and background reading. The submitted work is yours.','You may use AI tools to brainstorm, plan, and find or explain background material. All analysis, writing and figures in your submission must be your own work.','A short AI-use statement listing the tools used and what for.'],
+   [3,'AI Collaboration','AI may help draft, give feedback and improve your work. You evaluate and change what it produces.','You may use AI tools to help draft, refine and give feedback on your work. You are responsible for checking every AI suggestion against your own data and sources, and for the final content.','AI-use statement, your prompt log, and a paragraph on how you checked AI output against your data.'],
+   [4,'Full AI','AI may be used throughout. Assessment focuses on your direction and judgement.','You may use AI tools throughout this task as you see fit. You will be assessed on how well you direct the tools, evaluate their output and justify your final choices.','Full prompt log, annotated drafts showing what you accepted and rejected, and a reflection on the AI’s errors.'],
+   [5,'AI Exploration','Use AI creatively to solve the task or explore new methods, for example designing your own AI workflow.','You are expected to use AI tools creatively to address this task, including designing or testing new approaches. Document your method so it could be reproduced.','Workflow description, prompts and settings, a comparison against a non-AI approach, and a reflection.']];
+  let sel=3;
+  const draw=()=>{const l=LV[sel-1];const name=$('#ai-n',el)?$('#ai-n',el).value:'Lab report 2: Enzyme kinetics';
+    const text=`${name}\nAI use: Level ${l[0]} of 5 (${l[1]}) on the AI Assessment Scale. ${l[0]===1?'Secure assessment.':'Open assessment.'}\n\n${l[3]}\n\nSubmit with your work: ${l[4]}\n\nUsing AI beyond this level, or not disclosing AI use, will be treated under the university's academic integrity policy.${l[0]>1?' A short oral discussion of your submission may be held to confirm your understanding.':''}`;
+    el.innerHTML=`<div class="field"><label for="ai-n">Task name</label><input id="ai-n" type="text" value="${esc(name)}"></div>
+    <div class="levels">${LV.map(x=>`<button class="${x[0]===sel?'sel':''}" data-l="${x[0]}"><b>${x[0]}</b><span>${x[1]}${x[0]===1?' · secure lane':''}<small>${x[2]}</small></span></button>`).join('')}</div>
+    <pre class="out" id="ai-o">${esc(text)}</pre><div class="btns"><button class="btn" id="ai-c">Copy wording</button></div>`;
+    el.querySelectorAll('.levels button').forEach(b=>b.onclick=()=>{sel=+b.dataset.l;draw()});
+    $('#ai-n',el).onchange=draw;
+    $('#ai-c',el).onclick=(e)=>copyText($('#ai-o',el).textContent,e.currentTarget,$('#ai-o',el));
+  };
+  el.innerHTML='<input id="ai-n" type="hidden" value="Lab report 2: Enzyme kinetics">';draw();
+};
+
+/* ---------- page assembly ---------- */
+const chips=$('#chips'), panel=$('#panel');
+const audName={i:'Mainly for instructors',s:'Mainly for students',a:'Assessment'};
+const audVar={i:'--blue',s:'--ok',a:'--accent'};
+chips.innerHTML=TOOLS.map(t=>`<button class="chip" data-id="${t.id}"><i class="aud ${t.aud}"></i>${t.short}</button>`).join('');
+chips.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{location.hash=c.dataset.id});
+function render(id,scroll){
+  const idx=Math.max(0,TOOLS.findIndex(t=>t.id===id));const t=TOOLS[idx];
+  chips.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-current',c.dataset.id===t.id));
+  const cur=chips.querySelector(`[data-id="${t.id}"]`);if(cur&&scroll)cur.scrollIntoView({inline:'center',block:'nearest'});
+  const prev=TOOLS[idx-1],next=TOOLS[idx+1];
+  panel.innerHTML=`<div class="tool-head"><div class="kicker" style="color:var(${audVar[t.aud]})">${idx+1} of ${TOOLS.length} · ${t.eyebrow}</div><h2>${t.name}</h2><p class="sum">${t.sum}</p>
+   <dl class="meta">${t.meta.map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl></div>
+   <div class="section-label">Step by step</div>
+   <ol class="steps">${t.steps.map((s,i)=>`<li class="step"><div><div class="step-n">STEP ${i+1} OF ${t.steps.length}</div><h3>${s[0]}</h3><p>${s[1]}</p></div>${s[2]}</li>`).join('')}</ol>
+   <section class="live" aria-labelledby="live-h"><div class="live-h"><h3 id="live-h">Try it here: ${t.liveTitle}</h3><small>${t.liveSub}</small></div><div class="live-b" id="live-b"></div></section>
+   <div class="pair"><section><h4>Teaching tip</h4><p>${t.tip}</p></section><section class="w"><h4>Watch out</h4><p>${t.warn}</p></section></div>
+   <div class="pager">${prev?`<button data-go="${prev.id}">← ${prev.short}</button>`:'<span></span>'}${next?`<button data-go="${next.id}">${next.short} →</button>`:'<span></span>'}</div>`;
+  try{LIVE[t.live]($('#live-b'))}catch(e){$('#live-b').innerHTML='<p class="status">This demo could not start in your browser.</p>';console.error(e)}
+  panel.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{location.hash=b.dataset.go});
+  if(scroll){const y=panel.getBoundingClientRect().top+scrollY-70;scrollTo({top:Math.max(0,y)});panel.focus({preventScroll:true})}
+}
+const fromHash=()=>{const h=location.hash.slice(1);return TOOLS.some(t=>t.id===h)?h:TOOLS[0].id};
+addEventListener('hashchange',()=>render(fromHash(),true));
+render(fromHash(),false);
+</script>
+</body>
+</html>
