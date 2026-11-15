@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Giri’s Collection of AI tools for research and teaching: step-by-step walkthroughs and working demos of 12 AI and digital tools for university science, curated by Girinath G Pillai.">
+<meta name="description" content="Giri’s Collection of AI tools for research and teaching: step-by-step walkthroughs and working demos of 27 AI and digital tools for university science, curated by Girinath G Pillai.">
 <meta name="author" content="Girinath G Pillai">
 <script>try{var t=localStorage.getItem('giri-ai-tools-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 <style>
@@ -246,6 +246,117 @@ footer p{max-width:80ch;margin:0 0 8px}
 .disc ul{margin:0;padding-left:20px;display:grid;gap:7px;max-width:88ch;font-size:15px;color:var(--ink)}
 .disc li::marker{color:var(--muted)}
 .credit{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin-top:14px;color:var(--ink)}
+/* Home: category chooser */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:18px}
+.cat-card{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;gap:12px;padding:22px 22px 20px;border:1px solid var(--line);border-top:6px solid var(--c);border-radius:16px;background:var(--surface);min-width:0;font:inherit;color:var(--ink)}
+.cat-card:hover{border-color:var(--c)}
+.cat-card:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.cat-card .ce{font:600 12px/1.2 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--c)}
+.cat-card .cn{font:700 clamp(1.7rem,4vw,2.3rem)/1.1 var(--f-display);color:var(--ink)}
+.cat-card .cd{max-width:54ch}
+.cat-card .ct{display:flex;flex-wrap:wrap;gap:6px}
+.cat-card .ct span{font-size:13px;padding:3px 9px;border-radius:999px;background:var(--bg);border:1px solid var(--line)}
+.cat-card .cgo{margin-top:auto;font-weight:700;color:var(--c)}
+
+/* Category pages */
+.crumbs{display:flex;gap:6px 8px;align-items:center;flex-wrap:wrap;font-size:14px;color:var(--muted);margin-bottom:12px}
+.crumbs button{all:unset;cursor:pointer;color:var(--blue);text-decoration:underline;text-underline-offset:2px}
+.crumbs button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.cat-sum{max-width:74ch;margin:0}
+.grp-h{font-family:var(--f-display);font-size:1.05rem;margin:26px 0 10px}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:12px}
+.tcard{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;gap:6px;padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--surface);min-width:0;font:inherit;color:var(--ink)}
+.tcard:hover{border-color:var(--muted)}
+.tcard:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.tcard b{font-family:var(--f-display);font-size:16px;line-height:1.25}
+.tcard span{font-size:14px;color:var(--muted);line-height:1.4}
+.tcard small{display:flex;gap:6px;align-items:center;font:600 11px/1.3 var(--f-mono);letter-spacing:.03em;color:var(--ink)}
+.cmpw{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.cmp{border-collapse:collapse;width:100%;font-size:14.5px;min-width:600px}
+.cmp th,.cmp td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.cmp th{font:600 11px/1.3 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--screen)}
+.cmp tr:last-child td{border-bottom:0}
+.cmp .tl{all:unset;cursor:pointer;color:var(--blue);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+.cmp .tl:focus-visible{outline:2px solid var(--blue)}
+.chip.cat{font-weight:700}
+.chip.cat.cur{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+.navsep{flex:0 0 1px;align-self:stretch;background:var(--line);margin:4px 4px}
+
+/* New demo widgets */
+.meter{display:flex;height:24px;border-radius:6px;overflow:hidden;border:1px solid var(--line);background:var(--screen)}
+.meter span{display:block;height:100%}
+.mlegend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;font-variant-numeric:tabular-nums}
+.mlegend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px}
+.mt tr.dim td{opacity:.38}
+.pdf{border:1px solid var(--line);border-radius:8px;background:var(--bg);padding:12px 14px;font-size:15px;line-height:1.65}
+.pdf .src{font:600 11px var(--f-mono);text-transform:uppercase;color:var(--muted);letter-spacing:.06em;display:block;margin-bottom:4px}
+.sn{border-radius:3px;padding:1px 2px}
+.sn.on{background:var(--warn-soft);box-shadow:0 0 0 1px var(--warn)}
+.svgbox{overflow-x:auto}
+.svgbox svg{display:block;width:100%;min-width:540px;height:auto;background:var(--bg);border:1px solid var(--line);border-radius:8px}
+.svgbox svg text{font-family:var(--f-mono);font-size:11px;fill:var(--muted)}
+.svgbox .nd{cursor:pointer}
+.svgbox .nd:focus-visible{outline:none;stroke:var(--ink);stroke-width:3}
+.keylist{display:grid;gap:4px;font-size:14px;margin:0;padding-left:22px}
+.rabtabs{display:flex;gap:6px;flex-wrap:wrap}
+.rlist{display:grid;gap:6px}
+.rp{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);font-size:15px}
+.rp .t{all:unset;cursor:pointer;color:var(--ink);text-decoration:underline;text-decoration-color:var(--muted);text-underline-offset:3px;overflow-wrap:anywhere}
+.rp .t:focus-visible{outline:2px solid var(--blue)}
+.rp .add{font:600 12px var(--f-mono);border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);padding:5px 8px;cursor:pointer;white-space:nowrap}
+.rp .add[disabled]{opacity:.55;cursor:default}
+.trail{display:flex;flex-wrap:wrap;gap:4px 6px;align-items:center;font-size:13.5px;color:var(--muted)}
+.trail button{all:unset;cursor:pointer;color:var(--blue);text-decoration:underline}
+.doc{border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:14px 16px;font-size:16px;line-height:1.7;min-height:110px}
+.doc .ghost{color:var(--muted);font-style:italic;background:var(--blue-soft);border-radius:3px;padding:0 3px}
+.fm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:8px}
+.fm{border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--bg);display:grid;gap:2px;min-width:0}
+.fm span{font:600 11px/1.3 var(--f-mono);text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.fm b{font-weight:600;font-size:14.5px;overflow-wrap:anywhere}
+.gout{border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:14px 16px;display:grid;gap:8px;font-size:15px;min-width:0}
+.gout h4{margin:0;font-size:1rem}
+.gout ol,.gout ul{margin:0;padding-left:20px}
+.frayer{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.frayer div{border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--bg);font-size:14.5px}
+.frayer b{display:block;font:600 11px var(--f-mono);text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:3px}
+.checklist{display:grid;gap:9px}
+.checklist label{display:grid;grid-template-columns:20px minmax(0,1fr);gap:4px 8px;align-items:start;font-size:15px;cursor:pointer}
+.checklist input{width:17px;height:17px;margin:3px 0 0;accent-color:var(--accent)}
+.checklist .find{grid-column:2;font-size:14.5px;padding:7px 10px;border-radius:6px;background:var(--warn-soft)}
+.wcloud{display:flex;flex-wrap:wrap;gap:4px 16px;align-items:baseline;justify-content:center;padding:16px;border-radius:10px;background:var(--screen)}
+.wcloud span{font-family:var(--f-display);font-weight:700;color:var(--blue);line-height:1.15}
+.wcloud span.mis{color:var(--accent);text-decoration:underline wavy;text-underline-offset:4px}
+.slide{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:16px;display:grid;gap:12px}
+.slide-top{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font:600 12px var(--f-mono);color:var(--muted)}
+.tline{display:grid;gap:8px}
+.tline .ev{display:grid;grid-template-columns:minmax(118px,160px) minmax(0,1fr) minmax(86px,auto);gap:10px;align-items:center;font-size:14px;font-variant-numeric:tabular-nums}
+.tline .track{height:14px;border-radius:3px;background:var(--screen);position:relative;overflow:hidden}
+.tline .track b{position:absolute;top:0;bottom:0;left:0;border-radius:3px;background:var(--blue)}
+.tline .track b.paste{background:var(--accent)}
+.cm{border:1px solid var(--line);border-left:4px solid var(--ok);border-radius:8px;padding:9px 11px;background:var(--bg);display:grid;gap:7px;font-size:15px}
+.cm.grow{border-left-color:var(--warn)}
+.cm.gone{opacity:.45}
+.cm .acts{display:flex;gap:6px;flex-wrap:wrap}
+.para{font-size:15.5px;line-height:1.7;border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:var(--surface)}
+.para mark{background:var(--warn-soft);color:var(--ink);padding:0 2px;border-radius:2px}
+.poster{max-width:560px}
+.poster svg{display:block;width:100%;height:auto;border-radius:8px;border:1px solid var(--line)}
+.poster .hot{fill:transparent;stroke:transparent;stroke-width:3;cursor:pointer}
+.poster .hot:hover{stroke:var(--blue);stroke-dasharray:5 4}
+.poster .hot.found{stroke:var(--ok);stroke-dasharray:none}
+.poster .hot:focus-visible{outline:none;stroke:var(--blue)}
+.toggle-row{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center}
+.sw{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14.5px;cursor:pointer}
+.sw input{width:18px;height:18px;accent-color:var(--accent)}
+.badge{display:inline-block;font:600 11px/1.2 var(--f-mono);padding:3px 7px;border-radius:999px;background:var(--ok-soft);color:var(--ok);white-space:nowrap}
+.badge.no{background:var(--bad-soft);color:var(--bad)}
+.badge.b{background:var(--blue-soft);color:var(--blue)}
+.qcard{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--bg);display:grid;gap:6px;font-size:15px}
+.qcard.off{opacity:.5}
+.qcard .qh{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.qcard ol{margin:0;padding-left:22px;font-size:14.5px}
+.qcard li.ok{font-weight:700;color:var(--ok)}
+.gloss td:last-child{font-size:16px}
 @media (prefers-reduced-motion: reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -262,7 +373,7 @@ footer p{max-width:80ch;margin:0 0 8px}
   </div>
   <div class="kicker">Science teaching and research · hands-on</div>
   <h1>Giri’s Collection of AI tools for research and teaching</h1>
-  <p class="lede">Twelve tools, walked through step by step. For each tool you get what it is for, the exact steps with a drawing of the screen at each step, a working demo you can try right here, and a teaching tip. Every example uses real undergraduate and MSc science content: enzyme kinetics, Arrhenius, titration, projectile motion, protein structure.</p>
+  <p class="lede">Start by choosing Teaching or Research below, then pick a tool. Each tool comes with what it is for, the exact steps with a drawing of the screen at each step, a working demo you can try right here, a tip and a warning. Every example uses real undergraduate, MSc and research science content.</p>
   <div class="about"><b>About the screens.</b> They are drawings of each tool's workflow, made to show where things are and what to click. They are not captures of the live products, whose layouts and button names change often. Highlighted outlines mark the control to use. Every “Try it here” panel is a working demo that runs inside this page, using example data. Please read the <button type="button" class="linkbtn" id="to-disc">disclaimer</button> before using these materials.</div>
   <div class="legend">
     <span><i class="aud i"></i>Mainly for instructors</span>
@@ -280,8 +391,8 @@ footer p{max-width:80ch;margin:0 0 8px}
     <h2 id="disc-h">Disclaimer</h2>
     <ul>
       <li>This page is an educational resource. It shares practical ideas for using AI and digital tools in science teaching and research. It is not legal, professional or institutional policy advice.</li>
-      <li>It is not affiliated with, sponsored by or endorsed by any company or organisation whose tools are described, including OpenAI, Anthropic, Google, Google DeepMind, Isomorphic Labs, Turnitin (Gradescope), Elicit, Scite, the Allen Institute for AI (Semantic Scholar), UCSF (ChimeraX), the University of Colorado Boulder (PhET), the Virtual Labs project of the Ministry of Education, Government of India, Mentimeter and Poll Everywhere. All product names and trademarks belong to their owners.</li>
-      <li>The screens are illustrations, not captures of the real products. Features, button names, prices, free tiers and access terms change often, so check each tool’s own website before you rely on it.</li>
+      <li>It is not affiliated with, sponsored by or endorsed by any company or organisation whose tools are described, including OpenAI, Anthropic, Google, Google DeepMind, Isomorphic Labs, Microsoft, Perplexity, Consensus, Elicit, Scite, SciSpace, Litmaps, Connected Papers, ResearchRabbit, Jenni AI, the Allen Institute for AI (Semantic Scholar), Turnitin (Gradescope), MagicSchool, Eduaide.ai, QuestionWell, Canva, Brisk Teaching, Curipod, Diffit, Mentimeter, Poll Everywhere, UCSF (ChimeraX), the University of Colorado Boulder (PhET) and the Virtual Labs project of the Ministry of Education, Government of India. All product names and trademarks belong to their owners.</li>
+      <li>The screens are illustrations, not captures of the real products. Prices and plan limits on this page were checked in November 2026. Features, button names, prices, free tiers and access terms change often, so check each tool’s own website before you rely on it.</li>
       <li>The demos run entirely in your browser with invented data. Student answers, class votes, papers and datasets are fictional. Scientific values in the demos were checked by calculation, but verify anything you reuse in teaching or assessment.</li>
       <li>AI tools can produce confident but wrong answers. Check AI-generated content against primary sources before you teach, grade or publish with it.</li>
       <li>Follow your institution’s policies on AI use, data protection and academic integrity. Do not upload student personal data, marks or unpublished research to any tool without institutional approval.</li>
@@ -350,9 +461,9 @@ const TOOLS=[
  warn:'Students can turn learning modes off. Pair the tutor with a short no-device quiz in class so the preparation counts for something only real understanding can pass.'
 },
 {
- id:'notebook', short:'NotebookLM', aud:'s', eyebrow:'Source-grounded notebook · student and instructor',
- name:'NotebookLM as a course companion for a biochemistry lab',
- sum:'Load the lab manual, lecture slides and safety sheets into one notebook. Answers cite the exact passage they came from, and questions your sources do not cover get “not in your sources” rather than a guess.',
+ id:'notebook', short:'NotebookLM', aud:'s', eyebrow:'Source-grounded notebook · research and teaching',
+ name:'Google NotebookLM for your own papers and course materials',
+ sum:'Load a set of papers, a thesis draft, a lab manual or lecture slides into one notebook. Answers cite the exact passage they came from, and questions your sources do not cover get “not in your sources” rather than a guess. The walkthrough uses a biochemistry lab manual; the same steps work for a folder of research papers.',
  meta:[['Best for','Lab-manual Q&A, study guides, quizzes, flashcards, audio summaries'],['Access','Free with a Google account; extra limits with Google Workspace plans'],['Time','15 minutes to set up a course notebook'],['Site','<a href="https://notebooklm.google.com" target="_blank" rel="noopener">notebooklm.google.com</a>']],
  steps:[
   ['Create a notebook','Sign in with a Google account and create one notebook per course or per lab module.',
@@ -394,7 +505,7 @@ const TOOLS=[
  warn:'Grouping is based on how answers look. Always glance through each group, and keep a human decision on every final grade. Check that your institution allows student scripts on this platform.'
 },
 {
- id:'literature', short:'Literature AI', aud:'s', eyebrow:'Research tools · graduate students',
+ id:'literature', short:'Elicit · Scite · Semantic Scholar', aud:'s', eyebrow:'AI literature search and citation checking · research',
  name:'Elicit, Scite and Semantic Scholar for a literature review',
  sum:'MSc students map the literature on heat stress and photosynthesis in rice: Elicit finds papers and extracts data into a table, Scite shows how each key paper has been cited, and Semantic Scholar keeps a library with alerts. Then they check every extracted value against the PDF.',
  meta:[['Best for','Systematic-review training, thesis background chapters, journal clubs'],['Access','Semantic Scholar is free; Elicit and Scite have free tiers with limits'],['Time','One 2-hour practical'],['Sites','<a href="https://elicit.com" target="_blank" rel="noopener">elicit.com</a> · <a href="https://scite.ai" target="_blank" rel="noopener">scite.ai</a> · <a href="https://www.semanticscholar.org" target="_blank" rel="noopener">semanticscholar.org</a>']],
@@ -953,32 +1064,861 @@ document.getElementById('to-disc').addEventListener('click',()=>{
   d.scrollIntoView({block:'start'});d.setAttribute('tabindex','-1');d.focus({preventScroll:true});
 });
 
-/* ---------- page assembly ---------- */
-const chips=$('#chips'), panel=$('#panel');
+/* ---------- new tools: research and teaching ---------- */
+function mapSketch(){return `<svg viewBox="0 0 240 100" width="100%" height="100" aria-hidden="true"><line x1="12" y1="90" x2="232" y2="90" stroke="var(--line)"/><line x1="12" y1="8" x2="12" y2="90" stroke="var(--line)"/><g stroke="var(--muted)" stroke-width="1"><line x1="40" y1="22" x2="90" y2="30"/><line x1="90" y1="30" x2="140" y2="48"/><line x1="90" y1="30" x2="180" y2="66"/><line x1="40" y1="22" x2="140" y2="48"/></g><g fill="var(--blue)"><circle cx="40" cy="22" r="6"/><circle cx="140" cy="48" r="5"/><circle cx="180" cy="66" r="4"/></g><circle cx="90" cy="30" r="7" fill="var(--accent)"/><circle cx="215" cy="80" r="4" fill="none" stroke="var(--blue)" stroke-dasharray="2 2"/></svg><div class="mrow" style="font-size:12px;color:var(--muted)">← older · newer → · higher = more cited</div>`}
+function graphSketch(){return `<svg viewBox="0 0 240 110" width="100%" height="110" aria-hidden="true"><g stroke="var(--line)" stroke-width="1.5"><line x1="120" y1="55" x2="60" y2="30"/><line x1="120" y1="55" x2="70" y2="85"/><line x1="120" y1="55" x2="175" y2="30"/><line x1="120" y1="55" x2="190" y2="80"/><line x1="60" y1="30" x2="70" y2="85"/><line x1="175" y1="30" x2="215" y2="55"/></g><circle cx="60" cy="30" r="13" fill="var(--blue)" opacity=".35"/><circle cx="70" cy="85" r="10" fill="var(--blue)" opacity=".45"/><circle cx="175" cy="30" r="9" fill="var(--blue)" opacity=".7"/><circle cx="190" cy="80" r="7" fill="var(--blue)" opacity=".85"/><circle cx="215" cy="55" r="5" fill="var(--blue)"/><circle cx="120" cy="55" r="11" fill="var(--blue)" opacity=".6" stroke="var(--accent)" stroke-width="3"/></svg>`}
+
+const NEW_TOOLS=[
+/* ===== Research ===== */
+{
+ id:'consensus', short:'Consensus', aud:'s', eyebrow:'AI academic search engine · research',
+ name:'Consensus for evidence-based questions',
+ sum:'Ask a research question in plain language. Consensus searches about 200 million papers drawn from OpenAlex and Semantic Scholar, summarises the top results, and shows a Consensus Meter of how many papers say yes, no or mixed. Treat the meter as a starting point: it counts papers, it does not weigh them.',
+ meta:[['Best for','Scoping a question, finding key studies quickly, journal clubs'],['Access','Free tier with limited Pro and Deep searches; paid plans from about US$10/month'],['Time','10 minutes per question'],['Site','<a href="https://consensus.app" target="_blank" rel="noopener">consensus.app</a>']],
+ steps:[
+  ['Ask a full question','Type the question in plain language. A question with a yes or no answer gives you the Consensus Meter. Choose Quick, Pro or Deep: deeper modes read more papers and use more of your allowance.',
+   S('consensus.app', `${I('Does elevated CO₂ increase wheat grain yield?','hl')}<div class="mrow">${B('Quick')}${B('Pro','hl')}${B('Deep')}${P(1)}</div>`,'Pro summarises up to about 20 papers; Deep up to about 50.')],
+  ['Read the summary and the meter','The answer cites each paper it uses. The Consensus Meter sorts the papers into Yes, Possibly, Mixed and No.',
+   S('results', `${A('Most studies report higher wheat yields under elevated CO₂ <span class="cite">1</span><span class="cite">2</span>, but field trials show smaller gains than enclosure studies <span class="cite">5</span>.','Consensus')}<div class="bars"><div><span>Y</span><b style="width:50%;background:var(--ok)"></b><span>50%</span></div><div><span>P</span><b style="width:25%;background:var(--blue)"></b><span>25%</span></div><div><span>M</span><b style="width:13%;background:var(--warn)"></b><span>13%</span></div><div><span>N</span><b style="width:13%;background:var(--bad)"></b><span>13%</span></div></div>`,'Illustrative meter: Yes, Possibly, Mixed, No.')],
+  ['Filter by study design and quality','Use the filters for study design, sample size, year, journal rank and preprints. Medical mode limits results to leading medical journals and guidelines.',
+   S('filters', `<div class="mrow">${B('Study design: field trial','hl')}${B('Sample size ≥ 100')}${B('2015–2026')}${B('Exclude preprints')}</div>`,'Change one filter at a time and watch the meter.')],
+  ['Open study snapshots, then the papers','Snapshots list the population, methods, sample size and outcome, extracted by AI. Use them to decide what to read, then read the paper.',
+   S('study snapshot', T(['Field','Extracted'],[['Design','FACE field trial'],['Sample','12 plot-seasons'],['Outcome','Grain yield +10%'],['Population','Spring wheat, 3 seasons']]),'Snapshots can misclassify designs: check the methods section.')],
+  ['Keep a search record','Results and rankings shift a little between runs. Note the date, the exact question, the mode and the filters, so you or a reviewer can follow what you did.',
+   S('your notes', I('16 Nov 2026 · “Does elevated CO₂ increase wheat grain yield?” · Pro · field trials only · 2000–2026 · 18 papers screened'),'A one-line log per search is enough.')]
+ ],
+ live:'consensus', liveTitle:'Watch the meter change with study quality', liveSub:'Eight invented papers on CO₂ and wheat yield',
+ tip:'Use the meter to start a journal-club discussion: ask students why the papers disagree before they touch the filters.',
+ warn:'The meter is vote counting. It ignores sample size, effect size and study quality, and it can mirror publication bias. Rankings also change slightly between runs, so it cannot replace a documented systematic search.'
+},
+{
+ id:'perplexity', short:'Perplexity', aud:'s', eyebrow:'AI answer engine · research',
+ name:'Perplexity for quick, sourced answers',
+ sum:'An answer engine that searches the web and replies with numbered sources. The Academic source option leans towards scholarly material, Research mode writes longer reports, and Projects keep files and threads together. It is quick for getting oriented, but it is not a literature search.',
+ meta:[['Best for','Quick orientation, grey literature, checking current facts'],['Access','Free with limited Pro searches; Education Pro about US$10/month for verified students and educators'],['Time','Minutes'],['Site','<a href="https://www.perplexity.ai" target="_blank" rel="noopener">perplexity.ai</a>']],
+ steps:[
+  ['Choose Academic sources','Open the source menu and pick Academic so the answer leans towards scholarly material.',
+   S('perplexity.ai', `${I('How much does heat stress reduce rice yields?')}<div class="mrow">${B('Sources: Web')}${B('Academic','hl')}${P(1)}</div>`,'Source labels describe websites, not individual pages.')],
+  ['Read the answer and open the sources','Each sentence carries numbered sources. Open them and check whether each is a study, a review, or news about a study.',
+   S('answer', A('Each 1 °C rise in night temperature cut yield by about 10% in one field study <span class="cite">1</span>. Some reports say heat could halve harvests <span class="cite">2</span>.','Perplexity'),'Source 2 here is a news article. Try the demo.')],
+  ['Use Research mode for a longer report','Research mode runs many searches and writes a structured report you can export. It does not record what it left out.',
+   S('research mode', `<div class="mrow">${B('Research','hl')}${B('Export PDF')}</div><div class="note">Not a systematic search: no record of excluded sources</div>`,'Good for orientation, not for a methods section.')],
+  ['Keep your own log; use Projects','Group related threads and files in a project, and note your queries and dates yourself.',
+   S('project', `<div class="side"><div class="it on">Project: Heat stress review</div><div class="it">Thread: night temperature</div><div class="it">File: protocol.pdf</div></div>`,'Do not upload unpublished or identifiable data.')]
+ ],
+ live:'perplexity', liveTitle:'Which claim needs a better source?', liveSub:'Invented answer and sources for practice',
+ tip:'Ask students to label every source in an answer: primary study, review, news or press release. Then ask which claims rest only on news.',
+ warn:'A citation shows where text came from, not that the source supports the claim or is peer-reviewed. Answers can rest on abstracts, press releases or news reports of a study.'
+},
+{
+ id:'connected', short:'Connected Papers', aud:'s', eyebrow:'Literature mapping · research',
+ name:'Connected Papers for a quick visual overview',
+ sum:'Enter one paper and get a graph of the papers most similar to it. Similarity comes from co-citation and bibliographic coupling in the Semantic Scholar corpus, so two papers can sit close together without citing each other. The Prior works and Derivative works lists point to the classics and the newest follow-ups.',
+ meta:[['Best for','Getting oriented in a new topic in minutes'],['Access','Free account: 5 graphs a month; Academic about US$6/month (billed yearly)'],['Time','5 minutes'],['Site','<a href="https://www.connectedpapers.com" target="_blank" rel="noopener">connectedpapers.com</a>']],
+ steps:[
+  ['Enter one origin paper','Paste a title, DOI, arXiv or PubMed link and build the graph.',
+   S('connectedpapers.com', `${I('Photosynthesis under short heat waves in rice','hl')}<div class="mrow">${B('Build a graph','dark')}</div>`,'One graph per origin paper.')],
+  ['Read the graph','Each circle is a paper. Bigger means more citations; darker means more recent; papers placed close together are more similar.',
+   S('graph', graphSketch(),'Similarity comes from shared references and shared citing papers.')],
+  ['Open Prior works and Derivative works','Prior works are classics that many papers in the graph cite. Derivative works are recent papers that cite many papers in the graph.',
+   S('side panel', `<div class="mrow">${B('Prior works','hl')}${B('Derivative works')}</div><div class="side"><div class="it">Temperature response of rice photosynthesis (1996)</div><div class="it">Heat at anthesis and spikelet fertility (2008)</div></div>`,'Prior works point to foundations you should know.')],
+  ['Save what is useful','Open a paper in Semantic Scholar, or export the list as BibTeX for your reference manager.',
+   S('export', `<div class="mrow">${B('Export BibTeX','hl')}${B('Open in Semantic Scholar')}</div>`,'Free accounts get 5 graphs a month.')]
+ ],
+ live:'cgraph', liveTitle:'Explore a similarity graph', liveSub:'Invented practice papers on heat stress in rice',
+ tip:'Give pairs the same origin paper and ask them to explain why two nearby papers count as similar even though neither cites the other.',
+ warn:'The graph shows similarity, not a citation tree and not agreement. One origin paper gives one neighbourhood; build graphs from two or three seeds before you decide a field is covered.'
+},
+{
+ id:'litmaps', short:'Litmaps', aud:'s', eyebrow:'Literature mapping · research',
+ name:'Litmaps for mapping and monitoring a literature',
+ sum:'Start from one or more seed papers. Litmaps places papers by year across and citations up, links papers that cite each other, and suggests related papers you have not found yet. Saved maps can send alerts when new papers connect to them.',
+ meta:[['Best for','Thesis literature chapters; keeping up with a field'],['Access','Free: 2 maps, up to 100 articles each, monthly alerts; Pro about US$10/month'],['Time','20 minutes to a first map'],['Site','<a href="https://www.litmaps.com" target="_blank" rel="noopener">litmaps.com</a>']],
+ steps:[
+  ['Add seed papers','Search by title or DOI, or import a set from Zotero or a BibTeX file. Several seeds give a fuller map.',
+   S('litmaps.com', `${I('Search title or DOI','hl')}<div class="mrow">${B('Search')}${B('Import .bib')}${P(1)}</div>`,'Start with 2–5 papers you trust.')],
+  ['Read the map','Papers sit by year (left to right) and citation count (bottom to top). Lines connect papers that cite each other.',
+   S('map', mapSketch(),'Older, highly cited papers sit top left.')],
+  ['Explore suggested papers','The explore view proposes connected papers that are not yet in your map. Add the relevant ones and the map grows.',
+   S('explore', `<div class="side"><div class="it">+ Canopy temperature depression as a heat-tolerance trait (2015)</div><div class="it on">+ QTL for heat tolerance at flowering (2016)</div><div class="it">+ Field warming trial in South Asian rice (2019)</div></div>`,'Add papers one at a time and watch the links.')],
+  ['Save the map and turn on alerts','Saved maps can email you when new papers connect to them: monthly on the free plan.',
+   S('monitor', `<div class="mrow"><span class="toggle hl"><i></i>Monitor this map</span>${B('Monthly alerts')}</div>`,'Free plan: 2 maps, up to 100 articles each.')],
+  ['Export to your reference manager','Export the papers as BibTeX or RIS for Zotero, Mendeley or EndNote.',
+   S('export', `<div class="mrow">${B('BibTeX','hl')}${B('RIS')}${B('CSV')}</div>`,'Keep your reference manager as the master list.')]
+ ],
+ live:'litmap', liveTitle:'Grow and monitor a literature map', liveSub:'Invented practice papers on heat stress in rice',
+ tip:'Have each MSc student build a map for their thesis topic in week 1 and present the three most connected papers they had not known about.',
+ warn:'Citation links show influence, not quality or agreement. Recent papers sit low on the map simply because they have had little time to be cited.'
+},
+{
+ id:'rabbit', short:'ResearchRabbit', aud:'s', eyebrow:'Literature mapping · research',
+ name:'ResearchRabbit for building a shared collection',
+ sum:'Add seed papers to a collection, then follow Similar, Earlier and Later work to discover more. Each step takes you deeper, and the trail shows how you got there. Collections can be shared with your lab, and the free plan covers a full literature review.',
+ meta:[['Best for','Building and sharing a reading list with a research group'],['Access','Free: unlimited searches and collections, up to 50 seed articles; RR+ about US$10/month (yearly), with country-based discounts'],['Time','30 minutes'],['Site','<a href="https://www.researchrabbit.ai" target="_blank" rel="noopener">researchrabbit.ai</a>']],
+ steps:[
+  ['Create a collection and add seeds','Name a collection for your project, then search for papers or import them from Zotero.',
+   S('researchrabbit.ai', `<div class="mrow">${B('+ New collection','dark hl')}${B('Import from Zotero')}</div>${I('Heat stress · rice photosynthesis')}`,'Free plan: up to 50 seed articles.')],
+  ['Follow Similar, Earlier and Later work','Earlier work is what your seeds build on; later work builds on them; similar work shares their neighbourhood.',
+   S('explore', `<div class="mrow">${B('Similar work','hl')}${B('Earlier work')}${B('Later work')}${B('These authors')}</div>`,'Each step takes you one level deeper.')],
+  ['Add good papers to the collection','Added papers feed the next search. Autosave can file every paper you use as a seed into a chosen subcollection.',
+   S('collection', `<div class="side"><div class="it on">✓ Photosynthesis under short heat waves (2012)</div><div class="it on">✓ Heat at anthesis and spikelet fertility (2008)</div><div class="it">+ Field warming trial in South Asian rice (2019)</div></div>`,'Notes stay attached to each paper.')],
+  ['Share the collection','Share as viewer or editor, or create a public link. Sharing is part of the free plan.',
+   S('share', `<div class="mrow">${B('Share','dark hl')}${B('Viewer')}${B('Editor')}${B('Public link')}</div>`,'One shared collection per lab project works well.')]
+ ],
+ live:'rabbit', liveTitle:'Go down a rabbit hole and build a collection', liveSub:'Invented practice papers on heat stress in rice',
+ tip:'Keep one shared collection per lab project. New students start from the collection instead of a blank search.',
+ warn:'Discovery follows citations, so papers outside well-cited networks, such as regional journals, theses and very new work, can be missed. Papers with missing details cannot be used as seeds.'
+},
+{
+ id:'scispace', short:'SciSpace', aud:'s', eyebrow:'AI reading and extraction · research',
+ name:'SciSpace for reading and extracting from papers',
+ sum:'Search over 280 million papers, chat with a PDF, and pull the same details out of many papers into one table. SciSpace also has an AI writer, a citation generator, and an agent that runs multi-step tasks on credits.',
+ meta:[['Best for','Reading hard papers, extraction tables, thesis background'],['Access','Free Basic plan with 100 agent credits a month; Premium from US$12/month (yearly)'],['Time','1 hour for a 10-paper table'],['Site','<a href="https://scispace.com" target="_blank" rel="noopener">scispace.com</a>']],
+ steps:[
+  ['Search a question or upload a paper','Start from a research question to get a table of relevant papers, or upload a PDF you need to understand.',
+   S('scispace.com', `${I('How does salinity affect chlorophyll content in legumes?','hl')}<div class="mrow">${B('Search','dark')}${B('Upload PDF')}${P(1)}</div>`,'Search covers over 280 million papers.')],
+  ['Chat with the PDF and open the cited passage','Ask specific questions. Each answer points to a passage: open it and read the sentence yourself.',
+   S('chat with PDF', `${U('What was the sample size?')}${A('Six pots per treatment, three plants per pot <span class="cite hl">p. 4</span>','SciSpace')}`,'Tap the page reference to jump to the passage.')],
+  ['Extract the same details from many papers','Add columns such as species, salt concentration, duration and outcome. Export as CSV, Excel or BibTeX.',
+   S('literature review table', T(['Paper','Species','NaCl','Chlorophyll'],[['Practice paper A','Mung bean','150 mM','−41%'],['Practice paper B','Chickpea','100 mM','−23%'],['Practice paper C','Lentil','80 mM','not reported']])+`<div class="mrow">${B('+ Add column','hl')}${B('Export CSV')}</div>`,'Up to 50 columns per table.')],
+  ['Use the agent for multi-step tasks','The agent can search, summarise, extract and draft in one request. Each task uses credits, and the free plan runs one task at a time.',
+   S('agent', `${I('Find 10 field studies on salt stress in mung bean since 2015, put the yield effects in a table, and draft a 200-word summary.')}<div class="note">Uses credits · check every row before you use it</div>`,'Treat the result as a draft to verify.')],
+  ['Check citations before you use them','Correct formatting does not mean correct details. Check authors, year and DOI, and that the paper says what you cite it for.',
+   S('citation check', `<div class="note ok">✓ DOI resolves to the same paper</div><div class="note bad">✗ Year in citation 2021; paper published 2020</div>`,'A quick DOI check catches most errors.')]
+ ],
+ live:'pdfchat', liveTitle:'Check the answers against the paper', liveSub:'An invented methods and results excerpt',
+ tip:'Ask students to paste the exact sentence that supports each answer. If they cannot find it, the answer does not count.',
+ warn:'Chat answers can drop qualifications, misread tables or merge sections. The built-in AI detector gives a probability, not proof, so never use it as evidence of misconduct.'
+},
+{
+ id:'jenni', short:'Jenni AI', aud:'s', eyebrow:'AI writing assistant · research',
+ name:'Jenni AI for drafting with citations',
+ sum:'An academic writing editor that suggests the next sentence, inserts citations from your library or a search, and lets you chat with your PDFs. It speeds up drafting, and it can also put words in your mouth that your sources do not support.',
+ meta:[['Best for','Drafting thesis chapters and reviews from your own sources'],['Access','Free: 10 autocompletes a day and 5 chat messages; Plus about US$12/month'],['Time','Ongoing'],['Site','<a href="https://jenni.ai" target="_blank" rel="noopener">jenni.ai</a>']],
+ steps:[
+  ['Write your own outline first','Start a document and set the headings yourself. Ask Jenni to challenge your outline, not to write it.',
+   S('jenni.ai', I('<b>Introduction</b> · Heat stress in cereals · Mechanisms · Gaps in knowledge'),'Your structure, your argument.')],
+  ['Import your library','Bring in references from Zotero, Mendeley, BibTeX, RIS or DOIs, and upload the PDFs you will cite.',
+   S('library', `<div class="mrow">${B('Import Zotero','hl')}${B('Upload PDF')}${B('Add DOI')}</div>`,'Citing from your own library is safer than citing from search.')],
+  ['Accept, reject or rewrite suggestions','Suggestions appear in grey after your cursor. Treat them as prompts, not finished sentences.',
+   S('editor', `<div class="mi">Rising temperatures threaten cereal production. <span style="color:var(--muted);font-style:italic">Heat stress therefore halves rice yields (Practice paper 1).</span></div><div class="mrow">${B('Accept')}${B('Reject','hl')}</div>`,'Try three suggestions in the demo below.')],
+  ['Check every inserted citation','Open the source and confirm it supports that exact claim.',
+   S('source', `<div class="note bad">The source measured photosynthesis (−18%) in one pot experiment. It does not report yields.</div>`,'Overstated claims are the most common problem.')],
+  ['Disclose AI use','Follow your university’s and the journal’s policies on AI disclosure in theses and papers.',
+   S('acknowledgement', I('Jenni AI was used for sentence suggestions and citation formatting. All claims and sources were checked by the author.'),'Keep it short and specific.')]
+ ],
+ live:'jenni', liveTitle:'Accept, reject or check three suggestions', liveSub:'Invented library of two practice papers',
+ tip:'Ask students for a claim-and-source table for one chapter: each cited sentence, the passage it cites, and whether the passage supports it fully, partly or not at all.',
+ warn:'Fluent prose can overstate a source. You stay responsible for every claim and reference. Do not upload unpublished manuscripts or participant data unless your institution allows it.'
+},
+/* ===== Teaching ===== */
+{
+ id:'copilot', short:'Microsoft Copilot', aud:'i', eyebrow:'AI assistant in Microsoft 365 · teaching',
+ name:'Microsoft Copilot on a Microsoft 365 campus',
+ sum:'Many universities run Microsoft 365, and Copilot Chat comes with education accounts for staff and for students aged 13 and over. Educators can draft lesson plans, rubrics and quizzes with Teach in the Microsoft 365 Copilot app. From mid-November 2026, IT admins can also restrict students to a Study and Learn tutor mode.',
+ meta:[['Best for','Institutions on Microsoft 365; drafting in Word, PowerPoint and Forms'],['Access','Copilot Chat with Microsoft 365 education accounts; the full Microsoft 365 Copilot is a paid academic licence'],['Sign in','Use your university account so its data protection applies'],['Site','<a href="https://copilot.microsoft.com" target="_blank" rel="noopener">copilot.microsoft.com</a>']],
+ steps:[
+  ['Sign in with your university account','Use Copilot with your work or school account. A shield label shows that enterprise data protection applies to the chat.',
+   S('copilot.microsoft.com', `<div class="mrow">${B('Protected','hl')}${B('Work or school account')}</div>`,'With a personal account, your institution’s protections do not apply.')],
+  ['Use Teach to draft materials','Educators can create lesson plans, rubrics and quizzes, and adapt text to different reading levels, grounded in files they choose.',
+   S('Teach', `<div class="mrow">${B('Lesson plan')}${B('Rubric','hl')}${B('Quiz')}${B('Reading level')}</div>${I('Ground in: Lecture 7 – Enzyme kinetics.pptx')}`,'Availability depends on your institution’s setup.')],
+  ['Turn a quiz into Microsoft Forms','Send a generated quiz to Forms to collect answers and mark automatically.',
+   S('Forms', `<div class="mrow">${B('Create in Forms','dark hl')}${B('Shuffle answers')}</div>`,'Check every answer key in Forms before sharing.')],
+  ['Ask IT about Study and Learn-only mode','Admins can restrict student Copilot Chat to the Study and Learn tutor, which guides rather than gives answers.',
+   S('Microsoft 365 admin centre', `<div class="mrow"><span class="toggle hl"><i></i>Study and Learn-only for students</span></div>`,'Rolling out mid-November to mid-December 2026.')]
+ ],
+ live:'copilot', liveTitle:'One question, two modes', liveSub:'Scripted responses for illustration',
+ tip:'Check with your IT team which Copilot features your licence includes before you design a course around them.',
+ warn:'Feature names and availability change often and depend on your institution’s licence and admin settings. Data protection applies only when you sign in with your work or school account.'
+},
+{
+ id:'magicschool', short:'MagicSchool', aud:'i', eyebrow:'AI teacher platform · teaching',
+ name:'MagicSchool for ready-made teaching materials',
+ sum:'A teacher platform with dozens of single-purpose generators, such as lesson plans, rubrics, multiple-choice quizzes, worksheets and presentations, plus Raina, a chatbot, and MagicStudent for students. It is built for schools, so for university classes state the level yourself and ignore the school standards menus.',
+ meta:[['Best for','Fast first drafts of rubrics, quizzes and lesson outlines'],['Access','Free teacher plan; paid Plus and school plans'],['Time','5 minutes per resource'],['Site','<a href="https://www.magicschool.ai" target="_blank" rel="noopener">magicschool.ai</a>']],
+ steps:[
+  ['Pick a tool','Search the tool list: Lesson Plan, Rubric Generator, Multiple Choice Quiz, Worksheet, Presentation and more.',
+   S('magicschool.ai', `${I('Search tools: rubric','hl')}<div class="mrow">${B('Rubric Generator','hl')}${B('Multiple Choice Quiz')}${B('Lesson Plan')}${B('Text Rewriter')}</div>`,'Each tool is a short form.')],
+  ['Fill the form with university detail','The grade menu stops at school levels. Choose the highest level and write the real level and outcomes in the extra-context box.',
+   S('form', `<div class="mrow">${B('Grade: 12+')}</div>${I('Additional context: 2nd-year BSc biochemistry. Outcomes: fit Michaelis–Menten data; report Km and Vmax with uncertainty.','hl')}`,'The context box matters more than the menu.')],
+  ['Generate and edit','Edit the output directly, or ask Raina to revise it, then export.',
+   S('output', `${A('<b>Rubric: lab report</b> · 4 criteria × 4 levels','MagicSchool')}<div class="mrow">${B('Copy')}${B('Export to Google Docs')}${B('Revise with Raina')}</div>`,'Export goes straight to Docs or Word.')],
+  ['Review before you share','Check accuracy, level and fit with your outcomes. The demo shows what reviews typically catch.',
+   S('checklist', `<div class="note">☐ Science correct · ☐ Observable descriptors · ☐ Matches outcomes</div>`,'Three minutes of checking saves a class of confusion.')]
+ ],
+ live:'magicschool', liveTitle:'Generate, then review', liveSub:'Pre-written example outputs with planted problems',
+ tip:'Paste your own learning outcomes into the extra-context box. Output quality depends more on that box than on the tool you pick.',
+ warn:'Output targets school students by default. Check level, accuracy and units, and never paste student names or marks.'
+},
+{
+ id:'eduaide', short:'Eduaide.ai', aud:'i', eyebrow:'AI teacher platform · teaching',
+ name:'Eduaide.ai for varied activity formats',
+ sum:'More than 100 resource formats, from graphic organisers and discussion prompts to games and assessments, plus a feedback bot and translation into 15+ languages. Useful when you want a different kind of activity for the same content.',
+ meta:[['Best for','Varying activities in tutorials and flipped classes'],['Access','Free: about 15 generations a month; Pro US$5.99/month'],['Time','5 minutes'],['Site','<a href="https://www.eduaide.ai" target="_blank" rel="noopener">eduaide.ai</a>']],
+ steps:[
+  ['Enter topic and context','Type the topic, the level and what students already know.',
+   S('eduaide.ai', I('Topic: Enzymes · Level: 1st-year BSc · Prior knowledge: proteins, activation energy','hl'),'Context drives quality.')],
+  ['Choose a resource format','Pick from over 100 formats, including graphic organisers, discussion prompts, games, error analysis, exit tickets and assessments.',
+   S('formats', `<div class="mrow">${B('Frayer model','hl')}${B('Error analysis')}${B('Exit ticket')}${B('Socratic seminar')}${B('Quiz game')}</div>`,'Same content, different activity.')],
+  ['Refine in the chat','Ask for changes: harder, shorter, with a worked example, or in another language.',
+   S('chat', `${U('Add a non-example that students often confuse with enzymes.')}${A('Added: hydrochloric acid, a catalyst but not biological.','Eduaide')}`,'Translation covers 15+ languages.')],
+  ['Export','Send it to Google Docs or Word, or download a PDF.',
+   S('export', `<div class="mrow">${B('Google Docs','hl')}${B('Word')}${B('PDF')}</div>`,'Free plan: about 15 generations a month.')]
+ ],
+ live:'eduaide', liveTitle:'Three formats, one review habit', liveSub:'Pre-written example outputs with planted problems',
+ tip:'Use one topic in three formats across a week: a Frayer model before class, an error-analysis task in the tutorial, and an exit ticket at the end.',
+ warn:'Check the science in every generated item. Marketing claims about research-backed design are not evidence for your context.'
+},
+{
+ id:'canva', short:'Canva Magic Studio', aud:'i', eyebrow:'AI design tools · teaching',
+ name:'Canva Magic Studio for visual materials',
+ sum:'Canva’s AI tools include Magic Write for text, Magic Design for layouts, Magic Media for images, Magic Switch to turn a design into another format, and Translate. They are good for posters, slides and infographics, and risky for scientific diagrams, where AI images often get details wrong.',
+ meta:[['Best for','Lab-safety posters, slide decks, infographics, translations'],['Access','Canva for Education is free for verified K–12 teachers. University staff use Canva Free (limited AI use), Canva Pro, or an institutional Canva for Campus licence'],['Time','15–30 minutes'],['Site','<a href="https://www.canva.com" target="_blank" rel="noopener">canva.com</a>']],
+ steps:[
+  ['Start from a template or Magic Design','Describe what you need, or upload an image, and Magic Design suggests layouts.',
+   S('canva.com', `${I('Lab safety poster for first-year chemistry: heating a test tube','hl')}<div class="mrow">${B('Magic Design','dark')}</div>`,'Templates are faster for standard formats.')],
+  ['Draft text with Magic Write','Generate or shorten text inside the design. Proofread it: text inside AI images is often misspelt.',
+   S('Magic Write', `${U('Write 4 short safety rules for heating a test tube.')}${A('1. Wear safety goggles. 2. Point the mouth away from everyone. 3. Fill no more than a third. 4. Use a blue flame and keep the tube moving.','Magic Write')}`,'Always proofread headings.')],
+  ['Generate or edit images with care','Magic Media makes images, and Magic Edit and Magic Grab change parts of them. Treat any image of apparatus as suspect until you have checked it.',
+   S('Magic Media', `<div class="blob" style="height:80px;display:grid;place-items:center;color:var(--muted)">AI image</div><div class="note bad">Check: goggles? tube direction? flame colour? fill level?</div>`,'Try the spot-the-errors demo below.')],
+  ['Switch format and translate','Magic Switch turns a design into another format, such as a poster into slides or a handout. Translate converts the text into another language.',
+   S('Magic Switch', `<div class="mrow">${B('Presentation')}${B('A4 handout','hl')}${B('Translate: Hindi')}</div>`,'Check translated scientific terms.')],
+  ['Check accuracy and accessibility','Check every label, the colour contrast and font sizes, and add alt text before sharing.',
+   S('final check', `<div class="note ok">✓ Labels checked · ✓ Contrast · ✓ Alt text</div>`,'Accessible materials help everyone.')]
+ ],
+ live:'canva', liveTitle:'Spot the errors in an AI-made poster', liveSub:'An illustration of typical AI image mistakes',
+ tip:'For scientific figures, draw them yourself or use licensed diagrams. Use AI images only for decoration.',
+ warn:'AI images of apparatus and anatomy are often wrong in ways students will copy. Check every label, and follow Canva’s and your institution’s rules on student accounts.'
+},
+{
+ id:'questionwell', short:'QuestionWell', aud:'i', eyebrow:'AI question generator · teaching',
+ name:'QuestionWell for questions from your own reading',
+ sum:'Give it a text, PDF or video and it drafts questions, a summary and learning objectives, which you then pick from and export to your quiz platform. Because questions come from your source, they match what students actually read.',
+ meta:[['Best for','Reading quizzes, pre-lecture checks, question banks'],['Access','Free and paid plans; school pricing by quote'],['Time','10 minutes per reading'],['Site','<a href="https://www.questionwell.org" target="_blank" rel="noopener">questionwell.org</a>']],
+ steps:[
+  ['Add your source material','Paste text, upload a PDF, or add a video: the reading or lecture students actually use.',
+   S('questionwell.org', `${I('Paste text, upload a PDF, or add a video link','ph')}<div class="mrow">${B('Paste text','hl')}${B('Upload PDF')}${B('Video')}</div>`,'Questions will come from this source.')],
+  ['Generate questions, a summary and objectives','Choose question types and how many. It also drafts learning objectives from the text.',
+   S('generate', `<div class="mrow">${B('Multiple choice','hl')}${B('Short answer')}${B('Count: 10')}</div>${A('Objective: Explain why PCR needs a heat-stable polymerase.','QuestionWell')}`,'Ask for more questions than you need.')],
+  ['Keep the good ones','Drop questions a student could answer without the reading, and fix weak distractors.',
+   S('review', T(['Question','Keep?'],[['At what temperature does denaturation occur?','✓'],['What does PCR stand for?',{c:'flag',t:'Drop: no reading needed'}]]),'Aim for a mix of Bloom levels.')],
+  ['Export to your quiz tool','Export to the platform you use. The list of export formats varies by plan, so check it in the app.',
+   S('export', `<div class="mrow">${B('Export','dark hl')}${B('Google Forms')}${B('Canvas')}${B('CSV')}</div>`,'The demo below also builds Moodle GIFT text.')]
+ ],
+ live:'qwell', liveTitle:'Pick questions and export them', liveSub:'A short reading on PCR with generated-style questions',
+ tip:'Ask for more questions than you need and keep only those that need the reading to answer.',
+ warn:'Generated questions lean towards recall. Add your own analyse and evaluate questions, and check every answer key.'
+},
+{
+ id:'diffit', short:'Diffit', aud:'i', eyebrow:'AI differentiation · teaching',
+ name:'Diffit for levelled readings',
+ sum:'Give Diffit a topic, text, URL or PDF and it rewrites the passage at a chosen reading level, with vocabulary, a summary and questions. It can translate too. Useful for first-year classes with mixed schooling, including students who studied in an Indian language.',
+ meta:[['Best for','Bridging readings, multilingual classes, support material'],['Access','Free Basic plan; Diffit for Schools by quote'],['Time','5 minutes'],['Site','<a href="https://web.diffit.me" target="_blank" rel="noopener">diffit.me</a>']],
+ steps:[
+  ['Paste a text or enter a topic','Paste a passage, a URL or a PDF, or type a topic and Diffit writes a source text.',
+   S('diffit', I('Paste text, a URL, or a topic: competitive inhibition of enzymes','hl'),'Use your own reading where possible.')],
+  ['Choose the level and language','Pick a reading level and, if needed, a language for the passage and resources.',
+   S('settings', `<div class="mrow">${B('Level: lower','hl')}${B('Language: English')}${B('Language: Hindi')}</div>`,'Translation quality varies by language.')],
+  ['Review the passage and resources','You get a levelled passage, key vocabulary, a summary and questions. Check that simplifying has not changed the science.',
+   S('output', `${I('Levelled passage · Vocabulary · Summary · Questions')}<div class="note">Check each simplified sentence against the original</div>`,'The demo below hides one simplification error.')],
+  ['Share or export','Download a PDF or share a link. Export to Google and Microsoft apps needs the schools plan.',
+   S('export', `<div class="mrow">${B('PDF','hl')}${B('Share link')}${B('Google Slides (schools plan)')}</div>`,'Give students both the original and the levelled text.')]
+ ],
+ live:'diffit', liveTitle:'Level a reading and check it', liveSub:'Enzyme inhibition at three levels, with a Hindi glossary',
+ tip:'Give students the original and the levelled version together. The levelled text is a bridge to the original, not a replacement.',
+ warn:'Simplifying can remove precision or introduce errors, and translation quality varies by language. Check the science and the key terms in the target language.'
+},
+{
+ id:'brisk', short:'Brisk Teaching', aud:'i', eyebrow:'AI browser extension · teaching',
+ name:'Brisk Teaching for feedback inside Google Docs',
+ sum:'A Chrome and Edge extension that works inside Google Docs, Slides, Classroom, Word, Canvas, web pages and YouTube. It drafts feedback on student writing, changes the reading level of any text, creates quizzes and slides from a page, and replays how a document was written.',
+ meta:[['Best for','Feedback on lab reports and essays; levelling readings'],['Access','Free Educator plan with 20+ tools; Premium for schools by quote'],['Time','2 minutes per script once set up'],['Site','<a href="https://www.briskteaching.com" target="_blank" rel="noopener">briskteaching.com</a>']],
+ steps:[
+  ['Install the extension','Add Brisk from the Chrome Web Store (Edge works too) and sign in with your school or university account.',
+   S('browser toolbar', `<div class="mrow">${B('Extensions')}${B('Brisk','dark hl')}</div>`,'A Brisk button then appears on documents and pages.')],
+  ['Open a student document and choose Give Feedback','Pick or paste your rubric, choose a format such as glow and grow, and set the tone.',
+   S('Google Docs · Brisk', `<div class="mrow">${B('Give Feedback','hl')}${B('Rubric: Lab report')}${B('Glow and grow')}</div>`,'Works in Google Docs, Word, Classroom and Canvas.')],
+  ['Edit comments before students see them','Brisk inserts comments into the document. Read each one, and change or delete those that are wrong.',
+   S('comments', `<div class="cm"><b>Glow</b> You compared Km with the reference value.</div><div class="cm grow"><b>Grow</b> Km should be in mol/s.</div><div class="note bad">Wrong: Km is a concentration. Delete it.</div>`,'Try it in the demo below.')],
+  ['Use Inspect Writing to see how a document was written','It replays the writing history of a Google Doc: typing sessions, pastes and time spent.',
+   S('Inspect Writing', `<div class="mrow">${B('Inspect Writing','hl')}</div><div class="note">4 sessions · 1 large paste</div>`,'Use it to start a conversation, never as proof.')],
+  ['Change reading level or create from a page','On an article or PDF, Brisk can rewrite the text at another reading level, translate it, or create a quiz or slides from it.',
+   S('web article · Brisk', `<div class="mrow">${B('Change Reading Level','hl')}${B('Create quiz')}${B('Create slides')}</div>`,'Free Educator plan: 20+ tools.')]
+ ],
+ live:'brisk', liveTitle:'Review AI feedback and a writing replay', liveSub:'An invented student lab report',
+ tip:'Give the tool your rubric and one model paragraph. Then read one script in five yourself in full.',
+ warn:'A writing replay shows process, not authorship. A large paste can have innocent explanations, such as drafting offline. Use it to start a conversation, never as proof.'
+},
+{
+ id:'curipod', short:'Curipod', aud:'i', eyebrow:'AI interactive lessons · teaching',
+ name:'Curipod for interactive lessons',
+ sum:'Type a topic and Curipod builds a slide deck with polls, word clouds, open questions and drawing tasks. Students join with a code on any device, without accounts, and answers appear live.',
+ meta:[['Best for','Large lectures and tutorials that need participation'],['Access','Free tier with a weekly session limit; school plans by quote'],['Time','10 minutes to build, 20 to run'],['Site','<a href="https://curipod.com" target="_blank" rel="noopener">curipod.com</a>']],
+ steps:[
+  ['Generate a lesson from a topic','Type a topic and level. Curipod drafts a slide deck with interactive activities.',
+   S('curipod.com', `${I('Topic: Effect of temperature on enzyme activity · Level: university first year','hl')}<div class="mrow">${B('Generate lesson','dark')}</div>`,'Standards menus are US-based: skip them.')],
+  ['Edit the slides and activities','Change the text, add polls, word clouds, open questions or drawing tasks, or import your own slides.',
+   S('editor', `<div class="mrow">${B('+ Word cloud','hl')}${B('+ Poll')}${B('+ Open question')}${B('+ Drawing')}</div>`,'Plan one activity every 5–8 minutes.')],
+  ['Present: students join with a code','Students go to the site and type the code on a phone or laptop. They do not need accounts.',
+   S('present', `<div class="mrow">${B('Join at curipod.com')}${B('Code: 4F7K','hl')}</div>`,'The free plan has a weekly session limit.')],
+  ['Discuss the answers live','Responses appear on screen. Pick out a misconception and discuss it.',
+   S('word cloud', `<div class="wcloud" style="padding:8px"><span style="font-size:22px">protein</span><span style="font-size:18px">catalyst</span><span class="mis" style="font-size:14px">used up</span></div>`,'Try the full lesson below.')]
+ ],
+ live:'curipod', liveTitle:'Run a three-slide interactive lesson', liveSub:'Simulated class of 40 students',
+ tip:'Open with a word cloud of what students already link with the topic. It brings misconceptions to the surface in seconds.',
+ warn:'Standards alignment targets US schools. Check the generated content, and ask students not to type personal details into open responses.'
+}
+];
+TOOLS.push(...NEW_TOOLS);
+
+/* ---------- categories, groups and comparison data ---------- */
+const CATS={
+ teaching:{name:'Teaching', eyebrow:'For your classes', title:'AI tools for teaching',
+  short:'Plan lessons, make materials, level readings, give feedback, run live activities and assess fairly.',
+  sum:'Most of these tools draft materials quickly, but none knows your students, your syllabus or the science well enough to skip checking. MagicSchool, Eduaide, QuestionWell, Brisk, Curipod, Diffit and Canva for Education are built for schools and US standards, so for university classes describe the level in your own words and ignore standards menus. General assistants (ChatGPT, Claude, Copilot) are the most flexible; the specialised tools save clicks for one job.',
+  groups:[['gen','Plan and create materials',['assistant','copilot','magicschool','eduaide','canva']],['diff','Questions, differentiation and feedback',['questionwell','diffit','brisk']],['class','Live and pre-class learning',['tutor','curipod','polls','simulation','vlab']],['assess','Grading and assessment design',['grading','critique','aias']]],
+  jobs:[
+   ['Draft a problem set, rubric or case study',[['assistant','ChatGPT / Claude']],[['magicschool','MagicSchool'],['copilot','Microsoft Copilot']]],
+   ['Get a different activity format for the same content',[['eduaide','Eduaide.ai']],[['magicschool','MagicSchool']]],
+   ['Make quiz questions from a reading or video',[['questionwell','QuestionWell']],[['assistant','ChatGPT / Claude with the text pasted in']]],
+   ['Level a reading for mixed backgrounds or another language',[['diffit','Diffit']],[['brisk','Brisk (Change Reading Level)']]],
+   ['Give feedback on writing in Google Docs',[['brisk','Brisk Teaching']],[['eduaide','Eduaide Feedback Bot'],['magicschool','MagicSchool']]],
+   ['Run an interactive lecture',[['curipod','Curipod']],[['polls','Live polls']]],
+   ['Make posters, slides and infographics',[['canva','Canva Magic Studio']],[['copilot','Copilot in PowerPoint']]],
+   ['Pre-class preparation that makes students think',[['tutor','Socratic AI tutor']],[['copilot','Copilot Study and Learn']]],
+   ['Grade a large class consistently',[['grading','Gradescope']],[]],
+   ['Set fair rules for AI in assessment',[['aias','AI Assessment Scale']],[['critique','Critique-the-AI tasks']]]
+  ]},
+ research:{name:'Research', eyebrow:'For your research and research training', title:'AI tools for research',
+  short:'Search and question the literature, map how papers connect, read and extract, write with citations, and analyse data.',
+  sum:'These tools fall into three families. Search engines (Consensus, Elicit, Semantic Scholar, Perplexity) answer questions and find papers. Citation-network tools (Connected Papers, Litmaps, ResearchRabbit) show how papers relate, which finds work that keyword searches miss. Reading and writing tools (SciSpace, NotebookLM, Jenni) help you understand and use what you found. None replaces a documented, reproducible search for a systematic review, and every extracted value and citation needs checking against the paper.',
+  groups:[['find','Find and answer: search the literature',['consensus','literature','perplexity']],['map','Map the literature: citation networks',['connected','litmaps','rabbit']],['read','Read, synthesise and write',['scispace','notebook','jenni']],['analyse','Analyse data and structures',['colab','alphafold']]],
+  jobs:[
+   ['Check what the evidence says on a question',[['consensus','Consensus']],[['literature','Elicit'],['perplexity','Perplexity (orientation only)']]],
+   ['Find papers and extract data into a table',[['literature','Elicit']],[['scispace','SciSpace']]],
+   ['See whether a paper’s claims were supported or disputed',[['literature','Scite']],[]],
+   ['Get a quick map of a new topic from one paper',[['connected','Connected Papers']],[['litmaps','Litmaps']]],
+   ['Build and monitor a thesis literature map',[['litmaps','Litmaps']],[['rabbit','ResearchRabbit']]],
+   ['Build a shared reading collection for a lab',[['rabbit','ResearchRabbit']],[['literature','Semantic Scholar library']]],
+   ['Read and question a difficult paper',[['scispace','SciSpace']],[['notebook','NotebookLM']]],
+   ['Ask questions across your own set of papers',[['notebook','Google NotebookLM']],[['scispace','SciSpace']]],
+   ['Draft a chapter with citations from your library',[['jenni','Jenni AI']],[['assistant','ChatGPT / Claude for feedback on your own draft']]],
+   ['Analyse data with code',[['colab','Colab with an AI assistant']],[]],
+   ['Predict and assess protein structures',[['alphafold','AlphaFold Server']],[]]
+  ]}
+};
+const META={
+ assistant:['ChatGPT, Claude or Gemini for problem sets, worked solutions and rubrics.','Free tiers; paid plans','Recompute every answer'],
+ copilot:['Copilot Chat and Teach on a Microsoft 365 campus.','With Microsoft 365 education accounts','Depends on licence and admin settings'],
+ magicschool:['Single-purpose generators for rubrics, quizzes and lesson plans.','Free teacher plan','Built for schools; set the level yourself'],
+ eduaide:['More than 100 activity formats for the same content.','About 15 free generations a month','Check every item for accuracy'],
+ canva:['Posters, slides and infographics with Magic Studio.','Free for K–12 teachers; universities use Free, Pro or Campus','AI images of apparatus are often wrong'],
+ questionwell:['Questions and objectives from your own reading or video.','Free and paid plans','Leans towards recall questions'],
+ diffit:['Levelled readings with vocabulary and questions.','Free Basic plan','Simplifying can change the science'],
+ brisk:['Feedback, levelling and writing replay inside Google Docs.','Free Educator plan','A replay is not proof of misconduct'],
+ tutor:['Pre-class preparation with an AI that asks instead of tells.','Free study modes in major chatbots','Students can switch modes off'],
+ curipod:['Interactive slides with word clouds, polls and open questions.','Free tier with a weekly limit','US standards; check content'],
+ polls:['Peer instruction with two rounds of voting.','Free tiers','Keep questions conceptual'],
+ simulation:['Predict, observe, explain with PhET simulations.','Free','Models simplify reality'],
+ vlab:['Rehearse experiments before the wet lab.','Free','No hand skills practised'],
+ grading:['Group similar answers and grade each group once.','Institutional licence for AI grouping','Check every group by eye'],
+ critique:['Students find planted errors in AI-written solutions.','Any chatbot','Verify the answer key yourself'],
+ aias:['State how much AI each assessment allows.','Free framework','Never rely on AI detectors'],
+ consensus:['Question-led search with a Yes/No Consensus Meter.','Free tier with limited Pro and Deep searches','The meter counts papers, ignores quality'],
+ literature:['Elicit, Scite and Semantic Scholar: find papers, extract data, check citations.','Semantic Scholar free; Elicit and Scite free tiers','Verify every extracted value'],
+ perplexity:['Fast answers with numbered web sources.','Free; Education Pro about US$10/month','Sources can be news, not studies'],
+ connected:['A similarity graph built from one origin paper.','5 graphs a month with a free account','Similarity is not agreement'],
+ litmaps:['Citation maps by year, with alerts for new papers.','2 maps free, 100 articles each','Recent papers look minor on the map'],
+ rabbit:['Build and share collections by following citations.','Free: unlimited searches, 50 seeds','Misses poorly cited and regional work'],
+ scispace:['Chat with PDFs and extract data across papers.','100 agent credits a month free','Answers can drop qualifications'],
+ notebook:['Ask questions of your own papers or course materials.','Free with a Google account','Grounded is not the same as correct'],
+ jenni:['A drafting editor with autocomplete and citations.','10 autocompletes a day free','Fluent text can overstate sources'],
+ colab:['Analyse data in Python with an AI assistant.','Free with a Google account','Code that runs can still be wrong'],
+ alphafold:['Predict protein structures and read the confidence scores.','Free for non-commercial use','Confidence is not correctness']
+};
+Object.keys(CATS).forEach(c=>CATS[c].groups.forEach(([g,,ids])=>ids.forEach(id=>{const t=TOOLS.find(x=>x.id===id);if(t){t.cat=c;t.grp=g}})));
+TOOLS.forEach(t=>{const m=META[t.id];if(m){t.card=m[0];t.free=m[1];t.watch=m[2]}});
+
+/* ---------- live demos for the new tools ---------- */
+const reduceMotion=()=>{try{return matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){return false}};
+/* Practice papers shared by the literature-mapping demos (all invented) */
+const PP={
+ z:{t:'Temperature response of rice photosynthesis',y:1996,c:640},
+ a:{t:'Heat at anthesis and spikelet fertility in rice',y:2008,c:510},
+ b:{t:'Night temperature and grain yield decline',y:2010,c:380},
+ m:{t:'Spikelet sterility models for crop simulation',y:2011,c:205},
+ s:{t:'Photosynthesis under short heat waves in rice',y:2012,c:420},
+ d:{t:'Rubisco activase thermal stability',y:2014,c:300},
+ e:{t:'Canopy temperature depression as a heat-tolerance trait',y:2015,c:160},
+ f:{t:'QTL for heat tolerance at flowering',y:2016,c:240},
+ g:{t:'Night warming and respiration costs',y:2017,c:130},
+ k:{t:'Early-morning flowering as heat escape',y:2018,c:110},
+ h:{t:'Field warming trial in South Asian rice',y:2019,c:95},
+ i:{t:'Chlorophyll fluorescence screening under heat',y:2021,c:40},
+ l:{t:'Drone thermal imaging of rice canopies',y:2023,c:22},
+ j:{t:'Heat and elevated CO₂ in combination',y:2026,c:3}
+};
+const ppLabel=id=>`${PP[id].t} (${PP[id].y})`;
+
+LIVE.consensus=(el)=>{
+  const ST=[
+   ['Growth-chamber pot study','pot','24 pots','+31%','yes'],
+   ['Greenhouse pot study','pot','18 pots','+35%','yes'],
+   ['Pot study, low nitrogen','pot','20 pots','+4%','mixed'],
+   ['Crop-model projection','model','—','+25%','yes'],
+   ['Open-top chamber field plots','otc','36 plots','+22%','yes'],
+   ['FACE field trial, 3 seasons','face','12 plot-seasons','+10%','possibly'],
+   ['Meta-analysis of FACE trials','face','61 trials','+11%','possibly'],
+   ['FACE trial with heat stress','face','8 rings','+2% (not significant)','no']];
+  const DES={pot:'Pot (enclosure)',model:'Model',otc:'Open-top chamber',face:'Free-air (FACE) field'};
+  const F=[['All 8 papers',()=>true],['Field studies only',s=>s[1]==='otc'||s[1]==='face'],['Free-air (FACE) trials only',s=>s[1]==='face']];
+  const K=[['yes','Yes','var(--ok)'],['possibly','Possibly','var(--blue)'],['mixed','Mixed','var(--warn)'],['no','No','var(--bad)']];
+  const MSG=['Half the papers say Yes. Now keep only field studies: does the answer hold where plants grow in open air?',
+   'With field studies only, Yes drops to a quarter. Now keep only free-air (FACE) trials, the most realistic design.',
+   'No free-air trial is a clear Yes. Enclosure studies can overstate the CO₂ effect, a pattern Long et al. (<i>Science</i>, 2006) reported for real crop data. The meter counted papers; it never weighed them.'];
+  let f=0;
+  const draw=()=>{
+    const inc=ST.filter(F[f][1]),n=inc.length,cnt=k=>inc.filter(s=>s[4]===k).length;
+    el.innerHTML=`<p><b>Question:</b> Does elevated CO₂ increase wheat grain yield?</p>
+    <div class="btns">${F.map((x,i)=>`<button class="btn ${i===f?'':'ghost'}" data-f="${i}">${x[0]}</button>`).join('')}</div>
+    <div class="meter" role="img" aria-label="Consensus meter: ${K.map(k=>k[1]+' '+Math.round(cnt(k[0])/n*100)+'%').join(', ')}">${K.map(k=>cnt(k[0])?`<span style="width:${cnt(k[0])/n*100}%;background:${k[2]}"></span>`:'').join('')}</div>
+    <div class="mlegend">${K.map(k=>`<span><i style="background:${k[2]}"></i>${k[1]} ${Math.round(cnt(k[0])/n*100)}%</span>`).join('')}<span>· ${n} papers</span></div>
+    <div class="mtw"><table class="mt"><tr><th>Practice paper</th><th>Design</th><th>Sample</th><th>Yield effect</th><th>Meter</th></tr>${ST.map(s=>`<tr class="${F[f][1](s)?'':'dim'}"><td>${s[0]}</td><td>${DES[s[1]]}</td><td>${s[2]}</td><td>${s[3]}</td><td>${K.find(k=>k[0]===s[4])[1]}</td></tr>`).join('')}</table></div>
+    <div class="fb ${f===2?'ok':'warn'}">${MSG[f]}</div>
+    <p class="status">All eight papers are invented for practice. Greyed rows are filtered out.</p>`;
+    el.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{f=+b.dataset.f;draw()});
+  };draw();
+};
+
+LIVE.pdfchat=(el)=>{
+  const SN=['Seeds of mung bean (<i>Vigna radiata</i>) were germinated in trays and moved to pots after 7 days.',
+   'Plants were irrigated with 0, 50, 100 or 150 mM NaCl for 21 days (n = 6 pots per treatment, 3 plants per pot).',
+   'Total chlorophyll was measured after acetone extraction at 645 and 663 nm.',
+   'Chlorophyll fell by 12% at 50 mM and by 41% at 150 mM compared with the control (p &lt; 0.01).',
+   'At 100 mM the decrease (19%) was significant only in the second of two growing seasons.',
+   'The experiment was not repeated under field conditions.'];
+  const Q=[
+   {q:'What was the sample size?',a:'Six pots per treatment, with three plants in each pot.',hl:1,ok:true,why:'Right. It also names the unit of replication correctly: the pot, not the plant.'},
+   {q:'How much did 100 mM salt reduce chlorophyll?',a:'By 19%, a significant decrease.',hl:4,ok:false,why:'Something is missing. The paper says the 19% fall was significant only in the second of two seasons. The answer drops that qualification.'},
+   {q:'Do the results apply to farmers’ fields?',a:'Yes. Salinity reduces chlorophyll in mung bean crops.',hl:5,ok:false,why:'Not supported. The last sentence says the experiment was not repeated in the field. The answer generalises beyond the evidence.'}];
+  let qi=0,shown=false,judged=null;
+  const draw=()=>{const q=Q[qi];
+    el.innerHTML=`<div class="pdf"><span class="src">Practice paper · Methods and results, p. 4</span>${SN.map((s,i)=>`<span class="sn ${shown&&i===q.hl?'on':''}">${s}</span> `).join('')}</div>
+    <div class="opts">${Q.map((x,i)=>`<button class="opt ${i===qi?'sel':''}" data-q="${i}">${x.q}</button>`).join('')}</div>
+    <div class="b a" style="max-width:100%"><span class="who">AI answer</span>${q.a} <button class="cite" id="pc-cite" style="border:0;cursor:pointer">p. 4</button></div>
+    <div class="btns"><button class="btn" data-j="1">Looks right</button><button class="btn ghost" data-j="0">Something is wrong or missing</button></div>
+    <div id="pc-fb">${judged===null?'<p class="status">Tap “p. 4” to highlight the passage the answer relies on, then judge it.</p>':`<div class="fb ${judged===q.ok?'ok':'bad'}">${judged===q.ok?'Good call. ':'Look again. '}${q.why}</div>`}</div>`;
+    el.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>{qi=+b.dataset.q;shown=false;judged=null;draw()});
+    $('#pc-cite',el).onclick=()=>{shown=true;draw()};
+    el.querySelectorAll('[data-j]').forEach(b=>b.onclick=()=>{judged=b.dataset.j==='1';shown=true;draw()});
+  };draw();
+};
+
+LIVE.litmap=(el)=>{
+  const ORDER=['a','b','m','s','d','e','f','g','k','h','i','j'];
+  const num=id=>ORDER.indexOf(id)+1;
+  const LINKS=[['s','a'],['s','b'],['s','d'],['g','b'],['e','s'],['f','a'],['h','s'],['h','g'],['i','d'],['i','e'],['k','a'],['m','a'],['m','b'],['j','s'],['j','h']];
+  const START=['s','a','b','d','g'],SUG=['e','f','h','i','k','m'];
+  let inMap=new Set(START),showS=false,alertOn=false,last='s';
+  const W=680,H=320,L=48,R=20,T=18,Bt=36;
+  const X=y=>L+(W-L-R)*(y-2006)/(2027-2006),Y=c=>H-Bt-(H-T-Bt)*Math.log10(Math.max(1,c))/3;
+  const vis=id=>inMap.has(id)||(showS&&SUG.includes(id))||(alertOn&&id==='j');
+  const draw=()=>{
+    let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Literature map: papers by year and citation count">`;
+    [1,10,100,1000].forEach(c=>{s+=`<line x1="${L}" x2="${W-R}" y1="${Y(c)}" y2="${Y(c)}" stroke="var(--line)"/><text x="${L-6}" y="${Y(c)+4}" text-anchor="end">${c}</text>`});
+    [2008,2012,2016,2020,2024].forEach(y=>{s+=`<text x="${X(y)}" y="${H-12}" text-anchor="middle">${y}</text>`});
+    s+=`<text x="${L}" y="${T-4}" style="font-size:10px">citations (log scale)</text>`;
+    LINKS.forEach(([p,q])=>{if(!vis(p)||!vis(q))return;const both=inMap.has(p)&&inMap.has(q);
+      s+=`<line x1="${X(PP[p].y)}" y1="${Y(PP[p].c)}" x2="${X(PP[q].y)}" y2="${Y(PP[q].c)}" stroke="${both?'var(--muted)':'var(--line)'}" stroke-width="${both?1.6:1.2}" ${both?'':'stroke-dasharray="4 4"'}/>`});
+    ORDER.forEach(id=>{if(!vis(id))return;const x=X(PP[id].y),y=Y(PP[id].c),m=inMap.has(id),seed=id==='s';
+      s+=`<circle class="nd" data-id="${id}" tabindex="0" role="button" aria-label="${num(id)}. ${PP[id].t}" cx="${x}" cy="${y}" r="${seed?11:9}" fill="${m?(seed?'var(--accent)':'var(--blue)'):'var(--bg)'}" stroke="${m?'var(--surface)':(id==='j'?'var(--accent)':'var(--blue)')}" stroke-width="2" ${m?'':'stroke-dasharray="3 2"'}/>
+      <text x="${x+14}" y="${y+4}">${num(id)}${id==='j'&&!m?' new':''}</text>`});
+    s+='</svg>';
+    const inList=ORDER.filter(id=>inMap.has(id));
+    el.innerHTML=`<div class="btns"><button class="btn ${showS?'ghost':''}" id="lm-s">${showS?'Hide suggestions':'Show suggested papers'}</button><button class="btn ghost" id="lm-a" ${alertOn?'disabled':''}>Run this month’s alert</button><button class="btn ghost" id="lm-r">Reset</button></div>
+    <div class="svgbox">${s}</div>
+    <p class="status">Solid circles are in your map (pink = seed). Dashed circles are suggestions: tap one to add it. Older papers sit left; more-cited papers sit higher.</p>
+    <div class="fb ${inMap.has(last)?'ok':'warn'}"><b>${num(last)}. ${PP[last].t}</b> · ${PP[last].y} · ${PP[last].c} citations · ${inMap.has(last)?'in your map':'suggested'}${last==='j'?'. This 2026 paper came from your monthly alert: few citations yet, so it sits near the bottom.':''}</div>
+    <div><b>Papers in your map (${inList.length})</b><ol class="keylist">${inList.map(id=>`<li value="${num(id)}">${PP[id].t} (${PP[id].y})</li>`).join('')}</ol></div>`;
+    $('#lm-s',el).onclick=()=>{showS=!showS;draw()};
+    $('#lm-a',el).onclick=()=>{alertOn=true;last='j';draw()};
+    $('#lm-r',el).onclick=()=>{inMap=new Set(START);showS=false;alertOn=false;last='s';draw()};
+    el.querySelectorAll('.nd').forEach(n=>{const act=()=>{const id=n.dataset.id;last=id;inMap.add(id);draw()};n.addEventListener('click',act);n.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();act()}})});
+  };draw();
+};
+
+LIVE.cgraph=(el)=>{
+  const POS={s:[340,180],a:[190,105],m:[105,190],b:[215,268],f:[300,58],d:[470,95],g:[400,292],h:[525,250],e:[565,165],i:[612,78],k:[125,300],l:[610,305]};
+  const EDGES=[['s','a'],['s','b'],['s','d'],['s','e'],['s','h'],['s','g'],['a','m'],['a','f'],['a','k'],['b','g'],['b','m'],['d','i'],['d','e'],['e','i'],['h','l'],['h','g'],['e','h'],['f','k'],['m','k']];
+  const SH={a:[21,34],m:[12,15],b:[17,26],f:[9,11],d:[15,18],g:[11,9],h:[13,7],e:[16,12],i:[10,4],k:[8,10],l:[6,2]};
+  let sel='s',list=null;
+  const r=id=>8+18*Math.sqrt(PP[id].c/640),op=id=>(0.28+0.72*(PP[id].y-2008)/(2023-2008)).toFixed(2);
+  const draw=()=>{
+    let s=`<svg viewBox="0 0 680 360" role="img" aria-label="Similarity graph around the origin paper">`;
+    EDGES.forEach(([p,q])=>{s+=`<line x1="${POS[p][0]}" y1="${POS[p][1]}" x2="${POS[q][0]}" y2="${POS[q][1]}" stroke="var(--line)" stroke-width="1.6"/>`});
+    Object.keys(POS).forEach(id=>{const [x,y]=POS[id];
+      s+=`<circle class="nd" data-id="${id}" tabindex="0" role="button" aria-label="${PP[id].t}, ${PP[id].y}" cx="${x}" cy="${y}" r="${r(id).toFixed(1)}" fill="var(--blue)" fill-opacity="${op(id)}" stroke="${id==='s'?'var(--accent)':(id===sel?'var(--ink)':'none')}" stroke-width="3"/><text x="${x}" y="${y+r(id)+13}" text-anchor="middle">${PP[id].y}</text>`});
+    s+='</svg>';
+    const info=sel==='s'?`<b>Origin paper:</b> ${ppLabel('s')} · ${PP.s.c} citations`:`<b>${ppLabel(sel)}</b> · ${PP[sel].c} citations<br>Shares ${SH[sel][0]} references with the origin paper, and ${SH[sel][1]} later papers cite both. That is why it sits ${SH[sel][0]+SH[sel][1]>25?'close to':'further from'} the origin.`;
+    const L={prior:['Prior works: classics that many papers in this graph cite',['z','a','b']],deriv:['Derivative works: recent papers that cite many papers in this graph',['i','l','j']]};
+    el.innerHTML=`<div class="svgbox">${s}</div>
+    <p class="status">Bigger circle = more citations. Darker = more recent. Lines join the most similar papers. Pink ring = origin. Tap any paper.</p>
+    <div class="fb ok">${info}</div>
+    <div class="btns"><button class="btn ${list==='prior'?'':'ghost'}" id="cg-p">Prior works</button><button class="btn ${list==='deriv'?'':'ghost'}" id="cg-d">Derivative works</button></div>
+    ${list?`<div><b>${L[list][0]}</b><ul class="keylist">${L[list][1].map(id=>`<li>${ppLabel(id)}${POS[id]?'':' · not in the graph'}</li>`).join('')}</ul></div>`:''}
+    <p class="status">All papers are invented for practice.</p>`;
+    el.querySelectorAll('.nd').forEach(n=>{const act=()=>{sel=n.dataset.id;draw()};n.addEventListener('click',act);n.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();act()}})});
+    $('#cg-p',el).onclick=()=>{list=list==='prior'?null:'prior';draw()};
+    $('#cg-d',el).onclick=()=>{list=list==='deriv'?null:'deriv';draw()};
+  };draw();
+};
+
+LIVE.rabbit=(el)=>{
+  const REL={
+   s:{similar:['e','i','h'],earlier:['a','b','d'],later:['g','h','i']},
+   a:{similar:['m','f','k'],earlier:['z'],later:['f','k','s']},
+   h:{similar:['g','l','e'],earlier:['s','b'],later:['l','j']},
+   e:{similar:['i','l','h'],earlier:['s','a'],later:['i','l']},
+   b:{similar:['g','a','m'],earlier:['z'],later:['g','s','h']}};
+  const MODES=[['similar','Similar work'],['earlier','Earlier work'],['later','Later work']];
+  let trail=['s'],mode='similar',coll=new Set(['s']);
+  const draw=()=>{const cur=trail[trail.length-1],rel=REL[cur];
+    el.innerHTML=`<div class="trail"><span>Trail:</span>${trail.map((id,i)=>i<trail.length-1?`<button data-back="${i}">${PP[id].t}</button><span>›</span>`:`<b>${PP[id].t}</b>`).join('')}</div>
+    <div class="rp"><span><b>${ppLabel(cur)}</b></span><button class="add" data-add="${cur}" ${coll.has(cur)?'disabled':''}>${coll.has(cur)?'In collection':'+ Add'}</button></div>
+    <div class="rabtabs">${MODES.map(([k,l])=>`<button class="btn ${mode===k?'':'ghost'}" data-m="${k}">${l}</button>`).join('')}</div>
+    <div class="rlist">${rel?rel[mode].map(id=>`<div class="rp"><button class="t" data-go2="${id}">${ppLabel(id)}</button><button class="add" data-add="${id}" ${coll.has(id)?'disabled':''}>${coll.has(id)?'Added':'+ Add'}</button></div>`).join(''):'<p class="status">This practice set stops here. Use the trail to go back.</p>'}</div>
+    <div class="fb ok"><b>Collection: Heat stress · rice (${coll.size})</b><ul class="keylist">${[...coll].map(id=>`<li>${ppLabel(id)}</li>`).join('')}</ul></div>
+    <p class="status">Tap a title to go one level deeper. All papers are invented for practice.</p>`;
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{mode=b.dataset.m;draw()});
+    el.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>{coll.add(b.dataset.add);draw()});
+    el.querySelectorAll('[data-go2]').forEach(b=>b.onclick=()=>{trail.push(b.dataset.go2);draw()});
+    el.querySelectorAll('[data-back]').forEach(b=>b.onclick=()=>{trail=trail.slice(0,+b.dataset.back+1);draw()});
+  };draw();
+};
+
+LIVE.jenni=(el)=>{
+  const LIB={p1:'Practice paper 1: rice grown at 38 °C or 28 °C for 14 days in pots; net photosynthesis 18% lower at 38 °C.',p2:'Practice paper 2: wheat in 48 pots at 25 °C or 30 °C during grain filling; grain yield per pot 11% lower at 30 °C.'};
+  const SG=[
+   {t:'In rice, 14 days at 38 °C lowered net photosynthesis by 18% compared with 28 °C (Practice paper 1).',src:'p1',good:'accept',why:'Supported: the claim matches the source exactly, including the conditions.'},
+   {t:'Heat stress therefore halves rice yields across South Asia (Practice paper 1).',src:'p1',good:'reject',why:'Overstated. The source measured photosynthesis in one pot experiment. It reports no yields and no regional data.'},
+   {t:'Similar losses of 30% have been reported for wheat (Kumar et al., 2023).',src:null,good:'reject',why:'That reference is not in your library, so you cannot check it, and your own wheat source reports 11%, not 30%. Treat unverifiable citations as invented.'}];
+  let i=0,acc=['Rising temperatures threaten cereal production in South Asia.'],res=[],checked=false;
+  const draw=()=>{const s=SG[i];
+    el.innerHTML=`<div class="doc">${acc.join(' ')}${s?` <span class="ghost">${s.t}</span>`:''}</div>
+    ${s?`<div class="btns"><button class="btn" data-a="accept">Accept</button><button class="btn ghost" data-a="reject">Reject</button><button class="btn ghost" id="jn-c">Check source</button></div>
+    ${checked?`<div class="excerpt"><span class="src">Your library</span>${s.src?LIB[s.src]:'No item called “Kumar et al., 2023” is in your library.'}</div>`:''}`:''}
+    <div>${res.map(r=>`<div class="fb ${r.ok?'ok':'bad'}" style="margin-bottom:6px"><b>Suggestion ${r.n}: you chose ${r.c}.</b> ${r.why}</div>`).join('')}</div>
+    ${s?`<p class="status">Suggestion ${i+1} of 3. The grey text is the AI suggestion.</p>`:`<div class="fb ${res.every(r=>r.ok)?'ok':'warn'}">You made ${res.filter(r=>r.ok).length} of 3 good calls. Only the first suggestion deserved a place in the draft.</div><div class="btns"><button class="btn ghost" id="jn-r">Start again</button></div>`}
+    <p class="status">Library: ${Object.values(LIB).map(x=>x.split(':')[0]).join(' · ')}. Both are invented for practice.</p>`;
+    el.querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>{const c=b.dataset.a;res.push({n:i+1,c:c==='accept'?'Accept':'Reject',ok:c===s.good,why:s.why});if(c==='accept')acc.push(s.t);i++;checked=false;draw()});
+    const cb=$('#jn-c',el);if(cb)cb.onclick=()=>{checked=true;draw()};
+    const rb=$('#jn-r',el);if(rb)rb.onclick=()=>{i=0;acc=[acc[0]];res=[];checked=false;draw()};
+  };draw();
+};
+
+LIVE.perplexity=(el)=>{
+  const SRC=[
+   ['Journal article · field study','Peer-reviewed','Over six seasons, each 1 °C rise in mean night temperature was associated with a 10% fall in grain yield at one research station.'],
+   ['News website','Not peer-reviewed','“Heatwaves could wipe out half of India’s rice harvest, scientists warn.” The article quotes a modelling study under its most extreme scenario.'],
+   ['Review article','Peer-reviewed','Spikelet fertility drops sharply when flowers are exposed to temperatures above about 35 °C during anthesis.'],
+   ['University press release','Not peer-reviewed','Our model suggests early-morning flowering varieties could reduce heat losses; field tests are planned.']];
+  const CL=['Each 1 °C rise in night temperature cut yields by about 10% in one field study','Heat could halve India’s rice harvest by 2050','Rice is most sensitive to heat at flowering, above about 35 °C','Early-morning flowering varieties may reduce losses'];
+  let open=null,pick=null;
+  const draw=()=>{
+    el.innerHTML=`<p><b>Question:</b> How much does heat stress reduce rice yields?</p>
+    <div class="b a" style="max-width:100%"><span class="who">Answer</span>${CL.map((c,i)=>`${c} <button class="cite" data-s="${i}" style="border:0;cursor:pointer">${i+1}</button>.`).join(' ')}</div>
+    ${open!==null?`<div class="excerpt"><span class="src">Source ${open+1} · ${SRC[open][0]} · ${SRC[open][1]}</span>${SRC[open][2]}</div>`:'<p class="status">Tap each number to read its source.</p>'}
+    <p><b>Which claim should not go into a literature review as it stands?</b></p>
+    <div class="opts">${CL.map((c,i)=>`<button class="opt ${pick===i?'sel':''}" data-p="${i}">Claim ${i+1}: ${c}</button>`).join('')}</div>
+    ${pick===null?'':`<div class="fb ${pick===1?'ok':'bad'}">${pick===1?'Right. Claim 2 rests only on a news headline about the most extreme scenario of a model. Find and read the modelling paper itself, and report its range of results.':'Not the weakest one. Read source '+(pick+1)+' again, then compare it with source 2.'} Claim 4 also needs the original paper rather than a press release.</div>`}
+    <p class="status">Answer and sources are invented for practice.</p>`;
+    el.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{open=+b.dataset.s;draw()});
+    el.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{pick=+b.dataset.p;draw()});
+  };draw();
+};
+
+function genDemo(el,brand,presets){
+  let k=0;
+  const draw=()=>{const p=presets[k];
+    el.innerHTML=`<div class="btns">${presets.map((q,i)=>`<button class="btn ${i===k?'':'ghost'}" data-k="${i}">${q.tool}</button>`).join('')}</div>
+    <div class="fm-grid">${p.fields.map(([l,v])=>`<div class="fm"><span>${l}</span><b>${v}</b></div>`).join('')}</div>
+    <div class="btns"><button class="btn" id="g-go">Generate</button></div><div id="g-out" aria-live="polite" style="display:grid;gap:12px"></div>`;
+    el.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>{k=+b.dataset.k;draw()});
+    $('#g-go',el).onclick=()=>{const o=$('#g-out',el);o.innerHTML='<p class="status">Generating…</p>';
+      setTimeout(()=>{
+        o.innerHTML=`<div class="gout"><span class="who">Example ${brand} output · pre-written for this demo</span>${p.out}</div>
+        <p style="margin:0"><b>Review before you share.</b> Tick each check to see what a careful reviewer finds.</p>
+        <div class="checklist">${p.checks.map(([q,f],i)=>`<label><input type="checkbox" data-c="${i}"><span>${q}</span><span class="find" hidden data-f="${i}">${f}</span></label>`).join('')}</div><div id="g-done"></div>`;
+        const boxes=[...o.querySelectorAll('input[data-c]')];
+        boxes.forEach(b=>b.onchange=()=>{o.querySelector(`[data-f="${b.dataset.c}"]`).hidden=!b.checked;
+          $('#g-done',o).innerHTML=boxes.every(x=>x.checked)?'<div class="fb ok">All checks done. Fix these points and the material is ready to use.</div>':''});
+      },reduceMotion()?0:450);};
+  };draw();
+}
+LIVE.magicschool=(el)=>genDemo(el,'MagicSchool',[
+ {tool:'Rubric Generator',fields:[['Grade level','12+ (context: 2nd-year BSc)'],['Assignment','Lab report: Michaelis–Menten kinetics of catalase'],['Scale','4 levels'],['Extra criteria','Data analysis, error analysis, AI-use statement']],
+  out:`<h4>Lab report rubric: Michaelis–Menten kinetics of catalase</h4><div class="mtw"><table class="mt"><tr><th>Criterion</th><th>Exemplary (4)</th><th>Proficient (3)</th><th>Developing (2)</th><th>Beginning (1)</th></tr>
+  <tr><td>Data analysis</td><td>Fits the data with Lineweaver–Burk, the most accurate method, and reports Km and Vmax</td><td>Reports Km and Vmax with minor errors</td><td>Reports one parameter</td><td>No parameters</td></tr>
+  <tr><td>Error analysis</td><td>Shows good understanding of errors</td><td>Shows some understanding</td><td>Limited understanding</td><td>No understanding</td></tr>
+  <tr><td>Creativity</td><td>Highly original presentation</td><td>Some original elements</td><td>Little originality</td><td>Not original</td></tr>
+  <tr><td>AI-use statement</td><td>Names tools, purpose and how output was checked</td><td>Names tools and purpose</td><td>Names tools only</td><td>Missing</td></tr></table></div>`,
+  checks:[['Is the science right?','No. “Lineweaver–Burk, the most accurate method” is wrong: nonlinear fitting is preferred because taking 1/v distorts the errors. Write: “Fits the data by nonlinear regression and reports Km and Vmax with units and uncertainty.”'],
+   ['Can each level be seen in the work?','“Shows good understanding” cannot be seen on the page. Use observable descriptors, such as “Names two sources of error and estimates their effect on Km.”'],
+   ['Does every criterion match a learning outcome?','“Creativity” is not an outcome of this lab. Replace it with “Figures: axes labelled with units; fitted curve shown with data.”']]},
+ {tool:'Multiple Choice Quiz',fields:[['Grade level','12+ (context: 1st-year BSc)'],['Topic','Acid–base titration'],['Questions','4'],['Answer key','Included']],
+  out:`<h4>Quiz: acid–base titration</h4><ol><li>Which indicator suits a weak acid–strong base titration? a) Methyl orange · <b>b) Phenolphthalein ✓</b> · c) Litmus · d) Bromophenol blue</li>
+  <li>At half-equivalence in the titration of acetic acid with NaOH, the pH equals: a) 7 · <b>b) pKa ✓</b> · c) pKb · d) 14 − pKa</li>
+  <li>The pH at the equivalence point when 0.1 M acetic acid is titrated with 0.1 M NaOH is: <b>a) exactly 7 ✓</b> · b) above 7 · c) below 7 · d) 0</li>
+  <li>Which unit is used for concentration in titration calculations? <b>a) mol L⁻¹ ✓</b> · b) grams · c) pH 15 · d) kelvin</li></ol>`,
+  checks:[['Is every answer key correct?','Q3 is wrong. Acetate is a weak base, so the equivalence-point pH is above 7 (about 8.7 here). Change the key to b.'],
+   ['Are the distractors real misconceptions?','Q4’s “pH 15” and “kelvin” are throwaway options. Replace them with real errors, such as “mmol” or “mol kg⁻¹”.'],
+   ['Is the level right for a university class?','Q1 and Q4 are school-level recall. Turn one into a calculation, for example the pH after 12.5 mL of base is added.']]},
+ {tool:'Lesson Plan',fields:[['Grade level','12+ (context: 1st-year BSc)'],['Topic','Le Chatelier’s principle'],['Length','50 minutes'],['Format','Lecture with demonstration']],
+  out:`<h4>Lesson: Le Chatelier’s principle (50 minutes)</h4><p style="margin:0"><b>Objective:</b> Students will understand Le Chatelier’s principle.</p>
+  <ol><li>Starter quiz (10 min)</li><li>Mini-lecture on equilibrium shifts (15 min)</li><li>Demonstration: students heat and cool sealed NO₂/N₂O₄ tubes at their benches (20 min)</li><li>Worked examples in pairs (10 min)</li><li>Exit ticket (10 min)</li></ol>`,
+  checks:[['Is it safe?','No. NO₂ is toxic. Run it as an instructor demonstration in a fume hood with a sealed tube, or show a video. Students should not handle the tubes.'],
+   ['Are the objectives measurable?','“Understand” cannot be assessed. Write: “Predict the direction of shift for changes in temperature, pressure and concentration, and justify it using Q and K.”'],
+   ['Does the timing add up?','The activities total 65 minutes for a 50-minute class. Cut the starter to 5 minutes and the demonstration to 10.']]}
+]);
+LIVE.eduaide=(el)=>genDemo(el,'Eduaide',[
+ {tool:'Frayer model',fields:[['Topic','Enzymes'],['Level','1st-year BSc'],['Format','Frayer model (graphic organiser)']],
+  out:`<h4>Frayer model: Enzyme</h4><div class="frayer"><div><b>Definition</b>A biological catalyst that speeds up a reaction without being used up.</div><div><b>Characteristics</b>Always proteins · have an active site · specific to their substrates · lose activity when denatured</div><div><b>Examples</b>Amylase · catalase · DNA polymerase</div><div><b>Non-examples</b>Ribozyme · glucose · hydrochloric acid (a catalyst, but not biological)</div></div>`,
+  checks:[['Is every statement true?','“Always proteins” is false: ribozymes are catalytic RNA. Write “most are proteins” and move ribozyme to Examples.'],
+   ['Is it pitched for university?','Add the key idea at this level: enzymes lower the activation energy but do not change ΔG or the position of equilibrium.'],
+   ['Are the non-examples useful?','Hydrochloric acid is a good non-example because it is a catalyst but not biological. Keep it and ask students why.']]},
+ {tool:'Error analysis',fields:[['Topic','Ideal gas law'],['Level','1st-year BSc'],['Format','Find and fix the error']],
+  out:`<h4>Find and fix the error</h4><p style="margin:0"><b>Problem:</b> What volume does 0.50 mol of an ideal gas occupy at 25 °C and 1.00 atm?</p><p style="margin:0"><b>Student solution:</b> V = nRT/p = 0.50 × 0.0821 × 25 / 1.00 = 1.03 L</p><p style="margin:0"><b>Answer key:</b> The temperature must be in kelvin. Correct answer: V = 0.50 × 22.4 = 11.2 L.</p>`,
+  checks:[['Is the planted error clear?','Yes: the temperature must be in kelvin (298 K).'],
+   ['Is the answer key itself correct?','No. 22.4 L mol⁻¹ applies at 0 °C and 1 atm. At 25 °C, V = 0.50 × 0.0821 × 298 / 1.00 = 12.2 L.'],
+   ['Does it practise the skill you want?','It practises unit conversion. Add a second task with a conceptual error, such as using the ideal gas law for a liquid.']]},
+ {tool:'Exit ticket',fields:[['Topic','Light-dependent reactions of photosynthesis'],['Level','1st-year BSc'],['Format','Exit ticket, 3 prompts']],
+  out:`<h4>Exit ticket: light-dependent reactions</h4><ol><li>Where in the chloroplast do the light-dependent reactions take place?</li><li>Which molecule is split to replace the electrons lost from photosystem II?</li><li>Name the enzyme that fixes CO₂ in the Calvin cycle.</li></ol>`,
+  checks:[['Does every prompt match today’s lesson?','Q3 is about the Calvin cycle, not the light-dependent reactions. Replace it, for example: “Why does the light-dependent stage slow down if NADP⁺ runs out?”'],
+   ['Can it be done in 3 minutes?','Yes. Three short prompts suit an exit ticket.'],
+   ['Will it show understanding, not just recall?','Q1 and Q2 are recall. The replacement Q3 asks for reasoning, which tells you more.']]}
+]);
+
+LIVE.qwell=(el)=>{
+  const PASS='The polymerase chain reaction (PCR) copies a chosen DNA region many times. Each cycle has three steps: denaturation at about 95 °C separates the strands, annealing at about 50–65 °C lets short primers bind on either side of the target, and extension at 72 °C lets a heat-stable DNA polymerase, such as Taq, build new strands. Because each cycle roughly doubles the target, 30 cycles can in principle give about a billion copies. In practice, efficiency falls in later cycles as primers and nucleotides run low. Primer design matters: primers that also match other sites produce extra, unwanted products.';
+  const Q=[
+   {b:'Remember',q:'At about what temperature does the denaturation step take place?',o:['About 72 °C','About 95 °C','About 55 °C','About 37 °C'],a:1,need:true},
+   {b:'Remember',q:'What does PCR stand for?',o:['Protein copy reaction','Primer chain replication','Polymerase chain reaction','Polymer cycling reaction'],a:2,need:false},
+   {b:'Understand',q:'Why must the DNA polymerase used in PCR be heat-stable?',o:['Heat makes it copy faster','It must survive repeated heating to about 95 °C','It needs heat to bind the primers','It works only above 72 °C'],a:1,need:true},
+   {b:'Apply',q:'Starting from 10 copies of a target, about how many copies would 20 perfectly efficient cycles give?',o:['About 200','About 1 million','About 10 billion','About 10 million'],a:3,need:true},
+   {b:'Analyse',q:'A gel shows the expected band plus two smaller, unexpected bands. What is the most likely cause?',o:['The primers also bind at other sites','Too few cycles were run','The polymerase is not heat-stable','The annealing step was skipped'],a:0,need:true}];
+  let keep=new Set([0,1,2,3,4]),gift=false;
+  const gEsc=s=>s.replace(/([~=#{}:\\])/g,'\\$1');
+  const draw=()=>{
+    const kept=[...keep].sort(),levels=['Remember','Understand','Apply','Analyse'];
+    const giftTxt=kept.map((i,n)=>`::Q${n+1} ${Q[i].b}:: ${gEsc(Q[i].q)} {\n${Q[i].o.map((o,j)=>(j===Q[i].a?'=':'~')+gEsc(o)).join('\n')}\n}`).join('\n\n');
+    el.innerHTML=`<div class="excerpt"><span class="src">Source reading</span>${PASS}</div>
+    <div style="display:grid;gap:8px">${Q.map((x,i)=>`<div class="qcard ${keep.has(i)?'':'off'}"><div class="qh"><label class="sw"><input type="checkbox" data-k="${i}" ${keep.has(i)?'checked':''}> Keep</label><span><span class="badge b">${x.b}</span> ${x.need?'<span class="badge">Needs the reading</span>':'<span class="badge no">Answerable without the reading</span>'}</span></div><b>${x.q}</b><ol type="a">${x.o.map((o,j)=>`<li class="${j===x.a?'ok':''}">${o}${j===x.a?' ✓':''}</li>`).join('')}</ol></div>`).join('')}</div>
+    <div class="fb ${keep.has(1)?'warn':'ok'}">Kept ${kept.length} of 5 · ${levels.map(l=>`${l}: ${kept.filter(i=>Q[i].b===l).length}`).join(' · ')}. ${keep.has(1)?'Q2 can be answered without the reading. Untick it.':'Every kept question needs the reading. Add one evaluate question of your own, for example on why efficiency falls in later cycles.'}</div>
+    <div class="btns"><button class="btn" id="qw-g">${gift?'Hide':'Show'} Moodle GIFT export</button>${gift?'<button class="btn ghost" id="qw-c">Copy GIFT text</button>':''}</div>
+    ${gift?`<pre class="out" id="qw-o">${esc(giftTxt)}</pre><p class="status">GIFT is Moodle’s plain-text quiz format: in Moodle, open the Question bank, choose Import, then GIFT format. This export is built by this page for practice.</p>`:''}`;
+    el.querySelectorAll('[data-k]').forEach(b=>b.onchange=()=>{const i=+b.dataset.k;b.checked?keep.add(i):keep.delete(i);draw()});
+    $('#qw-g',el).onclick=()=>{gift=!gift;draw()};
+    const c=$('#qw-c',el);if(c)c.onclick=e=>copyText($('#qw-o',el).textContent,e.currentTarget,$('#qw-o',el));
+  };draw();
+};
+
+LIVE.diffit=(el)=>{
+  const LV={
+   orig:['Original (textbook)','Competitive inhibitors bind reversibly to the active site and compete with the substrate. They raise the apparent Km without changing Vmax, because a high enough substrate concentration outcompetes the inhibitor. Non-competitive inhibitors bind elsewhere and lower Vmax while leaving Km unchanged. Methotrexate, a structural analogue of dihydrofolate, competitively inhibits dihydrofolate reductase and is used in cancer chemotherapy.',
+    ['Explain why a competitive inhibitor raises Km but not Vmax.','Predict the effect of doubling [S] on the rate in the presence of a non-competitive inhibitor.']],
+   mid:['First-year level','A competitive inhibitor looks like the substrate and fits into the enzyme’s active site, so the two compete for the same spot. Adding more substrate can win the competition, so the maximum rate (Vmax) stays the same, but you need more substrate to reach half of it: Km goes up. A non-competitive inhibitor binds somewhere else on the enzyme. It lowers Vmax, and Km stays the same. The cancer drug methotrexate works as a competitive inhibitor.',
+    ['What happens to Km with a competitive inhibitor?','Why can extra substrate overcome a competitive inhibitor but not a non-competitive one?']],
+   low:['Bridging level','Enzymes speed up reactions. The substrate fits into a pocket on the enzyme called the active site. A competitive inhibitor has a shape like the substrate and sits in the same pocket, blocking it. <mark id="df-err">The inhibitor permanently destroys the enzyme.</mark> If you add a lot more substrate, the substrate wins the pocket more often and the reaction speeds up again.',
+    ['What is the active site?','Why does adding more substrate help?']]};
+  const GL=[['Enzyme','एंजाइम (प्रकिण्व)'],['Substrate','क्रियाधार (सब्सट्रेट)'],['Active site','सक्रिय स्थल'],['Inhibitor','संदमक (अवरोधक)'],['Competitive inhibition','प्रतिस्पर्धी संदमन'],['Reversible','उत्क्रमणीय'],['Maximum rate','अधिकतम दर']];
+  let lv='mid',gl=false,chk=false;
+  const draw=()=>{const L=LV[lv];
+    el.innerHTML=`<div class="btns">${Object.entries(LV).map(([k,v])=>`<button class="btn ${k===lv?'':'ghost'}" data-l="${k}">${v[0]}</button>`).join('')}<button class="btn ghost" id="df-g">${gl?'Hide':'Show'} Hindi glossary</button></div>
+    <div class="excerpt"><span class="src">${L[0]}</span><span class="para" style="display:block;border:0;padding:0;background:transparent">${chk?L[1]:L[1].replace(/<mark id="df-err">(.*?)<\/mark>/,'$1')}</span></div>
+    <div><b>Questions at this level</b><ol class="keylist">${L[2].map(q=>`<li>${q}</li>`).join('')}</ol></div>
+    ${gl?`<div class="mtw"><table class="mt gloss"><tr><th>English term</th><th>Hindi term</th></tr>${GL.map(r=>`<tr><td>${r[0]}</td><td lang="hi">${r[1]}</td></tr>`).join('')}</table></div><p class="status">Check terms against the Hindi-medium textbooks your students used; usage varies.</p>`:''}
+    <div class="btns"><button class="btn" id="df-c">Check the simplification</button></div>
+    ${chk?`<div class="fb ${lv==='low'?'bad':'ok'}">${lv==='low'?'Found it: “permanently destroys the enzyme” is wrong. Competitive inhibitors bind reversibly, which is exactly why extra substrate can win. Fix the sentence before sharing.':'This level keeps the science intact. Now check the bridging level.'}</div>`:''}`;
+    el.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{lv=b.dataset.l;chk=false;draw()});
+    $('#df-g',el).onclick=()=>{gl=!gl;draw()};
+    $('#df-c',el).onclick=()=>{chk=true;draw()};
+  };draw();
+};
+
+LIVE.canva=(el)=>{
+  const H=[
+   {id:'h1',shape:'rect',x:118,y:14,w:324,h:48,why:'The heading is misspelt (“SAFTEY FRIST”). Text inside AI images is often garbled.'},
+   {id:'h2',shape:'circle',cx:180,cy:186,r:38,why:'A yellow, luminous flame is the safety flame. Heat with a blue flame, air hole open.'},
+   {id:'h3',shape:'circle',cx:258,cy:128,r:32,why:'The tube is almost full. Fill it no more than about a third.'},
+   {id:'h4',shape:'circle',cx:362,cy:100,r:26,why:'The open end points at a person. Point it away from everyone.'},
+   {id:'h5',shape:'circle',cx:452,cy:106,r:34,why:'No eye protection. Everyone near the bench wears safety goggles.'}];
+  let found=new Set();
+  const draw=()=>{
+    const svg=`<svg viewBox="0 0 560 360" role="img" aria-label="AI-generated lab safety poster showing a person heating a test tube">
+     <rect width="560" height="360" fill="#FFF4D6"/>
+     <text x="280" y="50" text-anchor="middle" font-family="Sora, sans-serif" font-size="34" font-weight="700" fill="#B8362A">SAFTEY FRIST!</text>
+     <text x="280" y="80" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="17" fill="#3A3A3A">Heating a test tube</text>
+     <rect x="20" y="318" width="520" height="16" fill="#8A6A4A"/>
+     <rect x="140" y="298" width="80" height="20" rx="3" fill="#555"/><rect x="170" y="222" width="20" height="78" fill="#7A7A7A"/>
+     <path d="M180 222 C150 200 168 170 180 148 C192 170 210 200 180 222 Z" fill="#FFC83D"/><path d="M180 218 C166 204 174 186 180 172 C186 186 194 204 180 218 Z" fill="#FF9F1C"/>
+     <g transform="rotate(-16 260 128)"><rect x="160" y="114" width="200" height="28" rx="14" fill="#E8F4FA" stroke="#345" stroke-width="2"/><rect x="163" y="117" width="192" height="22" rx="11" fill="#4FA3D9"/></g>
+     <line x1="300" y1="118" x2="340" y2="236" stroke="#9B6B3D" stroke-width="7" stroke-linecap="round"/>
+     <rect x="410" y="146" width="84" height="172" rx="20" fill="#F7F7F7" stroke="#333" stroke-width="2"/>
+     <line x1="420" y1="186" x2="344" y2="238" stroke="#E8B98E" stroke-width="13" stroke-linecap="round"/>
+     <circle cx="452" cy="108" r="34" fill="#E8B98E"/><circle cx="436" cy="102" r="4" fill="#222"/><path d="M430 122 Q440 128 450 122" stroke="#222" stroke-width="2" fill="none"/>
+     ${H.map(h=>h.shape==='rect'?`<rect class="hot ${found.has(h.id)?'found':''}" data-h="${h.id}" tabindex="0" role="button" aria-label="Check this area" x="${h.x}" y="${h.y}" width="${h.w}" height="${h.h}" rx="8"/>`:`<circle class="hot ${found.has(h.id)?'found':''}" data-h="${h.id}" tabindex="0" role="button" aria-label="Check this area" cx="${h.cx}" cy="${h.cy}" r="${h.r}"/>`).join('')}
+    </svg>`;
+    el.innerHTML=`<p>This poster is the kind of image AI tools produce for “lab safety: heating a test tube”. <b>Find 5 problems.</b> Tap each one.</p>
+    <div class="poster">${svg}</div>
+    <div class="btns"><button class="btn ghost" id="cv-a">Show all</button><button class="btn ghost" id="cv-r">Reset</button></div>
+    <div class="fb ${found.size===5?'ok':'warn'}"><b>Found ${found.size} of 5.</b>${found.size?'<ol class="keylist" style="margin-top:6px">'+H.filter(h=>found.has(h.id)).map(h=>`<li>${h.why}</li>`).join('')+'</ol>':' Tap the parts of the poster you think are wrong.'}</div>
+    <p class="status">The poster is drawn for this page to show typical AI image mistakes.</p>`;
+    el.querySelectorAll('.hot').forEach(n=>{const act=()=>{found.add(n.dataset.h);draw()};n.addEventListener('click',act);n.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();act()}})});
+    $('#cv-a',el).onclick=()=>{H.forEach(h=>found.add(h.id));draw()};
+    $('#cv-r',el).onclick=()=>{found.clear();draw()};
+  };draw();
+};
+
+LIVE.brisk=(el)=>{
+  const SENT=['The Km we obtained (1.2 mM) is close to the value in the lab manual.','The Lineweaver–Burk plot gave a lower Vmax, which shows that this method is more accurate.','Our results prove that catalase follows Michaelis–Menten kinetics.'];
+  const CM=[
+   {s:0,k:'glow',t:'Good: you compared your Km with a reference value. Add the uncertainty from your fit.',keep:true},
+   {s:1,k:'grow',t:'Check this reasoning: a different value does not show greater accuracy. Which method gives more weight to the low-[S] points?',keep:true},
+   {s:1,k:'grow',t:'Km should be reported in mol/s.',keep:false},
+   {s:2,k:'grow',t:'“Prove” is too strong. Say the data are consistent with Michaelis–Menten kinetics over the range you tested.',keep:true}];
+  const EV=[['12 Nov · 19:10–19:40','typed',410,'Typing, 30 min'],['13 Nov · 21:05–21:20','typed',180,'Typing, 15 min'],['14 Nov · 23:52','paste',1240,'Paste, 1 step'],['14 Nov · 23:55–00:10','typed',95,'Edits, 15 min']];
+  const OPT=[['Report it as AI misuse','bad','A paste is not proof of AI use. Students draft in other apps, in notes, or offline, and paste the result in.'],['Ask the student to talk you through how they wrote it','ok','Right. A short, open conversation about the drafting and the data usually settles it. Ask to see notes or earlier drafts.'],['Ignore it','warn','You might miss a real problem. A brief, neutral conversation costs little and supports the student either way.']];
+  let tab='fb',dec={},pick=null;
+  const draw=()=>{
+    const tabs=`<div class="btns"><button class="btn ${tab==='fb'?'':'ghost'}" data-t="fb">Give Feedback</button><button class="btn ${tab==='iw'?'':'ghost'}" data-t="iw">Inspect Writing</button></div>`;
+    if(tab==='fb'){
+      const doneAll=CM.every((c,i)=>dec[i]);
+      el.innerHTML=tabs+`<div class="para">${SENT.map((s,i)=>`<mark>${s}</mark>`).join(' ')}</div>
+      <p class="status" style="margin:0">Student lab report, discussion section (invented). Decide on each AI comment before students see it.</p>
+      <div style="display:grid;gap:8px">${CM.map((c,i)=>`<div class="cm ${c.k==='grow'?'grow':''} ${dec[i]==='del'?'gone':''}"><div><b>${c.k==='glow'?'Glow':'Grow'}</b> · on sentence ${c.s+1}: ${c.t}</div><div class="acts"><button class="btn ${dec[i]==='keep'?'':'ghost'}" data-d="${i}" data-v="keep">Keep</button><button class="btn ${dec[i]==='del'?'':'ghost'}" data-d="${i}" data-v="del">Delete</button></div>${dec[i]?`<div class="fb ${(dec[i]==='keep')===c.keep?'ok':'bad'}">${c.keep?(dec[i]==='keep'?'Good comment: keep it.':'This comment is accurate and useful. Keep it.'):(dec[i]==='del'?'Right: Km is a concentration (here mM), not a rate. Delete it.':'Wrong comment: Km is a concentration, not mol/s. Delete it.')}</div>`:''}</div>`).join('')}</div>
+      ${doneAll?`<div class="fb ${CM.every((c,i)=>(dec[i]==='keep')===c.keep)?'ok':'warn'}">One of the four AI comments was scientifically wrong. Reading each comment before release is the step that protects students.</div>`:''}`;
+      el.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{dec[b.dataset.d]=b.dataset.v;draw()});
+    } else {
+      const max=1240;
+      el.innerHTML=tabs+`<p style="margin:0"><b>Writing history</b> of the same Google Doc (invented). Bar length shows characters added.</p>
+      <div class="tline">${EV.map(e=>`<div class="ev"><span>${e[0]}</span><span class="track"><b class="${e[1]==='paste'?'paste':''}" style="width:${Math.max(3,e[2]/max*100)}%"></b></span><span>${e[2].toLocaleString('en-IN')} chars · ${e[3]}</span></div>`).join('')}</div>
+      <p style="margin:0"><b>Most of the discussion section arrived in one paste at 23:52. What do you do?</b></p>
+      <div class="opts">${OPT.map((o,i)=>`<button class="opt ${pick===i?'sel':''}" data-o="${i}">${o[0]}</button>`).join('')}</div>
+      ${pick===null?'':`<div class="fb ${OPT[pick][1]}">${OPT[pick][2]}</div>`}`;
+      el.querySelectorAll('[data-o]').forEach(b=>b.onclick=()=>{pick=+b.dataset.o;draw()});
+    }
+    el.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{tab=b.dataset.t;draw()});
+  };draw();
+};
+
+LIVE.curipod=(el)=>{
+  const WC=[['protein',12],['catalyst',9],['active site',6],['lock and key',5],['digestion',4],['used up',3,1],['temperature',3],['specific',2],['living',2],['amylase',2]];
+  const POLL={q:'An enzyme from a human cell is heated to 80 °C for 10 minutes, then cooled to 37 °C. What happens to its activity?',o:['Returns to normal','Stays much lower: it was denatured','Increases','Depends on the substrate'],c:[14,19,3,4],a:1};
+  let sl=0,showFb=false;
+  const draw=()=>{
+    let body='';
+    if(sl===0){const mx=12;
+      body=`<h3 style="margin:0">One word or phrase you link with “enzyme”</h3><div class="wcloud">${WC.map(w=>`<span class="${w[2]?'mis':''}" style="font-size:${14+22*w[1]/mx}px">${w[0]}</span>`).join('')}</div>
+      <div class="fb warn">“Used up” is a misconception: enzymes are not consumed by the reactions they catalyse. Start the discussion here.</div>`}
+    else if(sl===1){const tot=POLL.c.reduce((a,b)=>a+b,0);
+      body=`<h3 style="margin:0">${POLL.q}</h3><div class="bars">${POLL.o.map((o,i)=>`<div style="grid-template-columns:minmax(0,1fr) 34px"><span style="display:grid;gap:3px">${o}<b style="width:${POLL.c[i]/tot*100}%;${i===POLL.a?'background:var(--ok)':''}"></b></span><span>${Math.round(POLL.c[i]/tot*100)}%</span></div>`).join('')}</div>
+      <div class="fb ok">Correct (green): heat denatures the protein, and cooling does not restore the active site’s shape. 35% chose “returns to normal”: ask one of them to explain their thinking.</div>`}
+    else {body=`<h3 style="margin:0">Explain why enzyme activity rises with temperature and then falls.</h3>
+      <div class="b u" style="max-width:100%;align-self:stretch"><span class="who">One student’s answer</span>It rises because the enzyme gets more energy and then falls because it dies.</div>
+      <div class="btns"><button class="btn ${showFb?'ghost':''}" id="cu-f">${showFb?'Hide':'Show'} AI feedback</button></div>
+      ${showFb?`<div class="cm"><div><b>Glow</b> You described the shape of the curve correctly: a rise, then a fall.</div></div><div class="cm grow"><div><b>Grow</b> Enzymes are molecules, so they do not die. Explain the fall as denaturation: the active site changes shape and the substrate no longer fits. Explain the rise with more frequent, more energetic collisions.</div></div><p class="status">Read AI feedback before showing it to the class.</p>`:''}`}
+    el.innerHTML=`<div class="slide"><div class="slide-top"><span>Slide ${sl+1} of 3 · ${['Word cloud','Poll','Open question'][sl]}</span><span>Join at curipod.com · code 4F7K · 40 students</span></div>${body}</div>
+    <div class="btns"><button class="btn ghost" id="cu-p" ${sl===0?'disabled':''}>← Previous</button><button class="btn" id="cu-n" ${sl===2?'disabled':''}>Next slide →</button></div>
+    <p class="status">Class responses are simulated.</p>`;
+    $('#cu-p',el).onclick=()=>{sl--;showFb=false;draw()};$('#cu-n',el).onclick=()=>{sl++;showFb=false;draw()};
+    const f=$('#cu-f',el);if(f)f.onclick=()=>{showFb=!showFb;draw()};
+  };draw();
+};
+
+LIVE.copilot=(el)=>{
+  let study=false,uni=true;
+  const draw=()=>{
+    el.innerHTML=`<div class="toggle-row"><label class="sw"><input type="checkbox" id="cp-s" ${study?'checked':''}> Study and Learn-only mode (set by IT admin)</label><label class="sw"><input type="checkbox" id="cp-u" ${uni?'checked':''}> Signed in with university account</label></div>
+    <div class="chat"><div class="b u"><span class="who">Student</span>Calculate the pH of 0.010 M acetic acid (Kₐ = 1.8 × 10⁻⁵).</div>
+    ${study?`<div class="b a"><span class="who">Copilot · Study and Learn</span>Let’s work it out together. Acetic acid is a weak acid. First, write the expression for Kₐ in terms of [H⁺], [CH₃COO⁻] and [CH₃COOH]. What can you assume about how much of the acid dissociates?</div>`
+     :`<div class="b a"><span class="who">Copilot</span>[H⁺] ≈ √(Kₐ × C) = √(1.8 × 10⁻⁵ × 0.010) = 4.2 × 10⁻⁴ M, so pH = −log(4.2 × 10⁻⁴) = 3.37.</div>`}</div>
+    <div class="fb ${study?'ok':'warn'}">${study?'The tutor guides and keeps the thinking with the student. In a 2025 trial (Bastani et al., <i>PNAS</i>), guardrailed tutoring avoided the drop in later exam scores seen with open answer access.':'The full answer arrives at once. Useful for checking work, but students who rely on it during practice scored 17% lower later without AI (Bastani et al., <i>PNAS</i>, 2025).'}</div>
+    <div class="fb ${uni?'ok':'bad'}">${uni?'<b>Protected.</b> Signed in with a work or school account, so enterprise data protection applies to this chat.':'<b>Personal account.</b> Your institution’s data protection and admin settings do not apply. Do not paste student data or unpublished work.'}</div>
+    <p class="status">Responses are scripted for illustration; real responses vary.</p>`;
+    $('#cp-s',el).onchange=e=>{study=e.target.checked;draw()};
+    $('#cp-u',el).onchange=e=>{uni=e.target.checked;draw()};
+  };draw();
+};
+
+/* ---------- page assembly: home → category → tool ---------- */
+const chips=$('#chips'), panel=$('#panel'), navEl=document.querySelector('nav.nav');
 const audName={i:'Mainly for instructors',s:'Mainly for students',a:'Assessment'};
 const audVar={i:'--blue',s:'--ok',a:'--accent'};
-chips.innerHTML=TOOLS.map(t=>`<button class="chip" data-id="${t.id}"><i class="aud ${t.aud}"></i>${t.short}</button>`).join('');
-chips.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{location.hash=c.dataset.id});
-function render(id,scroll){
-  const idx=Math.max(0,TOOLS.findIndex(t=>t.id===id));const t=TOOLS[idx];
-  chips.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-current',c.dataset.id===t.id));
-  const cur=chips.querySelector(`[data-id="${t.id}"]`);if(cur&&scroll)cur.scrollIntoView({inline:'center',block:'nearest'});
-  const prev=TOOLS[idx-1],next=TOOLS[idx+1];
-  panel.innerHTML=`<div class="tool-head"><div class="kicker" style="color:var(${audVar[t.aud]})">${idx+1} of ${TOOLS.length} · ${t.eyebrow}</div><h2>${t.name}</h2><p class="sum">${t.sum}</p>
+const catVar={teaching:'--blue',research:'--ok'};
+const byId=id=>TOOLS.find(t=>t.id===id);
+const catTools=c=>CATS[c].groups.flatMap(g=>g[2]).map(byId).filter(Boolean);
+const toolBtn=([id,label])=>`<button class="tl" data-go="${id}">${label}</button>`;
+
+function drawNav(cat,toolId){
+  if(!cat){navEl.hidden=true;chips.innerHTML='';return}
+  navEl.hidden=false;
+  chips.innerHTML=`<button class="chip" data-go="home">All</button>${Object.keys(CATS).map(c=>`<button class="chip cat ${c===cat?'cur':''}" data-go="${c}" aria-current="${c===cat&&!toolId?'page':'false'}"><i class="aud" style="background:var(${catVar[c]})"></i>${CATS[c].name}</button>`).join('')}<span class="navsep" aria-hidden="true"></span>${catTools(cat).map(t=>`<button class="chip" data-go="${t.id}" aria-current="${t.id===toolId?'page':'false'}"><i class="aud ${t.aud}"></i>${t.short}</button>`).join('')}`;
+}
+
+function renderHome(){
+  drawNav(null);
+  panel.innerHTML=`<div class="section-label" style="margin-top:0">Start here: choose a category</div>
+  <div class="cat-grid">${Object.keys(CATS).map(c=>{const C=CATS[c],ts=catTools(c);
+    return `<button class="cat-card" style="--c:var(${catVar[c]})" data-go="${c}"><span class="ce">${C.eyebrow}</span><span class="cn">${C.name}</span><span class="cd">${C.short}</span><span class="ct">${ts.map(t=>`<span>${t.short}</span>`).join('')}</span><span class="cgo">See ${ts.length} tools →</span></button>`}).join('')}</div>`;
+}
+
+function renderCat(c){
+  const C=CATS[c],ts=catTools(c);
+  drawNav(c,null);
+  panel.innerHTML=`<div class="crumbs"><button data-go="home">All categories</button><span>/</span><span>${C.name}</span></div>
+  <div class="tool-head"><div class="kicker" style="color:var(${catVar[c]})">${C.eyebrow} · ${ts.length} tools</div><h2>${C.title}</h2><p class="cat-sum">${C.sum}</p></div>
+  <div class="section-label">Which tool for which job</div>
+  <div class="cmpw"><table class="cmp"><tr><th style="width:40%">What you want to do</th><th style="width:25%">Start with</th><th>Also consider</th></tr>
+  ${C.jobs.map(([job,first,also])=>`<tr><td>${job}</td><td>${first.map(toolBtn).join(', ')}</td><td>${also.length?also.map(toolBtn).join(', '):'—'}</td></tr>`).join('')}</table></div>
+  ${C.groups.map(([g,label,ids])=>`<h3 class="grp-h">${label}</h3><div class="tgrid">${ids.map(byId).filter(Boolean).map(t=>`<button class="tcard" data-go="${t.id}"><b>${t.short}</b><span>${t.card||''}</span><small><i class="aud ${t.aud}"></i>${audName[t.aud]}</small></button>`).join('')}</div>`).join('')}
+  <div class="section-label">At a glance</div>
+  <div class="cmpw"><table class="cmp"><tr><th style="width:20%">Tool</th><th style="width:34%">Best for</th><th style="width:24%">Free access</th><th>Watch out</th></tr>
+  ${ts.map(t=>`<tr><td><button class="tl" data-go="${t.id}">${t.short}</button></td><td>${t.card||''}</td><td>${t.free||''}</td><td>${t.watch||''}</td></tr>`).join('')}</table></div>
+  <p class="status" style="margin-top:10px">Free access and prices were checked in November 2026 and change often. Check each tool’s own site.</p>`;
+}
+
+function renderTool(t){
+  const list=catTools(t.cat),idx=list.indexOf(t),C=CATS[t.cat];
+  drawNav(t.cat,t.id);
+  const prev=list[idx-1],next=list[idx+1];
+  panel.innerHTML=`<div class="crumbs"><button data-go="home">All categories</button><span>/</span><button data-go="${t.cat}">${C.name}</button><span>/</span><span>${t.short}</span></div>
+   <div class="tool-head"><div class="kicker" style="color:var(${audVar[t.aud]})">${C.name} · ${idx+1} of ${list.length} · ${t.eyebrow}</div><h2>${t.name}</h2><p class="sum">${t.sum}</p>
    <dl class="meta">${t.meta.map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl></div>
    <div class="section-label">Step by step</div>
    <ol class="steps">${t.steps.map((s,i)=>`<li class="step"><div><div class="step-n">STEP ${i+1} OF ${t.steps.length}</div><h3>${s[0]}</h3><p>${s[1]}</p></div>${s[2]}</li>`).join('')}</ol>
    <section class="live" aria-labelledby="live-h"><div class="live-h"><h3 id="live-h">Try it here: ${t.liveTitle}</h3><small>${t.liveSub}</small></div><div class="live-b" id="live-b"></div></section>
-   <div class="pair"><section><h4>Teaching tip</h4><p>${t.tip}</p></section><section class="w"><h4>Watch out</h4><p>${t.warn}</p></section></div>
-   <div class="pager">${prev?`<button data-go="${prev.id}">← ${prev.short}</button>`:'<span></span>'}${next?`<button data-go="${next.id}">${next.short} →</button>`:'<span></span>'}</div>`;
+   <div class="pair"><section><h4>${t.cat==='research'?'Tip':'Teaching tip'}</h4><p>${t.tip}</p></section><section class="w"><h4>Watch out</h4><p>${t.warn}</p></section></div>
+   <div class="pager">${prev?`<button data-go="${prev.id}">← ${prev.short}</button>`:`<button data-go="${t.cat}">← All ${C.name.toLowerCase()} tools</button>`}${next?`<button data-go="${next.id}">${next.short} →</button>`:`<button data-go="${t.cat}">All ${C.name.toLowerCase()} tools →</button>`}</div>`;
   onTheme=null;
   try{LIVE[t.live]($('#live-b'))}catch(e){$('#live-b').innerHTML='<p class="status">This demo could not start in your browser.</p>';console.error(e)}
-  panel.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{location.hash=b.dataset.go});
-  if(scroll){const y=panel.getBoundingClientRect().top+scrollY-70;scrollTo({top:Math.max(0,y)});panel.focus({preventScroll:true})}
 }
-const fromHash=()=>{const h=location.hash.slice(1);return TOOLS.some(t=>t.id===h)?h:TOOLS[0].id};
-addEventListener('hashchange',()=>render(fromHash(),true));
-render(fromHash(),false);
+
+function wire(root){root.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>goTo(b.dataset.go)))}
+function goTo(h){if(location.hash.slice(1)===h)route(true);else location.hash=h}
+function route(scroll){
+  const h=location.hash.slice(1),t=byId(h);
+  if(CATS[h])renderCat(h);else if(t&&t.cat)renderTool(t);else renderHome();
+  wire(panel);wire(chips);
+  if(scroll){
+    if(!CATS[h]&&!t){scrollTo({top:0})}
+    else{const y=panel.getBoundingClientRect().top+scrollY-(navEl.hidden?10:70);scrollTo({top:Math.max(0,y)})}
+    panel.focus({preventScroll:true});
+    const cur=chips.querySelector('[aria-current="page"]');if(cur)cur.scrollIntoView({inline:'center',block:'nearest'});
+  }
+}
+addEventListener('hashchange',()=>route(true));
+route(false);
+
 </script>
 </body>
 </html>
